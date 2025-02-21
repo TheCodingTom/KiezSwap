@@ -1,11 +1,12 @@
-import express from "express"
+import express from "express";
 // var colors = require('colors');
-import colors from "colors"
+import colors from "colors";
 
-import cors from "cors"
+import cors from "cors";
 import testRouter from "./routes/testRoute.js";
-import * as dotenv from "dotenv" 
+import * as dotenv from "dotenv";
 dotenv.config(); // this initialise the dotenv package
+import mongoose from "mongoose";
 
 const app = express();
 
@@ -19,9 +20,26 @@ app.use(
 );
 app.use(cors());
 
-
 app.listen(port, () => {
-    console.log(`Server is running on ${port} port`.bgGreen);
+  console.log(`Server is running on ${port} port`.bgGreen);
 });
 
-app.use("/api", testRouter)
+app.use("/api", testRouter);
+
+async function main() {
+
+  try {
+
+    const mongoDBConnection = await mongoose.connect(process.env.MONGODB_URI); // env variable to connect with our mongo server
+
+  if (mongoDBConnection) {
+    console.log("Connected with MongoDB".green);
+  }
+    
+  } catch (error) {
+    console.log('error connecting with MongoDB :>> '.red, error);
+    
+  }
+  
+}
+main();
