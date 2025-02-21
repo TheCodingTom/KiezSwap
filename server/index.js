@@ -33,11 +33,11 @@ async function main() {
     const mongoDBConnection = await mongoose.connect(process.env.MONGODB_URI); // env variable to connect with our mongo server
 
   if (mongoDBConnection) {
-    console.log("Connected with MongoDB".green);
+    console.log("Connected with MongoDB".bgGreen);
   }
     
   } catch (error) {
-    console.log('error connecting with MongoDB :>> '.red, error);
+    console.log('error connecting with MongoDB :>> '.bgRedred, error);
     
   }
   
