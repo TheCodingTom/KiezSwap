@@ -8,6 +8,7 @@ dotenv.config(); // this initialise the dotenv package
 
 import mongoose from "mongoose";
 import itemsRouter from "./routes/itemsRoute.js";
+import usersRouter from "./routes/usersRoute.js";
 
 const app = express();
 
@@ -32,6 +33,7 @@ const startServer = () => {
 const loadRoutes = () => {
   app.use("/api", testRouter);
   app.use("/api/items", itemsRouter); // we define endpoint of the itemsRouter - if after that comes a "/all", we'll trigger the getAllItems function
+app.use("/api/users", usersRouter)
 };
 
 const DBConnection = async () => {

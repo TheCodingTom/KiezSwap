@@ -10,9 +10,10 @@ const itemsSchema = mongoose.Schema({
     require: true,
     type: String,
   },
+  price: { require: false, type: Number },
   location: {
-    require: true,
-    type: String,
+    city: { require: true, type: String },
+    district: { require: true, type: String },
   },
   category: {
     require: true,
@@ -22,11 +23,10 @@ const itemsSchema = mongoose.Schema({
     require: false,
     type: Number,
   },
-  
 });
 
 // 2. turn schema into a model
 
-const ItemModel = mongoose.model("Item", itemsSchema) // first we select collection and then we pass the schema
+const ItemModel = mongoose.model("Item", itemsSchema); // first we select collection and then we pass the schema
 
-export default ItemModel
+export default ItemModel;
