@@ -1,44 +1,33 @@
-import { useEffect, useState } from "react";
+import { BrowserRouter, Outlet, Route, Routes } from "react-router";
 import "./App.css";
+import Home from "./pages/Home";
+import NavBar from "./components/NavBar";
 
-type ItemType = {
-  _id: string;
-  name: string;
-  description: string;
-  location: string;
+const Root = () => {
+  // this route element is the parent of 3 pages, so they all contain the navbar
+  return (
+    // if I want to add a footer, it will go under outlet
+    <>
+      <NavBar />
+      <Outlet />
+    </>
+  );
 };
 
 function App() {
-  const [items, setItems] = useState<ItemType[] | null>(null);
-
-  const fetchAllItems = async () => {
-    fetch("http://localhost:4000/api/items/all")
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-        setItems(result.allItems);
-      })
-      .catch((error) => console.error(error));
-  };
-
-  useEffect(() => {
-    fetchAllItems();
-  }, []);
-
   return (
     <>
-      <h1>Hello World!</h1>
-      <div>
-        <h2>Items:</h2>
-        {items &&
-          items.map((item) => {
-            return (
-              <div>
-                <p>{item.name}</p>
-              </div>
-            );
-          })}
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" />
+          <Route element={<Root />}>
+            <Route index element={<Home />} />
+            <Route path="/countries" />
+
+            <Route path="*" />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
