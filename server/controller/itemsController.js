@@ -29,35 +29,65 @@ const getAllItems = async (req, res) => {
 };
 
 const getItemsByCategory = async (req, res) => {
-  console.log("running");
-  console.log(req);
-  const category = req.params.category;
+  console.log("params:", req.params);
+  console.log("query:", req.query);
 
-  try {
-    const itemsByCategory = await ItemModel.find({
+  const category = req.params.category;
+  // const {category} = req.params
+
+  if (req.query.likes) {
+    console.log("req with likes incoming");
+
+    const itemsByCategoryAndLikes = await ItemModel.find({
       category: req.params.category,
+      likes: { $gte: req.query.likes },
     });
 
-    if (itemsByCategory.length === 0) {
-      // try to cover as much responses as possible to build a proper UI
+    if (itemsByCategoryAndLikes.length === 0) {
       res.status(400).json({
-        message: `No items in the ${req.params.category} category in the database`,
-        amount: itemsByCategory.length,
-        itemsByCategory,
+        message: `No items in the ${req.params.category} category and/or ${req.query.likes} likes in the database`,
+        amount: itemsByCategoryAndLikes.length,
+        itemsByCategoryAndLikes,
       });
       return; // always add a return to avoid sending 2 responses (not possible)
     }
 
     res.status(200).json({
-      message: "All records from our database",
-      amount: itemsByCategory.length,
-      itemsByCategory,
-    });
-  } catch (error) {
-    console.log("error :>> ", error);
-    res.status(500).json({
-      error: "Something went wrong trying to send the response",
-    });
+      message: `Items from ${req.params.category} category with at least ${req.query.likes} likes from our database`,
+        amount: itemsByCategoryAndLikes.length,
+        itemsByCategoryAndLikes,
+    })
+
+    return;
+  }
+
+  if (!req.query.likes) {
+    try {
+      const itemsByCategory = await ItemModel.find({
+        category: req.params.category,
+      });
+
+      if (itemsByCategory.length === 0) {
+        // try to cover as much responses as possible to build a proper UI
+        res.status(400).json({
+          message: `No items in the ${req.params.category} category in the database`,
+          amount: itemsByCategory.length,
+          itemsByCategory,
+        });
+        return; // always add a return to avoid sending 2 responses (not possible)
+      }
+
+      res.status(200).json({
+        message: `All items in the ${req.params.category} category from our database`,
+        amount: itemsByCategory.length,
+        itemsByCategory,
+      });
+    } catch (error) {
+      console.log("error :>> ", error);
+      res.status(500).json({
+        error: "Something went wrong trying to send the response",
+      });
+    }
   }
 };
 

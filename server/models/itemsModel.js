@@ -18,6 +18,11 @@ const itemsSchema = mongoose.Schema({
     require: true,
     type: String,
   },
+  likes: {
+    require: false,
+    type: Number,
+  },
+  
 });
 
 // 2. turn schema into a model
