@@ -11,7 +11,7 @@ import itemsRouter from "./routes/itemsRoute.js";
 
 const app = express();
 
-const port = process.env.PORT || 4000; // until deployment the value will be 5000
+const port = process.env.PORT || 4000; // until deployment the value will be 4000
 
 app.use(express.json());
 app.use(

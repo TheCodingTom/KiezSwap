@@ -16,7 +16,7 @@ const getAllItems = async (req, res) => {
     }
 
     res.status(200).json({
-      message: "All items in our database",
+      message: "All records from our database",
       amount: allItems.length,
       allItems,
     }); // sending the response as a json
@@ -28,4 +28,8 @@ const getAllItems = async (req, res) => {
   }
 };
 
-export { getAllItems };
+const getItemsByCategory = async (req, res) => {
+  console.log("running");
+}
+
+export { getAllItems, getItemsByCategory };
