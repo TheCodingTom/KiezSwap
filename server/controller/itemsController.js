@@ -5,7 +5,7 @@ import ItemModel from "../models/itemsModel.js";
 const getAllItems = async (req, res) => {
   //   console.log("get all items running");
   try {
-    const allItems = await ItemModel.find(); // here we're requesting items from database
+    const allItems = await ItemModel.find().populate({path:"user", select:["username", "email"]}); // here we're requesting items from database
     console.log(allItems);
 
     if (allItems.length === 0) {

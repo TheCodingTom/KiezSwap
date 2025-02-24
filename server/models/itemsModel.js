@@ -23,6 +23,11 @@ const itemsSchema = mongoose.Schema({
     require: false,
     type: Number,
   },
+  user: {
+    require: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  }
 });
 
 // 2. turn schema into a model

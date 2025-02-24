@@ -3,7 +3,7 @@ import UserModel from "../models/usersModel.js";
 const getAllUsers = async (req, res) => {
   //   console.log("all users working");
   try {
-    const allUsers = await UserModel.find().populate("items");
+    const allUsers = await UserModel.find().populate({path:"items", select:["name","likes"]});
     console.log(allUsers);
     if (allUsers.length === 0) {
       // try to cover as much responses as possible to build a proper UI
