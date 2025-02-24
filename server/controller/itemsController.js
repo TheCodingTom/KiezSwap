@@ -13,6 +13,7 @@ const getAllItems = async (req, res) => {
       res.status(400).json({
         message: "No records in the database",
       });
+      return
     }
 
     res.status(200).json({

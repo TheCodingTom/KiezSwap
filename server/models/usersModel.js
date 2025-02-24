@@ -5,11 +5,12 @@ const usersSchema = mongoose.Schema({
   email: { require: true, type: String },
   items: [
     {
-      name: {
-        require: true,
-        type: String,
-      },
-      likes: Number,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Item",
     },
   ],
 });
+
+const UserModel = mongoose.model("User", usersSchema);
+
+export default UserModel;
