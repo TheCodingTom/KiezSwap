@@ -14,6 +14,10 @@ const itemsSchema = mongoose.Schema({
     require: true,
     type: String,
   },
+  category: {
+    require: true,
+    type: String,
+  },
 });
 
 // 2. turn schema into a model
