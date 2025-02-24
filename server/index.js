@@ -1,11 +1,11 @@
 import express from "express";
-// var colors = require('colors');
 import colors from "colors";
 
 import cors from "cors";
 import testRouter from "./routes/testRoute.js";
 import * as dotenv from "dotenv";
 dotenv.config(); // this initialise the dotenv package
+
 import mongoose from "mongoose";
 import itemsRouter from "./routes/itemsRoute.js";
 
@@ -13,35 +13,44 @@ const app = express();
 
 const port = process.env.PORT || 4000; // until deployment the value will be 4000
 
-app.use(express.json());
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
-app.use(cors());
+const addMiddlewares = () => {
+  app.use(express.json());
+  app.use(
+    express.urlencoded({
+      extended: true,
+    })
+  );
+  app.use(cors());
+};
 
-app.listen(port, () => {
-  console.log(`Server is running on ${port} port`.bgGreen);
-});
+const startServer = () => {
+  app.listen(port, () => {
+    console.log(`Server is running on ${port} port`.bgGreen);
+  });
+};
 
-app.use("/api", testRouter);
-app.use("/api/items", itemsRouter) // we define endpoint of the itemsRouter - if after that comes a "/all", we'll trigger the getAllItems function
+const loadRoutes = () => {
+  app.use("/api", testRouter);
+  app.use("/api/items", itemsRouter); // we define endpoint of the itemsRouter - if after that comes a "/all", we'll trigger the getAllItems function
+};
 
-async function main() {
-
+const DBConnection = async () => {
   try {
-
     const mongoDBConnection = await mongoose.connect(process.env.MONGODB_URI); // env variable to connect with our mongo server
 
-  if (mongoDBConnection) {
-    console.log("Connected with MongoDB".bgGreen);
-  }
-    
+    if (mongoDBConnection) {
+      console.log("Connected with MongoDB".bgGreen);
+    }
   } catch (error) {
-    console.log('error connecting with MongoDB :>> '.bgRedred, error);
-    
+    console.log("error connecting with MongoDB :>> ".bgRedred, error);
   }
-  
-}
-main();
+};
+
+// IIFE (Immediately Invoked Function Expressions) - not creating a specific function for this so everytime it restarts it doesn't generate a new instance
+
+(async function () {
+  await DBConnection();
+  addMiddlewares();
+  loadRoutes();
+  startServer();
+})();
