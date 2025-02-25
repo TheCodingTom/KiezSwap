@@ -22,6 +22,9 @@ function NavBar() {
               <Nav.Link as={NavLink} to={"/"}>
                 Home
               </Nav.Link>
+              <Nav.Link as={NavLink} to={"/listings"}>
+                Listings
+              </Nav.Link>
               <Nav.Link as={NavLink} to={"/register"}>
                 Register
               </Nav.Link>
