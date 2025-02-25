@@ -1,25 +1,34 @@
 import { useEffect, useState } from "react";
 
-type ItemType = {
+type ListingType = {
     _id: string;
     name: string;
     description: string;
-    location: string;
+    location: LocationType;
+    category: string;
+    likes: number
   };
+
+  type LocationType = {
+    city: string;
+    district: string;
+  }
 
 function Home() {
 
-    const [items, setItems] = useState<ItemType[] | null>(null);
+    const [listings, setListings] = useState<ListingType[] | null>(null);
 
   const fetchAllItems = async () => {
-    fetch("http://localhost:4000/api/items/all")
+    fetch("http://localhost:4000/api/listings/all")
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
-        setItems(result.allItems);
+        setListings(result.allListings);
       })
       .catch((error) => console.error(error));
   };
+
+  
 
   useEffect(() => {
     fetchAllItems();
@@ -29,11 +38,11 @@ function Home() {
       <h1>Hello World!</h1>
       <div>
         <h2>Items:</h2>
-        {items &&
-          items.map((item) => {
+        {listings &&
+          listings.map((listing) => {
             return (
-              <div key={item._id}>
-                <p>{item.name}</p>
+              <div key={listing._id}>
+                <p>{listing.name}</p>
               </div>
             );
           })}
