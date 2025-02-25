@@ -10,6 +10,7 @@ function Register() {
         <TextField id="outlined-basic" label="Password" variant="outlined" />
         <Button>Register</Button>
       </form>
+      
     </div>
   );
 }

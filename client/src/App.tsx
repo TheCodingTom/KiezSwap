@@ -3,6 +3,7 @@ import "./App.css";
 import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
 import Register from "./pages/Register";
+import { ListingsContextProvider } from "./context/ListingsContext";
 
 const Root = () => {
   // this route element is the parent of 3 pages, so they all contain the navbar
@@ -18,6 +19,7 @@ const Root = () => {
 function App() {
   return (
     <>
+      <ListingsContextProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" />
@@ -29,6 +31,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      </ListingsContextProvider>
     </>
   );
 }
