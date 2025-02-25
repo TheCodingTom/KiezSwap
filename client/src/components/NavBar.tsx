@@ -22,8 +22,8 @@ function NavBar() {
               <Nav.Link as={NavLink} to={"/"}>
                 Home
               </Nav.Link>
-              <Nav.Link as={NavLink} to={"/countries"}>
-                Countries
+              <Nav.Link as={NavLink} to={"/register"}>
+                Register
               </Nav.Link>
 
               <NavDropdown title="User" id="collapsible-nav-dropdown">
