@@ -32,13 +32,13 @@ function NavBar() {
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item as={NavLink} to={"/quiz"}>
-                  Play - Beta version
+                  Something
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
             <Nav>
               <div>
-                <Button color="inherit">Log out</Button>
+                <Button color="inherit">Something</Button>
               </div>
             </Nav>
           </Navbar.Collapse>

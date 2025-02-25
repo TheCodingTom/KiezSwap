@@ -3,10 +3,10 @@ import mongoose from "mongoose";
 const usersSchema = mongoose.Schema({
   username: { require: true, type: String },
   email: { require: true, type: String },
-  items: [
+  listings: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Item",
+      ref: "Listing",
     },
   ],
 });

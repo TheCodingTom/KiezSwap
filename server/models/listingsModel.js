@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 // 1. define schema
-const itemsSchema = mongoose.Schema({
+const listingsSchema = mongoose.Schema({
   name: {
     require: true,
     type: String,
@@ -32,6 +32,6 @@ const itemsSchema = mongoose.Schema({
 
 // 2. turn schema into a model
 
-const ItemModel = mongoose.model("Item", itemsSchema); // first we select collection and then we pass the schema
+const ListingModel = mongoose.model("Listing", listingsSchema); // first we select collection and then we pass the schema
 
-export default ItemModel;
+export default ListingModel;
