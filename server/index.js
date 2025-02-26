@@ -7,7 +7,7 @@ import * as dotenv from "dotenv";
 dotenv.config(); // this initialise the dotenv package
 
 import mongoose from "mongoose";
-import usersRouter from "./routes/usersRoute.js";
+import usersRouter from "./routes/usersRoutes.js";
 import listingsRouter from "./routes/listingsRoute.js";
 
 const app = express();
@@ -33,7 +33,7 @@ const startServer = () => {
 const loadRoutes = () => {
   app.use("/api", testRouter);
   app.use("/api/listings", listingsRouter); // we define endpoint of the listingsRouter - if after that comes a "/all", we'll trigger the getAllListings function
-app.use("/api/users", usersRouter)
+  app.use("/api/users", usersRouter);
 };
 
 const DBConnection = async () => {

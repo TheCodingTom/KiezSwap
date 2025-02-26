@@ -26,4 +26,8 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-export { getAllUsers };
+const imageUpload = async (req,res) => {
+  console.log("image upload working");
+}
+
+export { getAllUsers, imageUpload };
