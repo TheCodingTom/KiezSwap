@@ -1,6 +1,7 @@
 import { request } from "express";
 import UserModel from "../models/usersModel.js";
 import cloudinaryUpload from "../utilities/cloudinaryUpload.js";
+import { bcryptHashPassword } from "../utilities/bcryptHashPassword.js";
 
 const getAllUsers = async (req, res) => {
   //   console.log("all users working");
@@ -47,8 +48,8 @@ const imageUpload = async (req, res) => {
 
     if (!uploadedImage) {
       return res.status(400).json({
-        error:"Image couldn't be uploaded"
-      })
+        error: "Image couldn't be uploaded",
+      });
     }
     if (uploadedImage) {
       return res.status(200).json({
@@ -60,4 +61,59 @@ const imageUpload = async (req, res) => {
   }
 };
 
-export { getAllUsers, imageUpload };
+const registerNewUser = async (req, res) => {
+  const { username, password, email, image } = req.body; // we send this data in the empty req.body
+
+  // check if user exists in database
+
+  try {
+    const existingUser = await UserModel.findOne({ email: email });
+
+    if (existingUser) {
+      return res.status(409).json({
+        message: "Email already in use",
+      });
+    }
+
+    if (!existingUser) {
+      // hash the password
+      const hashedPassword = await bcryptHashPassword(password);
+
+      if (!hashedPassword) {
+        return res.status(500).json({
+          error: "Something went wrong while hashing password",
+        });
+      }
+
+      if (hashedPassword) {
+        const newUserObject = new UserModel({
+          username: username,
+          email: email,
+          password: hashedPassword,
+          image: image
+            ? image
+            : "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid",
+        });
+
+        const newUser = await newUserObject.save();
+        if (newUser) {
+          return res.status(201).json({
+            message: "User registered successfully",
+            user: {
+              id: newUser._id,
+              username: newUser.username,
+              email: newUser.email,
+              image: newUser.image,
+            },
+          });
+        }
+      }
+    }
+  } catch (error) {
+    return res.status(500).json({
+      error: "Something went wrong during the registration",
+    });
+  }
+};
+
+export { getAllUsers, imageUpload, registerNewUser };
