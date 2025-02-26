@@ -9,6 +9,7 @@ dotenv.config(); // this initialise the dotenv package
 import mongoose from "mongoose";
 import usersRouter from "./routes/usersRoutes.js";
 import listingsRouter from "./routes/listingsRoute.js";
+import cloudinaryConfig from "./config/cloudinaryConfig.js";
 
 const app = express();
 
@@ -22,6 +23,7 @@ const addMiddlewares = () => {
     })
   );
   app.use(cors());
+  cloudinaryConfig()
 };
 
 const startServer = () => {

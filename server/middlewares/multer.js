@@ -1,26 +1,28 @@
-import multer from "multer"
+import multer from "multer";
+import path from "path";
 
-const storage = multer.diskStorage({
-    
-  })
+const storage = multer.diskStorage({});
 
-  const fileFilter = (req, file, cb) => {
-    console.log('file :>> ', file);
-    // The function should call `cb` with a boolean
-    // to indicate if the file should be accepted
-  
+// 1kilobyte (1024 bytes) x 1KB = 1MB x 5 = 5MB - Handling file size directly in multer
+const limits = {fileSize: 5 * 1024 * 1024 }
+
+const fileFilter = (req, file, cb) => {
+  console.log("file :>> ", file);
+  // Check the file extension to decide if we allow upload
+  let extension = path.extname(file.originalname);
+  if (extension !== ".png" && extension !== ".jpg" && extension !== ".jpeg") {
     // To reject this file pass `false`, like so:
-    cb(null, false)
-  
+    console.log("File extension not supported".red);
+    cb(null, false);
+    cb(new Error("You are trying to upload a not supported file"));
+  } else {
     // To accept the file pass `true`, like so:
-    cb(null, true)
-  
-    // You can always pass an error if something goes wrong:
-    cb(new Error('I don\'t have a clue!'))
+    console.log("File accepted");
+    cb(null, true);
   }
+};
 
-  
-  // function that we use to upload files
-  const multerUpload = multer({ storage: storage, fileFilter:fileFilter })
+// function that we use to upload files
+const multerUpload = multer({ storage: storage, fileFilter: fileFilter, limits:limits });
 
-  export default multerUpload
+export default multerUpload;

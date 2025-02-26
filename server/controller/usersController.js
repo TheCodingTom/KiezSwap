@@ -1,4 +1,6 @@
+import { request } from "express";
 import UserModel from "../models/usersModel.js";
+import cloudinaryUpload from "../utilities/cloudinaryUpload.js";
 
 const getAllUsers = async (req, res) => {
   //   console.log("all users working");
@@ -28,6 +30,22 @@ const getAllUsers = async (req, res) => {
 
 const imageUpload = async (req,res) => {
   console.log("image upload working");
+  console.log('req.file :>> ', req.file);
+
+  if (!req.file) {
+    return res.status(500).json (
+      {error: "file not supported"}
+    )
+  }
+
+  if (req.file) {
+    // check file size here or do it in multer.js with fileSize
+    // if we have a req.file we upload it to Cloudinary
+
+    const uploadedImage = await cloudinaryUpload(req.file)
+    console.log("image uploaded", uploadedImage);
+
+  }
 }
 
 export { getAllUsers, imageUpload };
