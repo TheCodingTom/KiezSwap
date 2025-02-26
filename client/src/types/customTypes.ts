@@ -1,3 +1,15 @@
+export type UserType = {
+  username: string;
+  email: string;
+  password: string;
+  image: string;
+}
+
+export type ImageUploadOkResponse = {
+  message: string;
+  imageURL: string;
+}
+
 export type ListingType = {
     _id: string;
     name: string;
