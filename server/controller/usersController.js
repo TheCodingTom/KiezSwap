@@ -2,6 +2,7 @@ import { request } from "express";
 import UserModel from "../models/usersModel.js";
 import cloudinaryUpload from "../utilities/cloudinaryUpload.js";
 import { bcryptHashPassword } from "../utilities/bcryptHashPassword.js";
+import deleteTempFile from "../utilities/deleteTempFile.js";
 
 const getAllUsers = async (req, res) => {
   //   console.log("all users working");
@@ -26,8 +27,9 @@ const getAllUsers = async (req, res) => {
     }); // sending the response as a json
   } catch (error) {
     console.log("error :>> ", error);
-    res.status(500).json({
+    return res.status(500).json({
       error: "Something went wrong trying to send the response",
+     
     });
   }
 };
@@ -47,22 +49,27 @@ const imageUpload = async (req, res) => {
     const uploadedImage = await cloudinaryUpload(req.file);
 
     if (!uploadedImage) {
+      deleteTempFile(req.file)
       return res.status(400).json({
         error: "Image couldn't be uploaded",
       });
     }
     if (uploadedImage) {
+      deleteTempFile(req.file)
       return res.status(200).json({
         message: "Image uploaded successfully",
         imageURL: uploadedImage.secure_url,
       });
     }
+ 
     console.log("image uploaded", uploadedImage);
   }
 };
 
 const registerNewUser = async (req, res) => {
   const { username, password, email, image } = req.body; // we send this data in the empty req.body
+
+  // I can do input validation here, or in model.js using mongoose
 
   // check if user exists in database
 
@@ -94,7 +101,7 @@ const registerNewUser = async (req, res) => {
         });
 
         const newUser = await newUserObject.save();
-        
+
         if (newUser) {
           return res.status(201).json({
             message: "User registered successfully",
@@ -111,6 +118,7 @@ const registerNewUser = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       error: "Something went wrong during the registration",
+      errorStack: error.message
     });
   }
 };
