@@ -5,9 +5,10 @@ import { ImageUploadOkResponse, RegisterOkResponse, UserRegisterFormType, UserTy
 
 function Register() {
   const [selectedFile, setSelectedFile] = useState<File | string>("");
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
   const [newUser, setNewUser] = useState<UserRegisterFormType | null>(null);
 
-  const [user, setUser] = useState<UserType | null>(null) // this keeps the user logged in
+  const [user, setUser] = useState<UserType | null>(null) // this keeps the user logged in - remove once I have authContext
 
   const handleAttachFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e);
@@ -16,6 +17,7 @@ function Register() {
     if (file instanceof File) {
       // if our document/image matches the File type the function will run
       setSelectedFile(file);
+      setImagePreview(URL.createObjectURL(file))
     }
   };
 
@@ -41,6 +43,13 @@ function Register() {
       console.log("result :>> ", result);
     } catch (error) {
       console.log("error :>> ", error);
+    }
+    finally {
+      if (typeof imagePreview === "string") {
+        URL.revokeObjectURL(imagePreview)
+        setImagePreview(null)
+      }
+      
     }
   };
 
@@ -109,6 +118,7 @@ function Register() {
             onChange={handleAttachFile}
           />
           <button>Upload image</button>
+          {imagePreview && <img src={imagePreview} alt="preview of avatar image" style={{width:"100px"}}/>}
         </form>
       </div>
 
