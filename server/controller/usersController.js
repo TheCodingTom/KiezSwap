@@ -90,12 +90,11 @@ const registerNewUser = async (req, res) => {
           username: username,
           email: email,
           password: hashedPassword,
-          image: image
-            ? image
-            : "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid",
+          image: image ? image : "https://cdn-icons-png.flaticon.com/512/4123/4123763.png",
         });
 
         const newUser = await newUserObject.save();
+        
         if (newUser) {
           return res.status(201).json({
             message: "User registered successfully",
