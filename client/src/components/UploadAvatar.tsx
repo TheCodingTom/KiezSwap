@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   ImageUploadOkResponse,
   UserRegisterFormType,
 } from "../types/customTypes";
+import { AuthContext } from "../context/AuthContext";
 
 function UploadAvatar() {
+const {user} = useContext(AuthContext)
+
   const [selectedFile, setSelectedFile] = useState<File | string>("");
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [newUser, setNewUser] = useState<UserRegisterFormType | null>(null);
@@ -75,10 +78,10 @@ function UploadAvatar() {
         </form>
       </div>
 
-      {/* <div>
+      <div>
         {user && 
          <div>
-          <h3>{user.username}</h3>
+          <h3>Username: {user.username}</h3>
            <img
             src={user.image}
             alt="avatar image"
@@ -86,7 +89,7 @@ function UploadAvatar() {
           />
          </div>
         }
-      </div> */}
+      </div>
     </>
   );
 }
