@@ -31,6 +31,8 @@ h1 {
   
 }
 
+/* dropdown menu - not used atm */
+
 .dropdown-container {
   display: flex;
   justify-content: center;
@@ -39,13 +41,13 @@ h1 {
 
 .dropdown {
   border-radius: 50%;
-  height: 50px;
-  width: 50px;
+  /* height: 50px;
+  width: 50px; */
 }
 
 .dropdown-menu {
   border-radius: 20%;
-  background-color: rgb(175, 231, 250);
+  background-color: rgb(144, 190, 206);
   
 }
 

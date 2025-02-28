@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar";
 import Register from "./pages/Register";
 import { ListingsContextProvider } from "./context/ListingsContext";
 import Listings from "./pages/Listings";
+import Login from "./pages/Login";
 
 
 const Root = () => {
@@ -29,6 +30,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/listings" element={<Listings/>}/>
             <Route path="/register" element={<Register/>}/>
+            <Route path="/login" element={<Login/>}/>
 
             <Route path="*" />
           </Route>

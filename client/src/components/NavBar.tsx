@@ -28,16 +28,11 @@ function NavBar() {
               <Nav.Link as={NavLink} to={"/register"}>
                 Register
               </Nav.Link>
+              <Nav.Link as={NavLink} to={"/login"}>
+                Login
+              </Nav.Link>
 
-              <NavDropdown title="User" id="collapsible-nav-dropdown">
-                <NavDropdown.Item as={NavLink} to={"/profile"}>
-                  Profile
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item as={NavLink} to={"/quiz"}>
-                  Something
-                </NavDropdown.Item>
-              </NavDropdown>
+             
             </Nav>
             <Nav>
               <div>
