@@ -2,6 +2,7 @@ import { TextField } from "@mui/material";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { ImageUploadOkResponse, RegisterOkResponse, UserRegisterFormType, UserType } from "../types/customTypes";
+import UploadAvatar from "../components/UploadAvatar";
 
 function Register() {
   const [selectedFile, setSelectedFile] = useState<File | string>("");
@@ -103,24 +104,7 @@ function Register() {
 
   return (
     <>
-      <div className="form-container">
-        <h1>Register</h1>
-        <form
-          action="submit"
-          className="register-form"
-          onSubmit={handleImageUpload}
-        >
-          <input
-            type="file"
-            name="image"
-            id="image"
-            accept="image/*"
-            onChange={handleAttachFile}
-          />
-          <button>Upload image</button>
-          {imagePreview && <img src={imagePreview} alt="preview of avatar image" style={{width:"100px"}}/>}
-        </form>
-      </div>
+      <h1>Register</h1>
 
       <div className="form-container">
         <form className="register-form">
@@ -150,18 +134,9 @@ function Register() {
         </form>
       </div>
 
-      <div>
-        {user && 
-         <div>
-          <h3>{user.username}</h3>
-           <img
-            src={user.image}
-            alt="avatar image"
-            style={{ width: "200px" }}
-          />
-         </div>
-        }
-      </div>
+      <UploadAvatar/>
+
+      
     </>
   );
 }

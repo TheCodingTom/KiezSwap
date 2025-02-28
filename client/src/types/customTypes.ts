@@ -7,7 +7,7 @@ export type UserType = {
 
 export type UserRegisterFormType = {
   email: string;
-  image: string;
+  image?: string;
   password: string;
   username: string;
 };

@@ -29,6 +29,7 @@ function Login() {
           />
 
           <Button>Login</Button>
+          <p>Don't have an account yet? Register here then!</p> 
         </form>
       </div>
     </div>
