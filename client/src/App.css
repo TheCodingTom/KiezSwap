@@ -30,3 +30,29 @@ h1 {
   width: 350px;
   
 }
+
+.dropdown-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.dropdown {
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+}
+
+.dropdown-menu {
+  border-radius: 20%;
+  background-color: rgb(175, 231, 250);
+  
+}
+
+
+
+
+
+
+
+

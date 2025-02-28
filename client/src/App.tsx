@@ -6,12 +6,13 @@ import Register from "./pages/Register";
 import { ListingsContextProvider } from "./context/ListingsContext";
 import Listings from "./pages/Listings";
 
+
 const Root = () => {
   // this route element is the parent of 3 pages, so they all contain the navbar
   return (
     // if I want to add a footer, it will go under outlet
     <>
-      <NavBar />
+      <NavBar/>
       <Outlet />
     </>
   );

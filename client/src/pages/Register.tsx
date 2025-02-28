@@ -125,21 +125,21 @@ function Register() {
       <div className="form-container">
         <form className="register-form">
           <TextField
-            id="outlined-basic"
+            
             label="Username"
             variant="outlined"
             name="username"
             onChange={handleRegisterInputChange}
           />
           <TextField
-            id="outlined-basic"
+           
             label="Email"
             variant="outlined"
             name="email"
             onChange={handleRegisterInputChange}
           />
           <TextField
-            id="outlined-basic"
+            
             label="Password"
             variant="outlined"
             name="password"

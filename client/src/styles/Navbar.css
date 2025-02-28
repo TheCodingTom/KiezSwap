@@ -1,0 +1,22 @@
+body {
+    display: grid;
+    grid-template-columns: 200px 1fr; /* Sidebar width and content width */
+  }
+  
+  .sidebar {
+    background-color: #e0e0e0;
+    padding: 20px;
+  }
+  
+  .main-content {
+    padding: 20px;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar li {
+    margin-bottom: 10px;
+  }
