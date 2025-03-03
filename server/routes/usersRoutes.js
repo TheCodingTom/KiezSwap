@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllUsers, imageUpload, registerNewUser } from "../controller/usersController.js";
+import { getAllUsers, imageUpload, login, registerNewUser } from "../controller/usersController.js";
 import multerUpload from "../middlewares/multer.js";
 
 
@@ -11,5 +11,6 @@ usersRouter.get("/all", getAllUsers)
 usersRouter.post("/uploadImage",multerUpload.single("image"), imageUpload) // multer works inbetween these 2 processes: receiving req via client and processesing it and sending the res
 
 usersRouter.post("/register", registerNewUser)
+usersRouter.post("/login", login)
 
 export default usersRouter;

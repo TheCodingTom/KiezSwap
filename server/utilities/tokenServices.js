@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-const generateToken = () => {
+const generateToken = (userId) => {
   // in the payload we use predefined infos - jwt claims
   const payload = { sub: userId };
   const options = { expiresIn: "1d" }; // expiration in the options cause if we put it in the payload we have to use "exp" and a numeric date
@@ -10,7 +10,12 @@ const generateToken = () => {
 
   const jwtToken = jwt.sign(payload, secretOrPrivateKey, options);
 
-  return jwtToken
+  if (jwtToken) {
+    return jwtToken
+  }
+  if (!jwtToken) {
+    return null
+  }
 };
 
 export {generateToken}

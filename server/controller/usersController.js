@@ -1,8 +1,9 @@
 import { request } from "express";
 import UserModel from "../models/usersModel.js";
 import cloudinaryUpload from "../utilities/cloudinaryUpload.js";
-import { bcryptHashPassword } from "../utilities/bcryptHashPassword.js";
+import { hashPassword, verifyPassword } from "../utilities/passwordServices.js";
 import deleteTempFile from "../utilities/deleteTempFile.js";
+import { generateToken } from "../utilities/tokenServices.js";
 
 const getAllUsers = async (req, res) => {
   //   console.log("all users working");
@@ -29,7 +30,6 @@ const getAllUsers = async (req, res) => {
     console.log("error :>> ", error);
     return res.status(500).json({
       error: "Something went wrong trying to send the response",
-     
     });
   }
 };
@@ -49,19 +49,19 @@ const imageUpload = async (req, res) => {
     const uploadedImage = await cloudinaryUpload(req.file);
 
     if (!uploadedImage) {
-      deleteTempFile(req.file)
+      deleteTempFile(req.file);
       return res.status(400).json({
         error: "Image couldn't be uploaded",
       });
     }
     if (uploadedImage) {
-      deleteTempFile(req.file)
+      deleteTempFile(req.file);
       return res.status(200).json({
         message: "Image uploaded successfully",
         imageURL: uploadedImage.secure_url,
       });
     }
- 
+
     console.log("image uploaded", uploadedImage);
   }
 };
@@ -84,7 +84,7 @@ const registerNewUser = async (req, res) => {
 
     if (!existingUser) {
       // hash the password
-      const hashedPassword = await bcryptHashPassword(password);
+      const hashedPassword = await hashPassword(password);
 
       if (!hashedPassword) {
         return res.status(500).json({
@@ -97,7 +97,9 @@ const registerNewUser = async (req, res) => {
           username: username,
           email: email,
           password: hashedPassword,
-          image: image ? image : "https://cdn-icons-png.flaticon.com/512/4123/4123763.png",
+          image: image
+            ? image
+            : "https://cdn-icons-png.flaticon.com/512/4123/4123763.png",
         });
 
         const newUser = await newUserObject.save();
@@ -118,9 +120,70 @@ const registerNewUser = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       error: "Something went wrong during the registration",
-      errorStack: error.message
+      errorStack: error.message,
     });
   }
 };
 
-export { getAllUsers, imageUpload, registerNewUser };
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  // 1. find user in DB
+
+  try {
+    const existingUser = await UserModel.findOne({ email: req.body.email });
+
+    if (!existingUser) {
+      return res.status(401).json({
+        message:
+          "Email doesn't exist in our database, you have to register first",
+      });
+    }
+
+    if (existingUser) {
+      // 2. verify the password
+
+      const isPasswordCorrect = await verifyPassword(
+        req.body.password,
+        existingUser.password
+      );
+
+      if (!isPasswordCorrect) {
+        return res.status(401).json({
+          message: "Incorrect password",
+        });
+      }
+
+      if (isPasswordCorrect) {
+        // 3. generate token
+        const token = generateToken(existingUser._id);
+        if (!token) {
+          return res.status(500).json({
+            error: "Something went wrong, try again later",
+          });
+        }
+
+        if (token) {
+          return res.status(200).json({
+            message: "Login successful",
+            user: {
+              username: existingUser.username,
+              email: existingUser.email,
+              id: existingUser._id,
+              image: existingUser.image, // double check this
+            },
+            token,
+          });
+        }
+      }
+    }
+  } catch (error) {
+    console.log('error :>> ', error);;
+    return res.status(500).json({
+      error:"Something went wrong during login",
+      errorMessage: error.message
+    })
+  }
+};
+
+export { getAllUsers, imageUpload, registerNewUser, login };
