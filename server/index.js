@@ -10,6 +10,7 @@ import mongoose from "mongoose";
 import usersRouter from "./routes/usersRoutes.js";
 import listingsRouter from "./routes/listingsRoute.js";
 import cloudinaryConfig from "./config/cloudinaryConfig.js";
+import generator  from "generate-password";
 
 const app = express();
 
@@ -49,6 +50,13 @@ const DBConnection = async () => {
     console.log("error connecting with MongoDB :>> ".bgRedred, error);
   }
 };
+
+// const passcode = generator.generate({
+//   length: 15,
+//   numbers: true
+// });
+
+// console.log(passcode);
 
 // IIFE (Immediately Invoked Function Expressions) - not creating a specific function for this so everytime it restarts it doesn't generate a new instance
 

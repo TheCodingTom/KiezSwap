@@ -7,7 +7,7 @@ const storage = multer.diskStorage({});
 const limits = {fileSize: 5 * 1024 * 1024 }
 
 const fileFilter = (req, file, cb) => {
-  console.log("file :>> ", file);
+  // console.log("file :>> ", file);
   // Check the file extension to decide if we allow upload
   let extension = path.extname(file.originalname);
   if (extension !== ".png" && extension !== ".jpg" && extension !== ".jpeg") {
