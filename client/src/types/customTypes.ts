@@ -6,11 +6,11 @@ export type UserType = {
   password: string;
 };
 
-export type User = Omit <UserType, "password">
+export type User = Omit<UserType, "password">;
 
-export type LoginCredentials = Pick <UserType, "email" | "password">
+export type LoginCredentials = Pick<UserType, "email" | "password">;
 
-export type RegisterCredentials = Omit <UserType, "id">
+export type RegisterCredentials = Omit<UserType, "id">;
 
 export type UserRegisterFormType = {
   email: string;
@@ -26,7 +26,13 @@ export type ImageUploadOkResponse = {
 
 export type RegisterOkResponse = {
   message: string;
-  user: UserType;
+  user: User;
+};
+
+export type LoginOkResponse = {
+  message: string;
+  user: User;
+  token: string;
 };
 
 export type ListingType = {

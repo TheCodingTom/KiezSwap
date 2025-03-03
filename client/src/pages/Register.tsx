@@ -25,7 +25,6 @@ function Register() {
     e.preventDefault()
      if (newUser) 
     register(newUser.username, newUser.email, newUser.password)
-  console.log(newUser);
   }
 
   return (

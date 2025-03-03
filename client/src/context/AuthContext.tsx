@@ -31,8 +31,8 @@ const contextInitialValue: AuthContextType = {
 
 //1. create and export the context
 
-import { createContext, ReactNode, useState } from "react";
-import { RegisterOkResponse, User } from "../types/customTypes";
+import { createContext, ReactNode, useEffect, useState } from "react";
+import { LoginOkResponse, RegisterOkResponse, User } from "../types/customTypes";
 
 export const AuthContext = createContext<AuthContextType>(contextInitialValue);
 
@@ -102,14 +102,37 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
         "http://localhost:4000/api/users/login",
         requestOptions
       );
-      const result = (await response.json()) as RegisterOkResponse;
+      const result = (await response.json()) as LoginOkResponse;
+      alert(result.message)
+      console.log(result);
       setUser(result.user);
-      console.log(result.message);
-      console.log(result.user);
+
+      if (!result.token) {
+        // do something if token is not there
+      }
+
+      if (result.token) {
+        // store token in the local storage
+        localStorage.setItem("token", result.token)
+      }
+      
+      
     } catch (error) {
       console.log("error :>> ", error);
     }
   };
+
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    if (token) {
+      console.log("user is logged in");
+    }
+    else {
+      console.log("user is logged out");
+    }
+  }, [])
+  
 
   return (
     <div>
