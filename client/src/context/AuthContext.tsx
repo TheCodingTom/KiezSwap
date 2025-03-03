@@ -13,6 +13,8 @@ type AuthContextType = {
     email: string,
     password: string
   ) => Promise<void>;
+
+  login: (email: string, password: string) => Promise<void>;
 };
 
 //6. create variable with context initial value
@@ -20,6 +22,9 @@ type AuthContextType = {
 const contextInitialValue: AuthContextType = {
   user: null,
   register: () => {
+    throw Error("context not initialised");
+  },
+  login: () => {
     throw Error("context not initialised");
   },
 };
@@ -47,7 +52,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     const urlencoded = new URLSearchParams();
-   
+
     if (username && email && password) {
       urlencoded.append("username", username);
       urlencoded.append("email", email);
@@ -74,12 +79,45 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     }
   };
 
+  const login = async (email: string, password: string) => {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    const urlencoded = new URLSearchParams();
+
+    if (email && password) {
+      urlencoded.append("email", email);
+      urlencoded.append("password", password);
+    } else {
+      console.log("All the fields are required");
+    }
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: urlencoded,
+    };
+
+    try {
+      const response = await fetch(
+        "http://localhost:4000/api/users/login",
+        requestOptions
+      );
+      const result = (await response.json()) as RegisterOkResponse;
+      setUser(result.user);
+      console.log(result.message);
+      console.log(result.user);
+    } catch (error) {
+      console.log("error :>> ", error);
+    }
+  };
+
   return (
     <div>
       <AuthContext.Provider
         value={{
           user,
           register,
+          login,
         }}
       >
         {children}
