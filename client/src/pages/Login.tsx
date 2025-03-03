@@ -22,6 +22,42 @@ function Login() {
     e.preventDefault();
   };
 
+  const login = async (
+      username: string,
+      email: string,
+      password: string
+    ) => {
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  
+      const urlencoded = new URLSearchParams();
+     
+      if (username && email && password) {
+        urlencoded.append("username", username);
+        urlencoded.append("email", email);
+        urlencoded.append("password", password);
+      } else {
+        console.log("All the fields are required");
+      }
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: urlencoded,
+      };
+  
+      try {
+        const response = await fetch(
+          `${process.env.BASE_URL}/api/users/register`,
+          requestOptions
+        );
+        const result = (await response.json()) as RegisterOkResponse;
+        console.log(result.message);
+        setUser(result.user);
+      } catch (error) {
+        console.log("error :>> ", error);
+      }
+    };
+
   return (
     <>
       <h1>Login</h1>
