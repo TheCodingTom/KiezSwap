@@ -1,16 +1,29 @@
 import { TextField } from "@mui/material";
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Button } from "react-bootstrap";
+import { AuthContext } from "../context/AuthContext";
+import { LoginCredentials } from "../types/customTypes";
 
 function Login() {
-  const handleRegisterInputChange = (
+  const { user } = useContext(AuthContext);
+
+  const [loginCredentials, setLoginCredentials] = useState<LoginCredentials | null>(null);
+
+  const handleLoginInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     console.log(e.target.name);
     console.log(e.target.value);
   };
+
+  const handleSubmitLogin = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+  };
+
   return (
-    <div>
+    <>
       <h1>Login</h1>
 
       <div className="form-container">
@@ -19,20 +32,32 @@ function Login() {
             label="Email"
             variant="outlined"
             name="email"
-            onChange={handleRegisterInputChange}
+            onChange={handleLoginInputChange}
           />
           <TextField
             label="Password"
             variant="outlined"
             name="password"
-            onChange={handleRegisterInputChange}
+            onChange={handleLoginInputChange}
           />
 
-          <Button>Login</Button>
-          <p>Don't have an account yet? Register here then!</p> 
+          <Button onClick={handleSubmitLogin}>Login</Button>
         </form>
       </div>
-    </div>
+
+      <div>
+        {user && (
+          <div>
+            <h3>Logged in user: {user.username}</h3>
+            <img
+              src={user.image}
+              alt="avatar image"
+              style={{ width: "200px" }}
+            />
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 

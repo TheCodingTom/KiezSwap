@@ -4,12 +4,12 @@ import { Button } from "react-bootstrap";
 
 import UploadAvatar from "../components/UploadAvatar";
 import { AuthContext } from "../context/AuthContext";
-import { UserRegisterFormType } from "../types/customTypes";
+import { RegisterCredentials } from "../types/customTypes";
 
 function Register() {
 
   const {register} = useContext(AuthContext)
-  const [newUser, setNewUser] = useState<UserRegisterFormType | null>(null);
+  const [newUser, setNewUser] = useState<RegisterCredentials | null>(null);
 
   const handleRegisterInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

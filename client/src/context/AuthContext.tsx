@@ -7,7 +7,7 @@ type AuthContextProviderProps = {
 //5. define context type
 
 type AuthContextType = {
-  user: UserType | null;
+  user: User | null;
   register: (
     username: string,
     email: string,
@@ -27,7 +27,7 @@ const contextInitialValue: AuthContextType = {
 //1. create and export the context
 
 import { createContext, ReactNode, useState } from "react";
-import { RegisterOkResponse, UserType } from "../types/customTypes";
+import { RegisterOkResponse, User } from "../types/customTypes";
 
 export const AuthContext = createContext<AuthContextType>(contextInitialValue);
 
@@ -36,7 +36,7 @@ export const AuthContext = createContext<AuthContextType>(contextInitialValue);
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   //4. create in (or move to) the provider all states/functions you wanna share
 
-  const [user, setUser] = useState<UserType | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   const register = async (
     username: string,

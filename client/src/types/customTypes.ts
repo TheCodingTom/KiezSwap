@@ -3,7 +3,14 @@ export type UserType = {
   id: string;
   image: string;
   username: string;
+  password: string;
 };
+
+export type User = Omit <UserType, "password">
+
+export type LoginCredentials = Pick <UserType, "email" | "password">
+
+export type RegisterCredentials = Omit <UserType, "id">
 
 export type UserRegisterFormType = {
   email: string;
