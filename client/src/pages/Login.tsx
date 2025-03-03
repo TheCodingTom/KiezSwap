@@ -5,7 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 import { LoginCredentials } from "../types/customTypes";
 
 function Login() {
-  const { user, login } = useContext(AuthContext);
+  const { user, login, logout } = useContext(AuthContext);
 
   const [loginCredentials, setLoginCredentials] =
     useState<LoginCredentials | null>(null);
@@ -33,6 +33,13 @@ function Login() {
     // input validation
   };
 
+  const handleSubmitLogout = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    logout()
+  };
+
   return (
     <>
       <h1>Login</h1>
@@ -53,6 +60,7 @@ function Login() {
           />
 
           <Button onClick={handleSubmitLogin}>Login</Button>
+          <Button onClick={handleSubmitLogout}>Logout</Button>
         </form>
       </div>
 

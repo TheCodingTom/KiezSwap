@@ -15,6 +15,7 @@ type AuthContextType = {
   ) => Promise<void>;
 
   login: (email: string, password: string) => Promise<void>;
+  logout:() => void
 };
 
 //6. create variable with context initial value
@@ -25,6 +26,9 @@ const contextInitialValue: AuthContextType = {
     throw Error("context not initialised");
   },
   login: () => {
+    throw Error("context not initialised");
+  },
+  logout: () => {
     throw Error("context not initialised");
   },
 };
@@ -122,6 +126,12 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     }
   };
 
+  const logout = () => {
+    localStorage.removeItem("token")
+    setUser(null)
+    console.log("user logged out successfully");
+  }
+
 
   useEffect(() => {
     const token = localStorage.getItem("token")
@@ -141,6 +151,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
           user,
           register,
           login,
+          logout
         }}
       >
         {children}
