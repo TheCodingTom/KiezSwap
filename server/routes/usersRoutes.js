@@ -1,6 +1,7 @@
 import express from "express";
-import { getAllUsers, imageUpload, login, registerNewUser } from "../controller/usersController.js";
+import { getAllUsers, getProfile, imageUpload, login, registerNewUser } from "../controller/usersController.js";
 import multerUpload from "../middlewares/multer.js";
+import jwtAuth from "../middlewares/jwtAuth.js";
 
 
 const usersRouter = express.Router()
@@ -12,5 +13,6 @@ usersRouter.post("/uploadImage",multerUpload.single("image"), imageUpload) // mu
 
 usersRouter.post("/register", registerNewUser)
 usersRouter.post("/login", login)
+usersRouter.get("/profile", jwtAuth, getProfile) // middleware here cause to get profile user needs a token
 
 export default usersRouter;

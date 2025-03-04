@@ -11,6 +11,8 @@ import usersRouter from "./routes/usersRoutes.js";
 import listingsRouter from "./routes/listingsRoute.js";
 import cloudinaryConfig from "./config/cloudinaryConfig.js";
 import generator  from "generate-password";
+import passport from "passport";
+import passportStrategy from "./config/passportConfig.js";
 
 const app = express();
 
@@ -25,6 +27,9 @@ const addMiddlewares = () => {
   );
   app.use(cors());
   cloudinaryConfig()
+
+  passport.initialize();
+  passport.use(passportStrategy)
 };
 
 const startServer = () => {

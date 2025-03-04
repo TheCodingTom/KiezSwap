@@ -186,4 +186,9 @@ const login = async (req, res) => {
   }
 };
 
-export { getAllUsers, imageUpload, registerNewUser, login };
+
+const getProfile = async (req, res) => {
+  console.log("get profile working");
+}
+
+export { getAllUsers, imageUpload, registerNewUser, login, getProfile };

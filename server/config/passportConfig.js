@@ -1,10 +1,10 @@
-import {Strategy as JwtStrategy} from "passport-jwt"
+import {ExtractJwt, Strategy as JwtStrategy} from "passport-jwt"
 import UserModel from "../models/usersModel.js";
 
 const jwtOptions = {
    // whenever we send a req we put the token in the header of req and this method will extract the token from the header
    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), 
-   secretOrPrivateKey: process.env.JWT_SECRET
+   secretOrKey: "password"
 }
 
 
