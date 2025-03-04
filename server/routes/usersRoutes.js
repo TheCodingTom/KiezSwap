@@ -13,6 +13,9 @@ usersRouter.post("/uploadImage",multerUpload.single("image"), imageUpload) // mu
 
 usersRouter.post("/register", registerNewUser)
 usersRouter.post("/login", login)
+
+// jwtAuth takes the token, decodes it, extracts the user ID, looks for the user in DB. if user exists -> sends info to the request
+
 usersRouter.get("/profile", jwtAuth, getProfile) // middleware here cause to get profile user needs a token
 
 export default usersRouter;

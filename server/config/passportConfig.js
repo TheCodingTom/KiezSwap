@@ -1,27 +1,33 @@
-import {ExtractJwt, Strategy as JwtStrategy} from "passport-jwt"
+import { ExtractJwt, Strategy as JwtStrategy } from "passport-jwt";
 import UserModel from "../models/usersModel.js";
 
 const jwtOptions = {
-   // whenever we send a req we put the token in the header of req and this method will extract the token from the header
-   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), 
-   secretOrKey: "password"
-}
-
+  // whenever we send a req we put the token in the header of req and this method will extract the token from the header
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: "password",
+};
 
 // we pass options - function accesses payload - run usermodel - find user with that ID
-const passportStrategy = new JwtStrategy(jwtOptions, function(jwt_payload, done) {
-   UserModel.findOne({id: jwt_payload.sub}, function(err, user) {
-      // done is a callback: if there's an error we stop process, otherwise we continue and attach user to request
-       if (err) {
-           return done(err, false);
-       }
-       if (user) {
-           return done(null, user);
-       } else {
-           return done(null, false);
-           // or you could create a new account - do we need it?
-       }
-   });
+const passportStrategy = new JwtStrategy(jwtOptions, async function (
+  jwt_payload,
+  done
+) {
+  try {
+    const user = await UserModel.findOne({ _id: jwt_payload.sub });
+    if (!user) {
+      // if token is valid but there's no user -> create account
+      console.log("create an account");
+      return done(null, false);
+    }
+
+    if (user) { // if there's a user we insert the user in the request
+      console.log("user found");
+      return done(null, user);
+    }
+  } catch (err) { // if token is invalid -> error
+   console.log("invalid token");
+    return done(err, false);
+  }
 });
 
-export default passportStrategy
+export default passportStrategy;

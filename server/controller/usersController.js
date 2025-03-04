@@ -189,6 +189,25 @@ const login = async (req, res) => {
 
 const getProfile = async (req, res) => {
   console.log("get profile working");
+  console.log('req.user :>> ', req.user);
+
+if (!req.user) {
+  return res.status(404).json({
+    error:"User needs to login again"
+  })
+}
+
+if (req.user) {
+  return res.status(200).json({
+    message: "User profile",
+    id: req.user._id,
+    username: req.user.username,
+    email: req.user.email,
+    image: req.user.image,
+    listings: req.user.listings,
+  })
+}
+
 }
 
 export { getAllUsers, imageUpload, registerNewUser, login, getProfile };
