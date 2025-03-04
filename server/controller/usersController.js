@@ -204,7 +204,7 @@ if (req.user) {
     username: req.user.username,
     email: req.user.email,
     image: req.user.image,
-    listings: req.user.listings,
+    // listings: req.user.listings,
   })
 }
 

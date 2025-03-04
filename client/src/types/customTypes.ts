@@ -35,6 +35,14 @@ export type LoginOkResponse = {
   token: string;
 };
 
+export type GetProfileOkResponse = {
+  message: string;
+  id: string;
+  username: string;
+  email: string;
+  image: string;
+};
+
 export type ListingType = {
   _id: string;
   name: string;

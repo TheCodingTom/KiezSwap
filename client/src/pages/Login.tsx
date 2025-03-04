@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import { LoginCredentials } from "../types/customTypes";
 import { Link } from "react-router";
+import Profile from "./Profile";
 
 function Login() {
   const { user, login, logout } = useContext(AuthContext);
@@ -78,6 +79,8 @@ function Login() {
           </div>
         )}
       </div>
+
+      <Profile/>
     </>
   );
 }
