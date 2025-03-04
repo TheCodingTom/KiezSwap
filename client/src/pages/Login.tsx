@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import { Button } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import { LoginCredentials } from "../types/customTypes";
+import { Link } from "react-router";
 
 function Login() {
   const { user, login, logout } = useContext(AuthContext);
@@ -61,6 +62,7 @@ function Login() {
 
           <Button onClick={handleSubmitLogin}>Login</Button>
           <Button onClick={handleSubmitLogout}>Logout</Button>
+          <p>Don't have an account yet? <Link to="/register">Create one here!</Link></p>
         </form>
       </div>
 
