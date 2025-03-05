@@ -3,11 +3,13 @@ import React, { useContext, useState } from "react";
 import { Button } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import { LoginCredentials } from "../types/customTypes";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Profile from "./Profile";
 
 function Login() {
-  const { user, login, logout } = useContext(AuthContext);
+  const { user, login } = useContext(AuthContext);
+
+  const goToHome = useNavigate();
 
   const [loginCredentials, setLoginCredentials] =
     useState<LoginCredentials | null>(null);
@@ -31,15 +33,9 @@ function Login() {
     e.preventDefault();
     if (loginCredentials)
       login(loginCredentials.email, loginCredentials.password);
+    goToHome("/");
 
     // input validation
-  };
-
-  const handleSubmitLogout = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.preventDefault();
-    logout()
   };
 
   return (
@@ -60,11 +56,14 @@ function Login() {
             name="password"
             onChange={handleLoginInputChange}
           />
-
-          <Button onClick={handleSubmitLogin}>Login</Button>
-          <Button onClick={handleSubmitLogout}>Logout</Button>
-          <p>Don't have an account yet? <Link to="/register">Create one here!</Link></p>
         </form>
+        <div>
+          <Button onClick={handleSubmitLogin}>Login</Button>
+          <p>
+            Don't have an account yet?{" "}
+            <Link to="/register">Create one here!</Link>
+          </p>
+        </div>
       </div>
 
       <div>
@@ -80,7 +79,7 @@ function Login() {
         )}
       </div>
 
-      <Profile/>
+      <Profile />
     </>
   );
 }

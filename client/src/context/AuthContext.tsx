@@ -1,10 +1,6 @@
-//3. define provider props type
-
 type AuthContextProviderProps = {
   children: ReactNode;
 };
-
-//5. define context type
 
 type AuthContextType = {
   user: User | null;
@@ -18,7 +14,6 @@ type AuthContextType = {
   logout:() => void
 };
 
-//6. create variable with context initial value
 
 const contextInitialValue: AuthContextType = {
   user: null,
@@ -33,19 +28,18 @@ const contextInitialValue: AuthContextType = {
   },
 };
 
-//1. create and export the context
 
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { LoginOkResponse, RegisterOkResponse, User } from "../types/customTypes";
+import { useNavigate } from "react-router";
 
 export const AuthContext = createContext<AuthContextType>(contextInitialValue);
 
-//2. create and export the provider: a component that contains states, functions, etc., that I want to share
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
-  //4. create in (or move to) the provider all states/functions you wanna share
 
   const [user, setUser] = useState<User | null>(null);
+ 
 
   const register = async (
     username: string,
@@ -77,7 +71,8 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       );
       const result = (await response.json()) as RegisterOkResponse;
       console.log(result.message);
-      setUser(result.user);
+      
+      
     } catch (error) {
       console.log("error :>> ", error);
     }
