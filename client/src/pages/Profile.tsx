@@ -1,6 +1,6 @@
 import  { useState } from "react";
 
-import { GetProfileOkResponse, User } from "../types/customTypes";
+import { GetProfileOkResponse } from "../types/customTypes";
 
 function Profile() {
   const [loggedUser, setLoggedUser] = useState("");
@@ -28,6 +28,8 @@ function Profile() {
 
       if (!response.ok) {
         console.log("something went wrong with the user profile response");
+
+        // add error message for user
       }
 
       if (response.ok) {

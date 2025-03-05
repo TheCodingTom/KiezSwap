@@ -1,4 +1,3 @@
-
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "react-router";
 
@@ -25,17 +24,11 @@ function NavBar() {
               <Nav.Link as={NavLink} to={"/listings"}>
                 Listings
               </Nav.Link>
-             
-              <Nav.Link as={NavLink} to={"/login"}>
-                Login
-              </Nav.Link>
-
-             
             </Nav>
             <Nav>
-              <div>
-                <Button color="inherit">Something</Button>
-              </div>
+              <NavLink to={"/login"}>
+                <Button color="inherit">Login</Button>
+              </NavLink>
             </Nav>
           </Navbar.Collapse>
         </Container>
