@@ -31,7 +31,7 @@ const contextInitialValue: AuthContextType = {
 
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { LoginOkResponse, RegisterOkResponse, User } from "../types/customTypes";
-import { useNavigate } from "react-router";
+
 
 export const AuthContext = createContext<AuthContextType>(contextInitialValue);
 

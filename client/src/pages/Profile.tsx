@@ -1,6 +1,7 @@
 import  { useState } from "react";
 
 import { GetProfileOkResponse } from "../types/customTypes";
+import DropdownMenu from "../components/DropdownMenu";
 
 function Profile() {
   const [loggedUser, setLoggedUser] = useState("");
@@ -47,6 +48,7 @@ function Profile() {
   return (
     <>
       <h1>User Profile</h1>
+      {/* <DropdownMenu/> */}
 
       <button onClick={getUserProfile}>Get profile</button>
 

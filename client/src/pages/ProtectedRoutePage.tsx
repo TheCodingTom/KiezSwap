@@ -1,6 +1,6 @@
 
 import { Button } from "react-bootstrap";
-import lock from "../images/lock-logo.png";
+// import lock from "../images/lock-logo.png";
 import { NavLink, useNavigate } from "react-router";
 
 function ProtectedRoutePage() {

@@ -5,7 +5,10 @@ import ListingModel from "../models/listingsModel.js";
 const getAllListings = async (req, res) => {
   //   console.log("get all listings running");
   try {
-    const allListings = await ListingModel.find().populate({path:"user", select:["username", "email"]}); // here we're requesting listings from database
+    const allListings = await ListingModel.find().populate({
+      path: "user",
+      select: ["username", "email"],
+    }); // here we're requesting listings from database
     console.log(allListings);
 
     if (allListings.length === 0) {
@@ -13,7 +16,7 @@ const getAllListings = async (req, res) => {
       res.status(400).json({
         message: "No records in the database",
       });
-      return
+      return;
     }
 
     res.status(200).json({
@@ -55,9 +58,9 @@ const getListingsByCategory = async (req, res) => {
 
     res.status(200).json({
       message: `Listings from ${req.params.category} category with at least ${req.query.likes} likes from our database`,
-        amount: listingsByCategoryAndLikes.length,
-        listingsByCategoryAndLikes,
-    })
+      amount: listingsByCategoryAndLikes.length,
+      listingsByCategoryAndLikes,
+    });
 
     return;
   }
@@ -92,4 +95,89 @@ const getListingsByCategory = async (req, res) => {
   }
 };
 
-export { getAllListings, getListingsByCategory };
+const addNewListing = async (req, res) => {
+  const listingData = {
+    name: req.body.name,
+    description: req.body.description,
+    price: req.body.price,
+    location: req.body.location,
+    category: req.body.category,
+    likes: req.body.likes,
+    user: req.body.user,
+  };
+
+  let listing;
+  try {
+    listing = await ListingModel.create(listingData);
+    console.log("listing :>> ", listing);
+  } catch (error) {
+    console.log("error posting new listing :>> ", error);
+    return response.status(500).json({
+      error: "Error creating the listing",
+    });
+  }
+};
+
+// post new listing
+// const postNewListing = async (request, response) => {
+//   try {
+//     console.log("Request User:", request.user);
+//     const userId = request.user._id;
+
+//     // upload picture in cloudinary
+
+//     const uploadedImages = await Promise.all(
+//       request.files.map(async (file) => {
+//         return pictureUpload(file.path);
+//       })
+//     );
+
+//     //creating variable to save the data in
+//     const listingData = {
+//       condition: request.body.condition,
+//       images: uploadedImages,
+//       delivery: request.body.delivery,
+//       description: request.body.description,
+//       light: request.body.light,
+//       location: request.body.location,
+//       price: parseInt(request.body.price),
+//       soil: request.body.soil,
+//       species: request.body.species,
+//       water: request.body.water,
+//       seller: userId,
+//       deal: request.body.deal,
+//       swapfor: request.body.swapfor,
+//     };
+
+//     // After listing is created, update user data
+//     try {
+//       const user = await UserModel.findById(request.user.id);
+//       user.postedListings.push(listing._id);
+//       await user.save();
+//       console.log("USER :>> ", user);
+//     } catch (error) {
+//       console.log("Error saving reference to the user", error);
+//       return response.status(500).json({
+//         error: "Error updating user data",
+//       });
+//     }
+
+//     // Use populate here to include full seller info in the listing response
+//     const populatedListing = await ListingsModel.findById(listing._id).populate(
+//       "seller",
+//       "username avatar postedListings _id createdAt"
+//     );
+
+//     return response.status(201).json({
+//       message: "Listing successfully created!",
+//       listing: populatedListing,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     return response.status(500).json({
+//       error: "Internal server error",
+//     });
+//   }
+// };
+
+export { getAllListings, getListingsByCategory, addNewListing };

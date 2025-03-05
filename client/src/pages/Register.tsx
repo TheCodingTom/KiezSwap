@@ -1,8 +1,6 @@
 import { TextField } from "@mui/material";
 import { useContext, useState } from "react";
 import { Button } from "react-bootstrap";
-
-import UploadAvatar from "../components/UploadAvatar";
 import { AuthContext } from "../context/AuthContext";
 import { RegisterCredentials } from "../types/customTypes";
 import { useNavigate } from "react-router";
