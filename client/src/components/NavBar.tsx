@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "react-router";
+import { AuthContext } from "../context/AuthContext";
 
 function NavBar() {
+
+  const {user, logout} = useContext(AuthContext)
   return (
     <>
       <Navbar
@@ -26,9 +30,7 @@ function NavBar() {
               </Nav.Link>
             </Nav>
             <Nav>
-              <NavLink to={"/login"}>
-                <Button color="inherit">Login</Button>
-              </NavLink>
+              {user ? <NavLink to={"/"}><Button onClick={logout}>Logout</Button> </NavLink>: <NavLink to={"/login"}><Button>Login</Button></NavLink>}
             </Nav>
           </Navbar.Collapse>
         </Container>
