@@ -20,7 +20,7 @@ function Listings() {
                     {listing.description}
                   </Card.Text>
                   <Card.Text>
-                   {listing.likes ?  `Liked by ${listing.likes} people `: ""}
+                   {listing.likes ?  `Liked by ${listing.likes} people` : ""}
                   </Card.Text>
                   <Button variant="primary">Contact</Button>
                 </Card.Body>
