@@ -3,6 +3,7 @@ import { ListingsContext } from '../context/ListingsContext';
 
 function Listings() {
     const { listings } = useContext(ListingsContext);
+     console.log('listings :>> ', listings);
   return (
     
         <div>
@@ -11,6 +12,7 @@ function Listings() {
           listings.map((listing) => {
             return (
               <div key={listing._id}>
+                
                 <p>{listing.name}</p>
               </div>
             );

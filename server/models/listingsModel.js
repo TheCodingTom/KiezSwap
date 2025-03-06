@@ -27,6 +27,10 @@ const listingsSchema = mongoose.Schema({
     require: true,
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
+  },
+  image: {
+    require: true,
+    type: String,
   }
 });
 

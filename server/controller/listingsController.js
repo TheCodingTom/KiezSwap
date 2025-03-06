@@ -109,14 +109,43 @@ const addNewListing = async (req, res) => {
   let listing;
   try {
     listing = await ListingModel.create(listingData);
-    console.log("listing :>> ", listing);
+    
+    
+
+    if (listingData) {
+      const newListingObject = new ListingModel({
+        name: "listing",
+        description: description,
+        location:location,
+        category:category,
+      });
+
+      const newListing = await newListingObject.save();
+
+      if (newListing) {
+        return res.status(201).json({
+          message: "Listing added successfully",
+          listing: {
+            name: "listing",
+            description: description,
+            location:location,
+            category:category,
+          },
+        });
+      }
+    }
+
+    
   } catch (error) {
     console.log("error posting new listing :>> ", error);
-    return response.status(500).json({
+    return res.status(500).json({
       error: "Error creating the listing",
     });
   }
 };
+
+
+
 
 // post new listing
 // const postNewListing = async (request, response) => {
