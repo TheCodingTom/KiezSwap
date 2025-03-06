@@ -96,15 +96,6 @@ const getListingsByCategory = async (req, res) => {
 };
 
 const addNewListing = async (req, res) => {
-  // const listingData = {
-  //   name: req.body.name,
-  //   description: req.body.description,
-  //   price: req.body.price,
-  //   location: req.body.location,
-  //   category: req.body.category,
-  //   likes: req.body.likes,
-  //   user: req.body.user,
-  // };
 
   const { name, description, location, category } = req.body;
 
@@ -124,7 +115,7 @@ const addNewListing = async (req, res) => {
           id: newListing._id,
           name: newListing.name,
           description: newListing.description,
-          location: newListing.location,
+          location: {city: newListing.city, district: newListing.district},
           category: newListing.category,
         },
       });
@@ -136,67 +127,5 @@ const addNewListing = async (req, res) => {
     });
   }
 };
-
-// post new listing
-// const postNewListing = async (request, response) => {
-//   try {
-//     console.log("Request User:", request.user);
-//     const userId = request.user._id;
-
-//     // upload picture in cloudinary
-
-//     const uploadedImages = await Promise.all(
-//       request.files.map(async (file) => {
-//         return pictureUpload(file.path);
-//       })
-//     );
-
-//     //creating variable to save the data in
-//     const listingData = {
-//       condition: request.body.condition,
-//       images: uploadedImages,
-//       delivery: request.body.delivery,
-//       description: request.body.description,
-//       light: request.body.light,
-//       location: request.body.location,
-//       price: parseInt(request.body.price),
-//       soil: request.body.soil,
-//       species: request.body.species,
-//       water: request.body.water,
-//       seller: userId,
-//       deal: request.body.deal,
-//       swapfor: request.body.swapfor,
-//     };
-
-//     // After listing is created, update user data
-//     try {
-//       const user = await UserModel.findById(request.user.id);
-//       user.postedListings.push(listing._id);
-//       await user.save();
-//       console.log("USER :>> ", user);
-//     } catch (error) {
-//       console.log("Error saving reference to the user", error);
-//       return response.status(500).json({
-//         error: "Error updating user data",
-//       });
-//     }
-
-//     // Use populate here to include full seller info in the listing response
-//     const populatedListing = await ListingsModel.findById(listing._id).populate(
-//       "seller",
-//       "username avatar postedListings _id createdAt"
-//     );
-
-//     return response.status(201).json({
-//       message: "Listing successfully created!",
-//       listing: populatedListing,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     return response.status(500).json({
-//       error: "Internal server error",
-//     });
-//   }
-// };
 
 export { getAllListings, getListingsByCategory, addNewListing };

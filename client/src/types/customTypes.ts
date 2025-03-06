@@ -50,6 +50,7 @@ export type ListingType = {
   location: LocationType;
   category: string;
   likes: number;
+  image: string;
 };
 
 export type LocationType = {
