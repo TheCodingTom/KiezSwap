@@ -1,6 +1,8 @@
 // these functions control the operations that we wanna do with listings in our database
 
 import ListingModel from "../models/listingsModel.js";
+import cloudinaryUpload from "../utilities/cloudinaryUpload.js";
+import deleteTempFile from "../utilities/deleteTempFile.js";
 
 const getAllListings = async (req, res) => {
   //   console.log("get all listings running");
@@ -96,20 +98,53 @@ const getListingsByCategory = async (req, res) => {
 };
 
 const addNewListing = async (req, res) => {
+  // This is to ensure that data from form fields is available
+  const { name, description, city, district } = req.body;
 
-  // we send this data in the empty req.body
-  const { name, description, location, category } = req.body;
+  if (!name || !description || !city || !district) {
+    return res
+      .status(400)
+      .json({ error: "All fields except image are required" });
+  }
 
   try {
+    let imageUrl = null;
+    // The image is not in req.body but in req.file
+    if (req.file) {
+      // check file size here or do it in multer.js with fileSize
+
+      // if we have a req.file we upload it to Cloudinary
+
+      const uploadedImage = await cloudinaryUpload(req.file); // or .path?
+
+      if (!uploadedImage) {
+        deleteTempFile(req.file);
+        return res.status(400).json({
+          error: "Image couldn't be uploaded",
+        });
+      }
+      if (uploadedImage) {
+        deleteTempFile(req.file);
+        imageUrl = uploadedImage.secure_url;
+      }
+    }
+
     const newListingObject = new ListingModel({
       name: name,
       description: description,
-      location: location,
-      category: category,
+      city: city,
+      district: district,
+      image: imageUrl,
     });
 
     // .save() is async so need to await it
     const newListing = await newListingObject.save();
+
+    if (!newListing) {
+      return res.status(400).json({
+        error: "Error while adding new listing",
+      });
+    }
 
     if (newListing) {
       return res.status(201).json({
@@ -118,8 +153,10 @@ const addNewListing = async (req, res) => {
           id: newListing._id,
           name: newListing.name,
           description: newListing.description,
-          location: newListing.location,
-          category: newListing.category,
+          city: newListing.city,
+          district: newListing.district,
+          image: newListing.image,
+          // category: newListing.category,
         },
       });
     }
@@ -131,35 +168,35 @@ const addNewListing = async (req, res) => {
   }
 };
 
-const listingImageUpload = async (req, res) => {
-  console.log("req.file :>> ", req.file);
+// const listingImageUpload = async (req, res) => {
+//   console.log("req.file :>> ", req.file);
 
-  if (!req.file) {
-    return res.status(500).json({ error: "file not supported" });
-  }
+//   if (!req.file) {
+//     return res.status(500).json({ error: "file not supported" });
+//   }
 
-  if (req.file) {
-    // check file size here or do it in multer.js with fileSize
-    // if we have a req.file we upload it to Cloudinary
+//   if (req.file) {
+//     // check file size here or do it in multer.js with fileSize
+//     // if we have a req.file we upload it to Cloudinary
 
-    const uploadedImage = await cloudinaryUpload(req.file);
+//     const uploadedImage = await cloudinaryUpload(req.file);
 
-    if (!uploadedImage) {
-      deleteTempFile(req.file);
-      return res.status(400).json({
-        error: "Image couldn't be uploaded",
-      });
-    }
-    if (uploadedImage) {
-      deleteTempFile(req.file);
-      return res.status(200).json({
-        message: "Image uploaded successfully",
-        imageURL: uploadedImage.secure_url,
-      });
-    }
+//     if (!uploadedImage) {
+//       deleteTempFile(req.file);
+//       return res.status(400).json({
+//         error: "Image couldn't be uploaded",
+//       });
+//     }
+//     if (uploadedImage) {
+//       deleteTempFile(req.file);
+//       return res.status(200).json({
+//         message: "Image uploaded successfully",
+//         imageURL: uploadedImage.secure_url,
+//       });
+//     }
 
-    console.log("image uploaded", uploadedImage);
-  }
-};
+//     console.log("image uploaded", uploadedImage);
+//   }
+// };
 
-export { getAllListings, getListingsByCategory, addNewListing, listingImageUpload };
+export { getAllListings, getListingsByCategory, addNewListing };

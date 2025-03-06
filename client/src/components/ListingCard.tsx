@@ -11,9 +11,9 @@ function ListingCard({ listing }: ListingCardProps) {
       <Card.Img
         variant="top"
         src={listing.image}
-        style={{ height: 250, objectFit: "cover" }}
+        style={{ height: 250, objectFit: "cover"}}
       />
-      <Card.Body>
+      <Card.Body  style={{ backgroundColor:"lightgrey"}}>
         <Card.Title>{listing.name}</Card.Title>
         <Card.Text>{listing.description}</Card.Text>
         {/* <Card.Text>{listing.location.city}</Card.Text> */}

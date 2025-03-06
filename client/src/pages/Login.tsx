@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import { LoginCredentials } from "../types/customTypes";
 import { Link, useNavigate } from "react-router";
-import Profile from "./Profile";
+
 
 function Login() {
   const { user, login } = useContext(AuthContext);
@@ -78,8 +78,6 @@ function Login() {
           </div>
         )}
       </div>
-
-      <Profile />
     </>
   );
 }
