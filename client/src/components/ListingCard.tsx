@@ -8,7 +8,11 @@ type ListingCardProps = {
 function ListingCard({ listing }: ListingCardProps) {
   return (
     <Card style={{ width: "18rem" }}>
-      <Card.Img variant="top" src={listing.image} />
+      <Card.Img
+        variant="top"
+        src={listing.image}
+        style={{ height: 250, objectFit: "cover" }}
+      />
       <Card.Body>
         <Card.Title>{listing.name}</Card.Title>
         <Card.Text>{listing.description}</Card.Text>
