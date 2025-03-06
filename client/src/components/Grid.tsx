@@ -1,5 +1,6 @@
-import React, { useContext } from 'react'
+import  { useContext } from 'react'
 import { ListingsContext } from '../context/ListingsContext';
+import ListingCard from './ListingCard';
 
 function Grid() {
 const {listings} = useContext(ListingsContext)
@@ -8,7 +9,7 @@ const {listings} = useContext(ListingsContext)
     <div className="cards-container">
       {listings &&
         listings.map((listing) => {
-          return <CountryCard listing={listing} key={listing._id} />;
+          return <ListingCard listing={listing} key={listing._id} />;
         })}
     </div>
   )
