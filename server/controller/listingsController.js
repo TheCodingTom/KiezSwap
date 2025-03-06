@@ -96,46 +96,39 @@ const getListingsByCategory = async (req, res) => {
 };
 
 const addNewListing = async (req, res) => {
-  const listingData = {
-    name: req.body.name,
-    description: req.body.description,
-    price: req.body.price,
-    location: req.body.location,
-    category: req.body.category,
-    likes: req.body.likes,
-    user: req.body.user,
-  };
+  // const listingData = {
+  //   name: req.body.name,
+  //   description: req.body.description,
+  //   price: req.body.price,
+  //   location: req.body.location,
+  //   category: req.body.category,
+  //   likes: req.body.likes,
+  //   user: req.body.user,
+  // };
 
-  let listing;
+  const { name, description, location, category } = req.body;
+
   try {
-    listing = await ListingModel.create(listingData);
-    
-    
+    const newListingObject = new ListingModel({
+      name: name,
+      description: description,
+      location: location,
+      category: category,
+    });
+    const newListing = newListingObject.save();
 
-    if (listingData) {
-      const newListingObject = new ListingModel({
-        name: "listing",
-        description: description,
-        location:location,
-        category:category,
+    if (newListing) {
+      return res.status(201).json({
+        message: "Listing added successfully",
+        listing: {
+          id: newListing._id,
+          name: newListing.name,
+          description: newListing.description,
+          location: newListing.location,
+          category: newListing.category,
+        },
       });
-
-      const newListing = await newListingObject.save();
-
-      if (newListing) {
-        return res.status(201).json({
-          message: "Listing added successfully",
-          listing: {
-            name: "listing",
-            description: description,
-            location:location,
-            category:category,
-          },
-        });
-      }
     }
-
-    
   } catch (error) {
     console.log("error posting new listing :>> ", error);
     return res.status(500).json({
@@ -143,9 +136,6 @@ const addNewListing = async (req, res) => {
     });
   }
 };
-
-
-
 
 // post new listing
 // const postNewListing = async (request, response) => {
