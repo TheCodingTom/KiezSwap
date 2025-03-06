@@ -2,7 +2,7 @@ import express from "express";
 import colors from "colors";
 
 import cors from "cors";
-import testRouter from "./routes/testRoute.js";
+
 import * as dotenv from "dotenv";
 dotenv.config(); // this initialise the dotenv package
 
@@ -39,7 +39,6 @@ const startServer = () => {
 };
 
 const loadRoutes = () => {
-  app.use("/api", testRouter);
   app.use("/api/listings", listingsRouter); // we define endpoint of the listingsRouter - if after that comes a "/all", we'll trigger the getAllListings function
   app.use("/api/users", usersRouter);
 };
