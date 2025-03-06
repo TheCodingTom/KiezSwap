@@ -16,6 +16,7 @@ function ListingCard({ listing }: ListingCardProps) {
       <Card.Body>
         <Card.Title>{listing.name}</Card.Title>
         <Card.Text>{listing.description}</Card.Text>
+        {/* <Card.Text>{listing.location.city}</Card.Text> */}
         <Card.Text>
           {listing.likes ? `Liked by ${listing.likes} people` : ""}
         </Card.Text>

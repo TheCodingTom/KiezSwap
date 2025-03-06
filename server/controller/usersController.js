@@ -35,7 +35,6 @@ const getAllUsers = async (req, res) => {
 };
 
 const imageUpload = async (req, res) => {
-  console.log("image upload working");
   console.log("req.file :>> ", req.file);
 
   if (!req.file) {

@@ -97,6 +97,7 @@ const getListingsByCategory = async (req, res) => {
 
 const addNewListing = async (req, res) => {
 
+  // we send this data in the empty req.body
   const { name, description, location, category } = req.body;
 
   try {
@@ -106,7 +107,9 @@ const addNewListing = async (req, res) => {
       location: location,
       category: category,
     });
-    const newListing = newListingObject.save();
+
+    // .save() is async so need to await it
+    const newListing = await newListingObject.save();
 
     if (newListing) {
       return res.status(201).json({
@@ -115,7 +118,7 @@ const addNewListing = async (req, res) => {
           id: newListing._id,
           name: newListing.name,
           description: newListing.description,
-          location: {city: newListing.city, district: newListing.district},
+          location: newListing.location,
           category: newListing.category,
         },
       });
@@ -128,4 +131,35 @@ const addNewListing = async (req, res) => {
   }
 };
 
-export { getAllListings, getListingsByCategory, addNewListing };
+const listingImageUpload = async (req, res) => {
+  console.log("req.file :>> ", req.file);
+
+  if (!req.file) {
+    return res.status(500).json({ error: "file not supported" });
+  }
+
+  if (req.file) {
+    // check file size here or do it in multer.js with fileSize
+    // if we have a req.file we upload it to Cloudinary
+
+    const uploadedImage = await cloudinaryUpload(req.file);
+
+    if (!uploadedImage) {
+      deleteTempFile(req.file);
+      return res.status(400).json({
+        error: "Image couldn't be uploaded",
+      });
+    }
+    if (uploadedImage) {
+      deleteTempFile(req.file);
+      return res.status(200).json({
+        message: "Image uploaded successfully",
+        imageURL: uploadedImage.secure_url,
+      });
+    }
+
+    console.log("image uploaded", uploadedImage);
+  }
+};
+
+export { getAllListings, getListingsByCategory, addNewListing, listingImageUpload };
