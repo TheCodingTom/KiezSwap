@@ -1,6 +1,7 @@
 import { Button, Card } from "react-bootstrap";
 import { ListingType } from "../types/customTypes";
 
+
 type ListingCardProps = {
   listing: ListingType;
 };
@@ -15,6 +16,8 @@ function ListingCard({ listing }: ListingCardProps) {
       />
       <Card.Body  style={{ backgroundColor:"lightgrey"}}>
         <Card.Title>{listing.name}</Card.Title>
+        {/* {listing.user.email ? listing.user.email : ""} */}
+
         <Card.Text>{listing.description}</Card.Text>
         {/* <Card.Text>{listing.location.city}</Card.Text> */}
         <Card.Text>

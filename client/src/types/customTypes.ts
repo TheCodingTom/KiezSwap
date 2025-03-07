@@ -51,6 +51,7 @@ export type ListingType = {
   category: string;
   likes: number;
   image: string;
+  user: User
 };
 
 export type LocationType = {

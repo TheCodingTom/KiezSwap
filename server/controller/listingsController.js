@@ -1,8 +1,10 @@
 // these functions control the operations that we wanna do with listings in our database
 
+import { request } from "express";
 import ListingModel from "../models/listingsModel.js";
 import cloudinaryUpload from "../utilities/cloudinaryUpload.js";
 import deleteTempFile from "../utilities/deleteTempFile.js";
+import UserModel from "../models/usersModel.js";
 
 const getAllListings = async (req, res) => {
   //   console.log("get all listings running");
@@ -108,14 +110,13 @@ const addNewListing = async (req, res) => {
   }
 
   try {
+
     let imageUrl = null;
     // The image is not in req.body but in req.file
     if (req.file) {
-      // check file size here or do it in multer.js with fileSize
+      // Upload image to Cloudinary
 
-      // if we have a req.file we upload it to Cloudinary
-
-      const uploadedImage = await cloudinaryUpload(req.file); // or .path?
+      const uploadedImage = await cloudinaryUpload(req.file); 
 
       if (!uploadedImage) {
         deleteTempFile(req.file);
@@ -124,6 +125,7 @@ const addNewListing = async (req, res) => {
         });
       }
       if (uploadedImage) {
+         // no return here otherwise the function stops working and the data won't reach MongoDB
         deleteTempFile(req.file);
         imageUrl = uploadedImage.secure_url;
       }
@@ -166,37 +168,7 @@ const addNewListing = async (req, res) => {
       error: "Error creating the listing",
     });
   }
+
 };
-
-// const listingImageUpload = async (req, res) => {
-//   console.log("req.file :>> ", req.file);
-
-//   if (!req.file) {
-//     return res.status(500).json({ error: "file not supported" });
-//   }
-
-//   if (req.file) {
-//     // check file size here or do it in multer.js with fileSize
-//     // if we have a req.file we upload it to Cloudinary
-
-//     const uploadedImage = await cloudinaryUpload(req.file);
-
-//     if (!uploadedImage) {
-//       deleteTempFile(req.file);
-//       return res.status(400).json({
-//         error: "Image couldn't be uploaded",
-//       });
-//     }
-//     if (uploadedImage) {
-//       deleteTempFile(req.file);
-//       return res.status(200).json({
-//         message: "Image uploaded successfully",
-//         imageURL: uploadedImage.secure_url,
-//       });
-//     }
-
-//     console.log("image uploaded", uploadedImage);
-//   }
-// };
 
 export { getAllListings, getListingsByCategory, addNewListing };
