@@ -14,7 +14,7 @@ function Profile() {
         <div>
           <h3>Hi {user.username}</h3>
           <h4>Email: {user?.email}</h4>
-          <img src={user.image} alt="user avatar" />
+          <img src={user.image} alt="user avatar" style={{width:"150px", height:"auto"}}/>
         </div>
       )}
     </>
