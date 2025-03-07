@@ -5,7 +5,6 @@ import { AuthContext } from "../context/AuthContext";
 import { LoginCredentials } from "../types/customTypes";
 import { Link, useNavigate } from "react-router";
 
-
 function Login() {
   const { user, login } = useContext(AuthContext);
 

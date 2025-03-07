@@ -44,7 +44,7 @@ export type GetProfileOkResponse = {
 };
 
 export type ListingType = {
-  _id: string;
+  id: string;
   name: string;
   description: string;
   location: LocationType;
@@ -58,3 +58,5 @@ export type LocationType = {
   city: string;
   district: string;
 };
+
+export type ListingFormType = Omit<ListingType, "_id">;
