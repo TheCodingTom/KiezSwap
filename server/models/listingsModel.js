@@ -11,9 +11,13 @@ const listingsSchema = mongoose.Schema({
     type: String,
   },
   price: { require: false, type: Number },
-  location: {
-    city: { require: true, type: String },
-    district: { require: true, type: String },
+  // location: {
+  //   city: { require: true, type: String },
+  //   district: { require: true, type: String },
+  // },
+  district: {
+    require: true,
+    type: String,
   },
   category: {
     require: true,

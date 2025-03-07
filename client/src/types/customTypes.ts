@@ -44,7 +44,7 @@ export type GetProfileOkResponse = {
 };
 
 export type ListingType = {
-  id: string;
+  _id: string;
   name: string;
   description: string;
   location: LocationType;

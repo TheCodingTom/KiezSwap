@@ -101,9 +101,9 @@ const getListingsByCategory = async (req, res) => {
 
 const addNewListing = async (req, res) => {
   // This is to ensure that data from form fields is available
-  const { name, description, city, district } = req.body;
+  const { name, description, city, district, category } = req.body;
 
-  if (!name || !description || !city || !district) {
+  if (!name || !description || !city || !district ) {
     return res
       .status(400)
       .json({ error: "All fields except image are required" });
@@ -137,6 +137,8 @@ const addNewListing = async (req, res) => {
       city: city,
       district: district,
       image: imageUrl,
+      // category: category,
+      // user: user._id // ID or full user?
     });
 
     // .save() is async so need to await it
@@ -158,10 +160,16 @@ const addNewListing = async (req, res) => {
           city: newListing.city,
           district: newListing.district,
           image: newListing.image,
+          // user: newListing.user,
           // category: newListing.category,
         },
       });
     }
+
+      // Use populate here to include full seller info in the listing response ??
+ 
+
+
   } catch (error) {
     console.log("error posting new listing :>> ", error);
     return res.status(500).json({
