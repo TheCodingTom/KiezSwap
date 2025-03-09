@@ -11,7 +11,7 @@ const usersSchema = mongoose.Schema(
     email: { type: String, require: true, unique: true, minLength : [4, "email too short"] },
     password: { type: String, require: true},
     image: { type: String, require: false },
-    postedListings: [
+    listings: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Listing",

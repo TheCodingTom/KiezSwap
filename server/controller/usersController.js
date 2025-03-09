@@ -9,8 +9,8 @@ const getAllUsers = async (req, res) => {
   //   console.log("all users working");
   try {
     const allUsers = await UserModel.find().populate({
-      path: "listings",
-      select: ["name", "location", "likes"],
+      path: "listing",
+      select: ["name", "category", "district"],
     });
     console.log(allUsers);
     if (allUsers.length === 0) {
@@ -177,36 +177,48 @@ const login = async (req, res) => {
       }
     }
   } catch (error) {
-    console.log('error :>> ', error);;
+    console.log("error :>> ", error);
     return res.status(500).json({
-      error:"Something went wrong during login",
-      errorMessage: error.message
-    })
+      error: "Something went wrong during login",
+      errorMessage: error.message,
+    });
   }
 };
 
-
 const getProfile = async (req, res) => {
-  console.log("get profile working");
-  console.log('req.user :>> ', req.user);
+  console.log(req.user);
 
-if (!req.user) {
-  return res.status(404).json({
-    error:"User needs to login again"
-  })
-}
+  try {
+    const userProfile = await UserModel.findOne({
+      email: req.user.email,
+    }).populate({
+      path: "listings",
+      select: ["name", "district"],
+    });
+    console.log(userProfile);
 
-if (req.user) {
-  return res.status(200).json({
-    message: "User profile",
-    id: req.user._id,
-    username: req.user.username,
-    email: req.user.email,
-    image: req.user.image,
-    // listings: req.user.listings,
-  })
-}
+    if (!userProfile) {
+      return res.status(404).json({
+        error: "User needs to login again",
+      });
+    }
 
-}
+    if (userProfile) {
+      return res.status(200).json({
+        message: "User profile",
+        id: userProfile._id,
+        username: userProfile.username,
+        email: userProfile.email,
+        image: userProfile.image,
+        listings: userProfile.listings,
+      });
+    }
+  } catch (error) {
+    console.log("error :>> ", error);
+    res.status(500).json({
+      error: "Something went wrong trying to send the response",
+    });
+  }
+};
 
 export { getAllUsers, imageUpload, registerNewUser, login, getProfile };
