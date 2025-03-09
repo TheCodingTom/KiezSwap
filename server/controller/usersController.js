@@ -170,6 +170,7 @@ const login = async (req, res) => {
               email: existingUser.email,
               id: existingUser._id,
               image: existingUser.image, // double check this
+              // listings: existingUser.listings
             },
             token,
           });

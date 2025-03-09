@@ -55,3 +55,11 @@ h1 {
   gap: 20px;
   justify-content: center;
 }
+
+.error {
+  color: red;
+  font-size: 15px;
+}
+.errorInput {
+  border: 1px solid red;
+}
