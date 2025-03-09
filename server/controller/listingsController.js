@@ -167,8 +167,19 @@ const addNewListing = async (req, res) => {
       });
     }
 
-      // Use populate here to include full seller info in the listing response ??
- 
+      // Update user data once the listing has been created
+      
+      try {
+        const seller = await UserModel.findById(request.user);
+        seller.listings.push(newListing._id);
+        await seller.save();
+        console.log("Seller :>> ", seller);
+      } catch (error) {
+        console.log("Error saving reference to the user", error);
+        return response.status(500).json({
+          error: "Error updating user data",
+        });
+      }
 
 
   } catch (error) {
