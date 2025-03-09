@@ -3,10 +3,10 @@ import { AuthContext } from "../context/AuthContext";
 
 function Home() {
 
-  const {user} = useContext(AuthContext)
+  const {user, isAuthenticated} = useContext(AuthContext)
   return (
     <div>
-      {user ? <h1>Welcome to KiezSwap, {user.username}!</h1> : <h1>Welcome to KiezSwap!</h1>}
+      {isAuthenticated ? <h1>Welcome to KiezSwap, {user?.username}!</h1> : <h1>Welcome to KiezSwap!</h1>}
     </div>
   );
 }

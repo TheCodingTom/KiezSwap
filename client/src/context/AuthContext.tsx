@@ -38,7 +38,6 @@ import {
   User,
 } from "../types/customTypes";
 
-
 export const AuthContext = createContext<AuthContextType>(contextInitialValue);
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
@@ -130,12 +129,12 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     console.log("user logged out successfully");
   };
 
-
   const checkUserStatus = async () => {
     if (token) {
-      setIsAuthenticated(true);
+      setIsAuthenticated(true); //  ensures that user stays logged in after refresh
 
       if (!user) {
+        // if the user is not set, we fetch data from the backend
         const myHeaders = new Headers();
         myHeaders.append("Authorization", `Bearer ${token}`);
 
@@ -156,59 +155,23 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
 
           if (response.ok) {
             const result = await response.json();
-            console.log('result in the check user status):>> ', result);
+            console.log("result in the check user status):>> ", result);
             setUser(result);
-            
           }
         } catch (error) {
           console.log("error :>> ", error);
         }
       }
     } else {
+      // if no token, the user is logged out
       setIsAuthenticated(false);
     }
   };
 
+  // check if the user is logged in when the app loads
   useEffect(() => {
     checkUserStatus();
   }, []);
-
-
-  // const { token, userStatusMessage } = useUserStatus();
-
-  // const checkUserStatus = async () => {
-  //   const myHeaders = new Headers();
-  //     myHeaders.append("Authorization", `Bearer ${token}`);
-
-  //     const requestOptions = {
-  //       method: "GET",
-  //       headers: myHeaders,
-  //     };
-
-  //     try  {
-  //       const response = await fetch(
-  //       "http://localhost:4000/api/users/profile",
-  //       requestOptions
-  //     );
-
-  //     // if response ok...
-
-  //     const result = await response.json();
-  //     console.log(result);
-  //     setUser(result.user)
-
-  //     console.log(userStatusMessage);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  // }
-
-  // useEffect runs on mount so checkUserStatus can run only if there's a token
-  // useEffect(() => {
-  //   if (token) {
-  //     checkUserStatus()
-  //   }
-  // }, [token])
 
   return (
     <div>

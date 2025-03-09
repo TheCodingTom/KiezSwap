@@ -101,15 +101,16 @@ const getListingsByCategory = async (req, res) => {
 
 const addNewListing = async (req, res) => {
   // This is to ensure that data from form fields is available
-  const { name, description, city, district, category } = req.body;
 
-  if (!name || !description || !city || !district ) {
-    return res
-      .status(400)
-      .json({ error: "All fields except image are required" });
+  console.log(req.body);
+  const { name, description, city, district, user } = req.body;
+
+  if (!name || !description || !city || !district || !user) {
+    return res.status(400).json({ error: "All fields except image are required" });
   }
 
   try {
+   
 
     let imageUrl = null;
     // The image is not in req.body but in req.file
@@ -138,7 +139,7 @@ const addNewListing = async (req, res) => {
       district: district,
       image: imageUrl,
       // category: category,
-      // user: user._id // ID or full user?
+      user: user
     });
 
     // .save() is async so need to await it
@@ -160,7 +161,7 @@ const addNewListing = async (req, res) => {
           city: newListing.city,
           district: newListing.district,
           image: newListing.image,
-          // user: newListing.user,
+          user: newListing.user,
           // category: newListing.category,
         },
       });
