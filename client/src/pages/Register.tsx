@@ -1,12 +1,15 @@
 import { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
-import { RegisterCredentials } from "../types/customTypes";
+
 import { useNavigate } from "react-router";
 
 function Register() {
   const { register } = useContext(AuthContext);
-  const [newUser, setNewUser] = useState<RegisterCredentials | null>(null);
+
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const [errors, setErrors] = useState({
     username: "",
@@ -28,33 +31,61 @@ function Register() {
     return password.length >= 6;
   };
 
-  const handleRegisterInputChange = (
+  const handleUsernameInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    console.log(e.target.name);
-    console.log(e.target.value);
-
+    setUsername(e.target.value);
     setErrors({
       ...errors,
       username: validateUsername(e.target.value)
         ? ""
         : "Username must be at least 4 characters",
+    });
+  };
+
+  const handleEmailInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setEmail(e.target.value);
+    setErrors({
+      ...errors,
+
       email: validateEmail(e.target.value) ? "" : "Invalid email format",
+    });
+  };
+
+  const handlePasswordInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setPassword(e.target.value);
+    setErrors({
+      ...errors,
+
       password: validatePassword(e.target.value)
         ? ""
         : "Password must be at least 6 characters",
     });
-
-    setNewUser({ ...newUser!, [e.target.name]: e.target.value });
   };
 
   const handleSubmitRegister = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
+    if (!validateEmail(email) || !validatePassword(password)) {
+      setErrors({
+        username: validateUsername(username)
+          ? ""
+          : "Username must be at least 4 characters",
+        email: validateEmail(email) ? "" : "Invalid email format",
+        password: validatePassword(password)
+          ? ""
+          : "Password must be at least 6 characters",
+      });
+      return;
+    }
 
-    if (newUser) {
-      register(newUser.username, newUser.email, newUser.password);
+    if (username && email && password) {
+      register(username, email, password);
       goToLogin("/login");
     }
   };
@@ -70,7 +101,7 @@ function Register() {
               type="text"
               placeholder="Enter username"
               name="username"
-              onChange={handleRegisterInputChange}
+              onChange={handleUsernameInputChange}
               className={
                 errors.username && errors.username.length > 0
                   ? "errorInput"
@@ -90,7 +121,7 @@ function Register() {
               type="text"
               placeholder="Enter email"
               name="email"
-              onChange={handleRegisterInputChange}
+              onChange={handleEmailInputChange}
               className={
                 errors.email && errors.email.length > 0 ? "errorInput" : "input"
               }
@@ -108,7 +139,7 @@ function Register() {
               type="text"
               placeholder="Enter password"
               name="password"
-              onChange={handleRegisterInputChange}
+              onChange={handlePasswordInputChange}
               className={
                 errors.password && errors.password.length > 0
                   ? "errorInput"
