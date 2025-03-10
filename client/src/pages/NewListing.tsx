@@ -1,4 +1,3 @@
-
 import { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
@@ -12,19 +11,19 @@ function NewListing() {
     district: "",
   });
 
-   const [selectedFile, setSelectedFile] = useState<File | string>("");
-    const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | string>("");
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-    const handleAttachFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e);
-        const file = e.target.files?.[0];
-    
-        if (file instanceof File) {
-          // if our document/image matches the File type the function will run
-          setSelectedFile(file);
-          setImagePreview(URL.createObjectURL(file));
-        }
-      };
+  const handleAttachFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e);
+    const file = e.target.files?.[0];
+
+    if (file instanceof File) {
+      // if our document/image matches the File type the function will run
+      setSelectedFile(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -50,7 +49,6 @@ function NewListing() {
       form.append("district", formData.district);
       form.append("user", user.id);
       form.append("image", selectedFile);
-      // form.append("image", selectedFile);
 
       try {
         const response = await fetch(
@@ -66,7 +64,7 @@ function NewListing() {
 
         const result = await response.json();
         console.log(result);
-        alert("Listing added successfully!");
+      
       } catch (error) {
         console.error("Error uploading listing:", error);
       }
@@ -113,14 +111,16 @@ function NewListing() {
             />
           </Form.Group>
 
-          <input
-            type="file"
-            name="image"
-            id="image"
-            accept="image/*"
-            onChange={handleAttachFile}
-          />
-        
+          <Form.Group controlId="image">
+            <Form.Label>Upload Image</Form.Label>
+            <Form.Control
+              type="file"
+              name="image"
+              accept="image/*"
+              onChange={handleAttachFile}
+            />
+          </Form.Group>
+
           {imagePreview && (
             <img
               src={imagePreview}
@@ -129,8 +129,9 @@ function NewListing() {
             />
           )}
         </form>
+        <Button onClick={handleFormSubmit}>Submit</Button>
       </div>
-      <Button onClick={handleFormSubmit}>Submit</Button>
+      
     </>
   );
 }

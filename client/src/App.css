@@ -56,6 +56,13 @@ h1 {
   justify-content: center;
 }
 
+.button-container {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+/* registration error handling */
 .error {
   color: red;
   font-size: 15px;

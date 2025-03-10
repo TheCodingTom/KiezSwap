@@ -11,7 +11,9 @@ function Listings() {
 
   return (
     <>
+      <div className="button-container">
       {user ? <NavLink to={"/newlisting"}><Button>Add new listing</Button></NavLink> : ""}
+      </div>
       <Grid />
     </>
   );

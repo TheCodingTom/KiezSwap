@@ -106,18 +106,18 @@ const addNewListing = async (req, res) => {
   const { name, description, city, district, user } = req.body;
 
   if (!name || !description || !district || !user) {
-    return res.status(400).json({ error: "All fields except image are required" });
+    return res
+      .status(400)
+      .json({ error: "All fields except image are required" });
   }
 
   try {
-   
-
     let imageUrl = null;
     // The image is not in req.body but in req.file
     if (req.file) {
       // Upload image to Cloudinary
 
-      const uploadedImage = await cloudinaryUpload(req.file); 
+      const uploadedImage = await cloudinaryUpload(req.file);
 
       if (!uploadedImage) {
         deleteTempFile(req.file);
@@ -126,7 +126,7 @@ const addNewListing = async (req, res) => {
         });
       }
       if (uploadedImage) {
-         // no return here otherwise the function stops working and the data won't reach MongoDB
+        // no return here otherwise the function stops working and the data won't reach MongoDB
         deleteTempFile(req.file);
         imageUrl = uploadedImage.secure_url;
       }
@@ -135,11 +135,11 @@ const addNewListing = async (req, res) => {
     const newListingObject = new ListingModel({
       name: name,
       description: description,
-      city: city,
+      // city: city,
       district: district,
       image: imageUrl,
       // category: category,
-      user: user
+      user: user,
     });
 
     // .save() is async so need to await it
@@ -167,18 +167,22 @@ const addNewListing = async (req, res) => {
       });
     }
 
-      // Update user data once the listing has been created
-      
-     
+    // Update user data once the listing has been created
 
-
+    try {
+      const user = await UserModel.findOne(req.user.id);
+      user.listings.push(newListing._id);
+      await user.save();
+      console.log(user);
+    } catch (error) {
+      console.log("error saving reference to the user");
+    }
   } catch (error) {
     console.log("error posting new listing :>> ", error);
     return res.status(500).json({
       error: "Error creating the listing",
     });
   }
-
 };
 
 export { getAllListings, getListingsByCategory, addNewListing };

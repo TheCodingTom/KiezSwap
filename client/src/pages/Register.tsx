@@ -1,6 +1,5 @@
-import { TextField } from "@mui/material";
 import { useContext, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import { RegisterCredentials } from "../types/customTypes";
 import { useNavigate } from "react-router";
@@ -8,6 +7,7 @@ import { useNavigate } from "react-router";
 function Register() {
   const { register } = useContext(AuthContext);
   const [newUser, setNewUser] = useState<RegisterCredentials | null>(null);
+
   const [errors, setErrors] = useState({
     username: "",
     email: "",
@@ -65,17 +65,19 @@ function Register() {
 
       <div className="form-container">
         <form className="register-form">
-          <TextField
-            label="Username"
-            variant="outlined"
-            name="username"
-            onChange={handleRegisterInputChange}
-            className={
-              errors.username && errors.username.length > 0
-                ? "errorInput"
-                : "input"
-            }
-          />
+          <Form.Group controlId="username">
+            <Form.Control
+              type="text"
+              placeholder="Enter username"
+              name="username"
+              onChange={handleRegisterInputChange}
+              className={
+                errors.username && errors.username.length > 0
+                  ? "errorInput"
+                  : "input"
+              }
+            />
+          </Form.Group>
 
           {errors.username && errors.username.length > 0 ? (
             <p className="error">{errors.username}</p>
@@ -83,15 +85,17 @@ function Register() {
             ""
           )}
 
-          <TextField
-            label="Email"
-            variant="outlined"
-            name="email"
-            onChange={handleRegisterInputChange}
-            className={
-              errors.email && errors.email.length > 0 ? "errorInput" : "input"
-            }
-          />
+          <Form.Group controlId="email">
+            <Form.Control
+              type="text"
+              placeholder="Enter email"
+              name="email"
+              onChange={handleRegisterInputChange}
+              className={
+                errors.email && errors.email.length > 0 ? "errorInput" : "input"
+              }
+            />
+          </Form.Group>
 
           {errors.email && errors.email.length > 0 ? (
             <p className="error">{errors.email}</p>
@@ -99,17 +103,19 @@ function Register() {
             ""
           )}
 
-          <TextField
-            label="Password"
-            variant="outlined"
-            name="password"
-            onChange={handleRegisterInputChange}
-            className={
-              errors.password && errors.password.length > 0
-                ? "errorInput"
-                : "input"
-            }
-          />
+          <Form.Group controlId="password">
+            <Form.Control
+              type="text"
+              placeholder="Enter password"
+              name="password"
+              onChange={handleRegisterInputChange}
+              className={
+                errors.password && errors.password.length > 0
+                  ? "errorInput"
+                  : "input"
+              }
+            />
+          </Form.Group>
 
           {errors.password && errors.password.length > 0 ? (
             <p className="error">{errors.password}</p>

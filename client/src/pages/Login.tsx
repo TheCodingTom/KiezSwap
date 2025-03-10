@@ -1,6 +1,6 @@
-import { TextField } from "@mui/material";
+
 import React, { useContext, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import { LoginCredentials } from "../types/customTypes";
 import { Link, useNavigate } from "react-router";
@@ -43,18 +43,29 @@ function Login() {
 
       <div className="form-container">
         <form className="register-form">
-          <TextField
-            label="Email"
-            variant="outlined"
-            name="email"
-            onChange={handleLoginInputChange}
-          />
-          <TextField
-            label="Password"
-            variant="outlined"
-            name="password"
-            onChange={handleLoginInputChange}
-          />
+       
+
+          <Form.Group controlId="email">
+            <Form.Control
+              type="text"
+              placeholder="Enter email"
+              name="email"
+              onChange={handleLoginInputChange}
+              
+            />
+          </Form.Group>
+
+
+          <Form.Group controlId="password">
+            <Form.Control
+              type="text"
+              placeholder="Enter password"
+              name="password"
+              onChange={handleLoginInputChange}
+              
+            />
+          </Form.Group>
+
         </form>
         <div>
           <Button onClick={handleSubmitLogin}>Login</Button>
