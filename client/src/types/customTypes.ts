@@ -54,6 +54,12 @@ export type ListingType = {
   user: User
 };
 
+export type NewListingType = {
+  name: string;
+  description: string;
+  district: string;
+}
+
 export type LocationType = {
   city: string;
   district: string;

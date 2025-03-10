@@ -20,7 +20,7 @@ function Register() {
   };
 
   const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // regulare expression used to validate emails
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // regular expression used to validate emails
     return emailRegex.test(email); // test method checks if the email string matches the pattern
   };
 

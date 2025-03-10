@@ -105,7 +105,7 @@ const addNewListing = async (req, res) => {
   console.log(req.body);
   const { name, description, city, district, user } = req.body;
 
-  if (!name || !description || !city || !district || !user) {
+  if (!name || !description || !district || !user) {
     return res.status(400).json({ error: "All fields except image are required" });
   }
 
