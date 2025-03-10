@@ -154,7 +154,7 @@ function Register() {
             ""
           )}
         </form>
-        <Button onClick={handleSubmitRegister}>Register</Button>
+       {!errors.email && !errors.username && !errors.password ?  <Button onClick={handleSubmitRegister}>Register</Button> : <Button disabled >Register</Button>}
       </div>
     </>
   );
