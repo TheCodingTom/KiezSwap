@@ -65,6 +65,8 @@ function Login() {
 
     if (email && password) {
       login(email, password);
+
+      // if login is successfull
       goToHome("/");
     }
   };

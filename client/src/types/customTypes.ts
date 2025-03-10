@@ -8,10 +8,6 @@ export type UserType = {
 
 export type User = Omit<UserType, "password">;
 
-export type LoginCredentials = Pick<UserType, "email" | "password">;
-
-export type RegisterCredentials = Omit<UserType, "id">;
-
 export type UserRegisterFormType = {
   email: string;
   image?: string;
