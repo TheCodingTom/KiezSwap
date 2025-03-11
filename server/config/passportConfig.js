@@ -13,7 +13,10 @@ const passportStrategy = new JwtStrategy(jwtOptions, async function (
   done
 ) {
   try {
-    const user = await UserModel.findOne({ _id: jwt_payload.sub });
+    const user = await UserModel.findOne({ _id: jwt_payload.sub }).populate({
+      path: "listings",
+      select: ["name", "district"],
+    });;
     if (!user) {
       // if token is valid but there's no user -> create account
       console.log("create an account");

@@ -1,9 +1,11 @@
 import { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
+import { ListingsContext } from "../context/ListingsContext";
 
 function NewListing() {
   const { user } = useContext(AuthContext);
+  const { getListings } = useContext(ListingsContext);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -64,7 +66,7 @@ function NewListing() {
 
         const result = await response.json();
         console.log(result);
-      
+        getListings();
       } catch (error) {
         console.error("Error uploading listing:", error);
       }
@@ -131,7 +133,6 @@ function NewListing() {
         </form>
         <Button onClick={handleFormSubmit}>Submit</Button>
       </div>
-      
     </>
   );
 }

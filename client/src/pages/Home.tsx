@@ -7,9 +7,9 @@ function Home() {
   return (
     <div>
       {user ? (
-        <h1>Welcome to KiezSwap, {user?.username}!</h1>
+        <h1>Welcome, {user?.username}!</h1>
       ) : (
-        <h1>Welcome to KiezSwap!</h1>
+        <h1>Welcome!</h1>
       )}
 
       <TrueFocus

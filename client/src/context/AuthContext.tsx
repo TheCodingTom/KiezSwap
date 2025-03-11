@@ -130,10 +130,11 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   };
 
   const checkUserStatus = async () => {
+    console.log("check user status function");
     if (token) {
       setIsAuthenticated(true); //  ensures that user stays logged in after refresh
 
-      if (!user) {
+      // if (!user) {
         // if the user is not set, we fetch data from the backend
         const myHeaders = new Headers();
         myHeaders.append("Authorization", `Bearer ${token}`);
@@ -161,7 +162,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
         } catch (error) {
           console.log("error :>> ", error);
         }
-      }
+      // }
     } else {
       // if no token, the user is logged out
       setIsAuthenticated(false);

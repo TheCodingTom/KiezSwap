@@ -6,11 +6,12 @@ import {
 import { AuthContext } from "../context/AuthContext";
 
 function UploadAvatar() {
-const {user} = useContext(AuthContext)
+const {user, checkUserStatus} = useContext(AuthContext)
 
   const [selectedFile, setSelectedFile] = useState<File | string>("");
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [newUser, setNewUser] = useState<UserRegisterFormType | null>(null);
+  // const [newAvatar, setNewAvatar] = useState<string | null>(null);
 
   const handleAttachFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e);
@@ -28,6 +29,10 @@ const {user} = useContext(AuthContext)
 
     const formdata = new FormData(); // append everything here - username,email,password,image
     formdata.append("image", selectedFile);
+    if(user){
+
+      formdata.append("userId", user?.id);
+    }
 
     const requestOptions = {
       method: "POST",
@@ -41,7 +46,11 @@ const {user} = useContext(AuthContext)
       );
       const result = (await response.json()) as ImageUploadOkResponse;
 
-      setNewUser({ ...newUser!, image: result.imageURL }); // we don't know what's already inside newUser (email etc.) so we use spread operator to add the image
+      
+
+     
+      // setNewUser({ ...newUser!, image: result.imageURL }); // we don't know what's already inside newUser (email etc.) so we use spread operator to add the image
+      checkUserStatus()
       console.log("result :>> ", result);
     } catch (error) {
       console.log("error :>> ", error);
@@ -78,7 +87,7 @@ const {user} = useContext(AuthContext)
         </form>
       </div>
 
-      <div>
+      {/* <div>
         {user && 
          <div>
           <h3>Username: {user.username}</h3>
@@ -89,7 +98,7 @@ const {user} = useContext(AuthContext)
           />
          </div>
         }
-      </div>
+      </div> */}
     </>
   );
 }

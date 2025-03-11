@@ -55,6 +55,8 @@ const imageUpload = async (req, res) => {
     }
     if (uploadedImage) {
       deleteTempFile(req.file);
+
+      const userToUpdate = await UserModel.findByIdAndUpdate({_id:req.body.userId}, {image:uploadedImage.secure_url},{new:true})
       return res.status(200).json({
         message: "Image uploaded successfully",
         imageURL: uploadedImage.secure_url,
@@ -187,39 +189,59 @@ const login = async (req, res) => {
 };
 
 const getProfile = async (req, res) => {
-  console.log(req.user);
+  console.log("req.user>>>>>>",req.user);
 
-  try {
-    const userProfile = await UserModel.findOne({
-      email: req.user.email,
-    }).populate({
-      path: "listings",
-      select: ["name", "district"],
-    });
-    console.log(userProfile);
-
-    if (!userProfile) {
-      return res.status(404).json({
-        error: "User needs to login again",
-      });
-    }
-
-    if (userProfile) {
-      return res.status(200).json({
-        message: "User profile",
-        id: userProfile._id,
-        username: userProfile.username,
-        email: userProfile.email,
-        image: userProfile.image,
-        listings: userProfile.listings,
-      });
-    }
-  } catch (error) {
-    console.log("error :>> ", error);
-    res.status(500).json({
-      error: "Something went wrong trying to send the response",
+  if (!req.user) {
+    return res.status(404).json({
+      error: "User needs to login again",
     });
   }
+  if (req.user) {
+    return res.status(200).json({
+      message: "User profile",
+      // id: userProfile._id,
+      // username: userProfile.username,
+      // email: userProfile.email,
+      // image: userProfile.image,
+      // listings: userProfile.listings,
+      id: req.user._id,
+      username: req.user.username,
+      email: req.user.email,
+      image: req.user.image,
+      listings: req.user.listings,
+    });
+  }
+  // try {
+  //   const userProfile = await UserModel.findOne({
+  //     email: req.user.email,
+  //   }).populate({
+  //     path: "listings",
+  //     select: ["name", "district"],
+  //   });
+  //   console.log(userProfile);
+
+  //   if (!userProfile) {
+  //     return res.status(404).json({
+  //       error: "User needs to login again",
+  //     });
+  //   }
+
+  //   if (userProfile) {
+  //     return res.status(200).json({
+  //       message: "User profile",
+  //       id: userProfile._id,
+  //       username: userProfile.username,
+  //       email: userProfile.email,
+  //       image: userProfile.image,
+  //       listings: userProfile.listings,
+  //     });
+  //   }
+  // } catch (error) {
+  //   console.log("error :>> ", error);
+  //   res.status(500).json({
+  //     error: "Something went wrong trying to send the response",
+  //   });
+  // }
 };
 
 export { getAllUsers, imageUpload, registerNewUser, login, getProfile };

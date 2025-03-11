@@ -1,12 +1,14 @@
 import { useContext } from "react";
 
 import { AuthContext } from "../context/AuthContext";
+import UploadAvatar from "../components/UploadAvatar";
 
 function Profile() {
   const { user } = useContext(AuthContext);
+  console.log(user);
 
   return (
-    <>
+    <div>
       <h1>User Profile</h1>
       {/* <DropdownMenu/> */}
 
@@ -16,8 +18,10 @@ function Profile() {
           <h4>Email: {user?.email}</h4>
           <img src={user.image} alt="user avatar" style={{width:"150px", height:"auto"}}/>
         </div>
+        
       )}
-    </>
+      <UploadAvatar/>
+    </div>
   );
 }
 

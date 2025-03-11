@@ -5,7 +5,7 @@ type ListingsContextProviderProps = {
 type ListingsContextType = {
   listings: ListingType[] | null;
   url: string;
-  getListings: (url: string) => void;
+  getListings: () => void;
 };
 
 const initialValue: ListingsContextType = {
