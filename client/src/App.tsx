@@ -11,6 +11,9 @@ import Profile from "./pages/Profile";
 import ProtectedRoute from "./components/ProtectedRouteComponent";
 import NewListing from "./pages/NewListing";
 import ListingDetails from "./pages/ListingDetails";
+import MyListings from "./pages/MyListings";
+import Messages from "./pages/Messages";
+import Favourites from "./pages/Favourites";
 
 const Root = () => {
   // this route element is the parent of 3 pages, so they all contain the navbar
@@ -50,6 +53,30 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <Profile />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/profile/mylistings"
+                  element={
+                    <ProtectedRoute>
+                      <MyListings />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/profile/messages"
+                  element={
+                    <ProtectedRoute>
+                      <Messages />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/profile/favourites"
+                  element={
+                    <ProtectedRoute>
+                      <Favourites />
                     </ProtectedRoute>
                   }
                 />

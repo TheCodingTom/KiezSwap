@@ -85,5 +85,5 @@ h1 {
 .profile-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
 }
