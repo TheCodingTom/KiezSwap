@@ -10,6 +10,7 @@ import { AuthContextProvider } from "./context/AuthContext";
 import Profile from "./pages/Profile";
 import ProtectedRoute from "./components/ProtectedRouteComponent";
 import NewListing from "./pages/NewListing";
+import ListingDetails from "./pages/ListingDetails";
 
 const Root = () => {
   // this route element is the parent of 3 pages, so they all contain the navbar
@@ -34,6 +35,14 @@ function App() {
                 <Route index element={<Home />} />
                 <Route path="/listings" element={<Listings />} />
                 <Route path="/newlisting" element={<NewListing />} />
+                <Route
+                  path="/listings/:listingDetails"
+                  element={
+                    <ProtectedRoute>
+                      <ListingDetails />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
                 <Route

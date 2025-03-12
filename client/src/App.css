@@ -47,7 +47,7 @@ h1 {
   border-radius: 20%;
   background-color: rgb(144, 190, 206);
 }
- /* listings page */
+/* listings page */
 .cards-container {
   display: flex;
   flex-direction: row;
@@ -60,6 +60,10 @@ h1 {
   display: flex;
   justify-content: center;
   padding: 10px;
+}
+
+.listing-card :hover {
+  transform: scale(1.05);
 }
 
 /* registration error handling */
