@@ -6,12 +6,7 @@ function Home() {
   const { user } = useContext(AuthContext);
   return (
     <div>
-      {user ? (
-        <h1>Welcome, {user?.username}!</h1>
-      ) : (
-        <h1>Welcome!</h1>
-      )}
-
+      <h1>Welcome to</h1>
       <TrueFocus
         sentence="Kiez Swap"
         manualMode={false}
@@ -20,6 +15,7 @@ function Home() {
         animationDuration={0.5}
         pauseBetweenAnimations={1}
       />
+      {user ? <h1>{user?.username}!</h1> : ""}
     </div>
   );
 }

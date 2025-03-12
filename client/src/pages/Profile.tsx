@@ -8,19 +8,21 @@ function Profile() {
   console.log(user);
 
   return (
-    <div>
+    <div className="profile-container">
       <h1>User Profile</h1>
-      {/* <DropdownMenu/> */}
 
       {user && (
         <div>
           <h3>Username: {user.username}</h3>
           <h4>Email: {user?.email}</h4>
-          <img src={user.image} alt="user avatar" style={{width:"150px", height:"auto"}}/>
+          <img
+            src={user.image}
+            alt="user avatar"
+            style={{ width: "150px", height: "auto" }}
+          />
         </div>
-        
       )}
-      <UploadAvatar/>
+      <UploadAvatar />
     </div>
   );
 }

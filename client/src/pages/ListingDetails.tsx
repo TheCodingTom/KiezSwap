@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import ListingCard from "../components/ListingCard";
 import { ListingType } from "../types/customTypes";
+import { Button, Card } from "react-bootstrap";
 
 function ListingDetails() {
   const { listingId } = useParams<string>();
@@ -18,11 +18,17 @@ function ListingDetails() {
         requestOptions
       );
 
-      const result = await response.json();
-      console.log(result);
-      setListing(result.listing);
+      if (!response.ok) {
+        throw new Error("Something went wrong fetching the single listing");
+      }
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log(result);
+        setListing(result.listing);
+      }
     } catch (error) {
-      console.log(error);
+      console.log("error fetching the single listing :>> ", error);
     }
   };
 
@@ -30,7 +36,19 @@ function ListingDetails() {
     getListingById();
   }, []);
 
-  return <div>{listing?.name}</div>;
+  return (
+    <div className="single-listing-container">
+      <Card style={{ width: "23rem" }}>
+        <Card.Img variant="top" src={listing?.image} />
+        <Card.Body>
+          <Card.Title>{listing?.name}</Card.Title>
+          <Card.Title>Posted by: {listing?.user.username}</Card.Title>
+          <Card.Text>{listing?.description}</Card.Text>
+          <Button variant="primary">Contact</Button>
+        </Card.Body>
+      </Card>
+    </div>
+  );
 }
 
 export default ListingDetails;
