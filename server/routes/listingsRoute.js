@@ -2,6 +2,7 @@ import express from "express";
 import {
   addNewListing,
   getAllListings,
+  getListingById,
   getListingsByCategory,
 } from "../controller/listingsController.js";
 import multerUpload from "../middlewares/multer.js";
@@ -11,6 +12,7 @@ const listingsRouter = express.Router();
 
 listingsRouter.get("/all", getAllListings);
 listingsRouter.get("/all/categories/:category", getListingsByCategory);
+listingsRouter.get("/:listingId", getListingById);
 listingsRouter.post(
   "/newlisting",
   jwtAuth,

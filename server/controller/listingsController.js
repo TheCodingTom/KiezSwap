@@ -99,6 +99,10 @@ const getListingsByCategory = async (req, res) => {
   }
 };
 
+const getListingById = async (req, res) => {
+  console.log("get listing by id working");
+};
+
 const addNewListing = async (req, res) => {
   // This is to ensure that data from form fields is available
 
@@ -209,4 +213,4 @@ const addNewListing = async (req, res) => {
   // Populate ?
 };
 
-export { getAllListings, getListingsByCategory, addNewListing };
+export { getAllListings, getListingsByCategory, getListingById, addNewListing };
