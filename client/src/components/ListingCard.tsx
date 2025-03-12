@@ -1,5 +1,6 @@
 import { Button, Card } from "react-bootstrap";
 import { ListingType } from "../types/customTypes";
+import { NavLink } from "react-router";
 
 type ListingCardProps = {
   listing: ListingType;
@@ -8,17 +9,20 @@ type ListingCardProps = {
 function ListingCard({ listing }: ListingCardProps) {
   return (
     <Card style={{ width: "18rem" }}>
-      <Card.Img
-        variant="top"
-        src={listing.image}
-        style={{ height: 250, objectFit: "cover" }}
-      />
+      <NavLink to={listing._id}>
+        <Card.Img
+          variant="top"
+          src={listing.image}
+          style={{ height: 250, objectFit: "cover" }}
+        />
+      </NavLink>
       <Card.Body style={{ backgroundColor: "lightgrey" }}>
-        <Card.Title>{listing.name}</Card.Title>
-        {listing.user.email ? listing.user.username : ""}
+        <NavLink to={listing._id}>
+          <Card.Title>{listing.name}</Card.Title>
+        </NavLink>
 
         <Card.Text>{listing.description}</Card.Text>
-        {/* <Card.Text>{listing.location.city}</Card.Text> */}
+
         <Card.Text>
           {listing.likes ? `Liked by ${listing.likes} people` : ""}
         </Card.Text>

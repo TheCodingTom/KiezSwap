@@ -43,18 +43,19 @@ export type ListingType = {
   _id: string;
   name: string;
   description: string;
-  location: LocationType;
-  category: string;
-  likes: number;
+  location?: LocationType;
+  district: string;
+  category?: string;
+  likes?: number;
   image: string;
-  user: User
+  user: User;
 };
 
 export type NewListingType = {
   name: string;
   description: string;
   district: string;
-}
+};
 
 export type LocationType = {
   city: string;

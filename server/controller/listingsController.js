@@ -110,7 +110,10 @@ const getListingById = async (req, res) => {
     });
   }
 
-  const listing = await ListingModel.findById(listingId);
+  const listing = await ListingModel.findById(listingId).populate({
+    path: "user",
+    select: ["username", "email"],
+  });
 
   if (!listing) {
     return res.status(400).json({

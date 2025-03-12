@@ -36,7 +36,7 @@ function App() {
                 <Route path="/listings" element={<Listings />} />
                 <Route path="/newlisting" element={<NewListing />} />
                 <Route
-                  path="/listings/:listingDetails"
+                  path="/listings/:listingId"
                   element={
                     <ProtectedRoute>
                       <ListingDetails />
