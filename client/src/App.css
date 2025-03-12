@@ -87,3 +87,9 @@ h1 {
   flex-direction: column;
   align-items: center;
 }
+
+.open-modal-button {
+  background-color: white;
+  outline: none !important;
+  color: black;
+}

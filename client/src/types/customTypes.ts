@@ -4,6 +4,7 @@ export type UserType = {
   image: string;
   username: string;
   password: string;
+  listings: ListingType[];
 };
 
 export type User = Omit<UserType, "password">;
