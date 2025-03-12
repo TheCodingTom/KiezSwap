@@ -100,7 +100,30 @@ const getListingsByCategory = async (req, res) => {
 };
 
 const getListingById = async (req, res) => {
-  console.log("get listing by id working");
+  console.log("params:", req.params);
+
+  const listingId = req.params.listingId;
+
+  if (!listingId) {
+    return res.status(400).json({
+      message: `No listing with the ID ${listingId} in the database`,
+    });
+  }
+
+  const listing = await ListingModel.findById(listingId);
+
+  if (!listing) {
+    return res.status(400).json({
+      message: "Couldn't retrieve listing from the DB",
+    });
+  }
+
+  if (listing) {
+    return res.status(200).json({
+      message: "Listing retrieved successfully",
+      listing,
+    });
+  }
 };
 
 const addNewListing = async (req, res) => {
@@ -208,9 +231,6 @@ const addNewListing = async (req, res) => {
       console.log("error saving reference to the user");
     }
   }
-
-  // Update user data once the listing has been created
-  // Populate ?
 };
 
 export { getAllListings, getListingsByCategory, getListingById, addNewListing };
