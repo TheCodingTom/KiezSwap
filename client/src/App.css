@@ -90,6 +90,14 @@ h1 {
 
 .open-modal-button {
   background-color: white;
-  outline: none !important;
   color: black;
+  border: transparent;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &:target {
+    background-color: transparent;
+    color: black;
+  }
 }

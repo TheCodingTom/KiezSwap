@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { ListingType } from "../types/customTypes";
 import { Button, Card } from "react-bootstrap";
-import UserModal from "../components/UserModal";
 
 function ListingDetails() {
   const { listingId } = useParams<string>();
@@ -43,7 +42,7 @@ function ListingDetails() {
         <Card.Img variant="top" src={listing?.image} />
         <Card.Body>
           <Card.Title>{listing?.name}</Card.Title>
-          <UserModal user={listing?.user} />
+          {/* <UserModal user={listing?.user} /> */}
 
           <Card.Text>{listing?.description}</Card.Text>
           <Button variant="primary">Contact</Button>

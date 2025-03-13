@@ -130,8 +130,6 @@ const getListingById = async (req, res) => {
 };
 
 const addNewListing = async (req, res) => {
-  // This is to ensure that data from form fields is available
-
   console.log("req.body>>>>", req.body);
   const { name, description, district, user } = req.body;
 
@@ -192,19 +190,6 @@ const addNewListing = async (req, res) => {
   }
 
   if (newListing) {
-    // return res.status(201).json({
-    //   message: "Listing added successfully",
-    //   listing: {
-    //     id: newListing._id,
-    //     name: newListing.name,
-    //     description: newListing.description,
-    //     city: newListing.city,
-    //     district: newListing.district,
-    //     image: newListing.image,
-    //     user: newListing.user,
-    //     // category: newListing.category,
-    //   },
-    // });
     try {
       console.log("req.user :>> ", req.user);
       const updatedUser = await UserModel.findByIdAndUpdate(
@@ -236,4 +221,10 @@ const addNewListing = async (req, res) => {
   }
 };
 
-export { getAllListings, getListingsByCategory, getListingById, addNewListing };
+export {
+  getAllListings,
+  getListingsByCategory,
+  getListingById,
+  getThem,
+  addNewListing,
+};
