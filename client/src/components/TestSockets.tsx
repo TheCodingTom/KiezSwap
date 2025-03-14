@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import socket from "../config/socket";
 import "../styles/testSockets.css";
 
@@ -15,6 +16,20 @@ function TestSockets() {
       console.log("message sent");
     });
   };
+
+  const getMessages = (message: string) => {
+    console.log("message received :>> ", message);
+  };
+
+  useEffect(() => {
+    // we listen to incoming messages - whenever the server emits a "chat message" event, the client receives it and executes the callback
+    socket.on("chat message", getMessages);
+
+    return () => {
+      // clean previous effect - event client is listening to
+      socket.off("chat message", getMessages);
+    };
+  }, []);
 
   return (
     <div className="chat-body">

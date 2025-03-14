@@ -34,7 +34,10 @@ io.on("connection", (socket) => {
   });
 
   socket.on("chat message", (message) => {
+    // when we use socket we're communicating with one client
     console.log("msg>>> ".bgBlue, message);
+    // if we use io we communicate with all clients connected to the channel, so we use emit method here
+    io.emit("chat message", message);
   });
 });
 

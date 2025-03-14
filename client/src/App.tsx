@@ -14,6 +14,7 @@ import ListingDetails from "./pages/ListingDetails";
 import MyListings from "./pages/MyListings";
 import Messages from "./pages/Messages";
 import Favourites from "./pages/Favourites";
+import NavBarProfile from "./components/NavBarProfile";
 
 const Root = () => {
   // this route element is the parent of 3 pages, so they all contain the navbar
@@ -21,6 +22,17 @@ const Root = () => {
     // if I want to add a footer, it will go under outlet
     <>
       <NavBar />
+      <Outlet />
+    </>
+  );
+};
+
+const Layout = () => {
+  // this route element is the parent of 3 pages, so they all contain the navbar
+  return (
+    // if I want to add a footer, it will go under outlet
+    <>
+      <NavBarProfile />
       <Outlet />
     </>
   );
@@ -48,38 +60,40 @@ function App() {
                 />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
-                <Route
-                  path="/profile"
-                  element={
-                    <ProtectedRoute>
-                      <Profile />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/profile/mylistings"
-                  element={
-                    <ProtectedRoute>
-                      <MyListings />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/profile/messages"
-                  element={
-                    <ProtectedRoute>
-                      <Messages />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/profile/favourites"
-                  element={
-                    <ProtectedRoute>
-                      <Favourites />
-                    </ProtectedRoute>
-                  }
-                />
+                <Route element={<Layout />}>
+                  <Route
+                    path="/profile"
+                    element={
+                      <ProtectedRoute>
+                        <Profile />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/profile/mylistings"
+                    element={
+                      <ProtectedRoute>
+                        <MyListings />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/profile/messages"
+                    element={
+                      <ProtectedRoute>
+                        <Messages />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/profile/favourites"
+                    element={
+                      <ProtectedRoute>
+                        <Favourites />
+                      </ProtectedRoute>
+                    }
+                  />
+                </Route>
 
                 <Route path="*" />
               </Route>

@@ -2,7 +2,6 @@ import { useContext } from "react";
 
 import { AuthContext } from "../context/AuthContext";
 import UploadAvatar from "../components/UploadAvatar";
-import NavBarProfile from "../components/NavBarProfile";
 
 function Profile() {
   const { user } = useContext(AuthContext);
@@ -10,7 +9,6 @@ function Profile() {
 
   return (
     <div>
-      <NavBarProfile />
       <div className="profile-container">
         {user && (
           <div className="profile-container">
