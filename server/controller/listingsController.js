@@ -7,7 +7,6 @@ import deleteTempFile from "../utilities/deleteTempFile.js";
 import UserModel from "../models/usersModel.js";
 
 const getAllListings = async (req, res) => {
-  //   console.log("get all listings running");
   try {
     const allListings = await ListingModel.find().populate({
       path: "user",
@@ -33,6 +32,10 @@ const getAllListings = async (req, res) => {
     res.status(500).json({
       error: "Something went wrong trying to send the response",
     });
+  }
+
+  if (req.query) {
+    console.log("testing works");
   }
 };
 
@@ -221,10 +224,4 @@ const addNewListing = async (req, res) => {
   }
 };
 
-export {
-  getAllListings,
-  getListingsByCategory,
-  getListingById,
-  getThem,
-  addNewListing,
-};
+export { getAllListings, getListingsByCategory, getListingById, addNewListing };
