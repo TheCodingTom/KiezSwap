@@ -26,10 +26,15 @@ const io = new Server(server, { cors: "http://localhost:5173" });
 
 // by default our client emits an event with a tag called "connection" and if our socket detects it it's gonna trigger the callback
 io.on("connection", (socket) => {
+  // the socket represents the individual client that is connecting/disconnecting
   console.log("socket.id :>> ", socket.id);
   console.log("a user connected");
   socket.on("disconnect", () => {
     console.log(`socket with id ${socket.id} disconnected`.bgRed);
+  });
+
+  socket.on("chat message", (message) => {
+    console.log("msg>>> ".bgBlue, message);
   });
 });
 
