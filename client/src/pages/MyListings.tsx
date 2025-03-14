@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ListingType } from "../types/customTypes";
 import ListingCard from "../components/ListingCard";
-import { div } from "framer-motion/client";
 
 function MyListings() {
   const { user } = useContext(AuthContext);

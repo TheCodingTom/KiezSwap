@@ -1,9 +1,7 @@
+import TestSockets from "../components/TestSockets";
+
 function Messages() {
-  return (
-    <div>
-      <h1>Messages Page</h1>
-    </div>
-  );
+  return <TestSockets />;
 }
 
 export default Messages;

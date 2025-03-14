@@ -1,22 +1,28 @@
 import express from "express";
 import colors from "colors";
+import { createServer } from "node:http";
+import { Server } from "socket.io";
 
 import cors from "cors";
+import morgan from "morgan";
+import mongoose from "mongoose";
 
 import * as dotenv from "dotenv";
 dotenv.config(); // this initialise the dotenv package
 
-import mongoose from "mongoose";
 import usersRouter from "./routes/usersRoutes.js";
 import listingsRouter from "./routes/listingsRoute.js";
 import cloudinaryConfig from "./config/cloudinaryConfig.js";
-import generator  from "generate-password";
+import generator from "generate-password";
 import passport from "passport";
 import passportStrategy from "./config/passportConfig.js";
 
 const app = express();
 
 const port = process.env.PORT || 4000; // until deployment the value will be 4000
+
+const server = createServer(app);
+const io = new Server(server);
 
 const addMiddlewares = () => {
   app.use(express.json());
@@ -26,14 +32,21 @@ const addMiddlewares = () => {
     })
   );
   app.use(cors());
-  cloudinaryConfig()
+  app.use(morgan("dev"));
+  cloudinaryConfig();
 
   passport.initialize();
-  passport.use(passportStrategy)
+  passport.use(passportStrategy);
 };
 
 const startServer = () => {
-  app.listen(port, () => {
+  // this to initiate server as a simple express application
+  // app.listen(port, () => {
+  //   console.log(`Server is running on ${port} port`.bgGreen);
+  // });
+
+  // this to initiate server as an http server
+  server.listen(port, () => {
     console.log(`Server is running on ${port} port`.bgGreen);
   });
 };
