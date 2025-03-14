@@ -1,23 +1,38 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { ListingType } from "../types/customTypes";
+import ListingCard from "../components/ListingCard";
+import { div } from "framer-motion/client";
 
 function MyListings() {
   const { user } = useContext(AuthContext);
-
-  const userId = user?.id;
+  const [listings, setListings] = useState<ListingType[] | null>(null);
 
   const getUserListings = async () => {
     const requestOptions = {
       method: "GET",
     };
 
-    const response = await fetch(
-      `http://localhost:4000/api/listings/all?userId=${userId}`,
-      requestOptions
-    );
+    if (user) {
+      try {
+        const response = await fetch(
+          `http://localhost:4000/api/listings/all?userId=${user.id}`,
+          requestOptions
+        );
 
-    const result = await response.json();
-    console.log(result);
+        if (!response.ok) {
+          throw new Error("Something went wrong fetching the user's listings");
+        }
+
+        if (response.ok) {
+          const result = await response.json();
+          console.log(result);
+          setListings(result.userListings);
+        }
+      } catch (error) {
+        console.log("error fetching the single listing :>> ", error);
+      }
+    }
   };
 
   useEffect(() => {
@@ -26,7 +41,13 @@ function MyListings() {
 
   return (
     <div>
-      <h1>My listings page</h1>
+      <h1>My Listings</h1>
+      <div className="profile-cards-container">
+        {listings &&
+          listings.map((listing) => {
+            return <ListingCard listing={listing} key={listing._id} />;
+          })}
+      </div>
     </div>
   );
 }
