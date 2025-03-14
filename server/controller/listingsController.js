@@ -7,35 +7,58 @@ import deleteTempFile from "../utilities/deleteTempFile.js";
 import UserModel from "../models/usersModel.js";
 
 const getAllListings = async (req, res) => {
-  try {
-    const allListings = await ListingModel.find().populate({
-      path: "user",
-      select: ["username", "email"],
-    }); // here we're requesting listings from database
-    console.log(allListings);
+  if (!req.query.userId) {
+    try {
+      const allListings = await ListingModel.find().populate({
+        path: "user",
+        select: ["username", "email"],
+      }); // here we're requesting listings from database
+      console.log(allListings);
 
-    if (allListings.length === 0) {
-      // try to cover as much responses as possible to build a proper UI
-      res.status(400).json({
-        message: "No records in the database",
+      if (allListings.length === 0) {
+        // try to cover as much responses as possible to build a proper UI
+        res.status(400).json({
+          message: "No records in the database",
+        });
+        return;
+      }
+
+      res.status(200).json({
+        message: "All records from our database",
+        amount: allListings.length,
+        allListings,
+      }); // sending the response as a json
+    } catch (error) {
+      console.log("error :>> ", error);
+      res.status(500).json({
+        error: "Something went wrong trying to send the response",
       });
-      return;
     }
+  } else {
+    try {
+      const userListings = await ListingModel.find({
+        // need to query by user and not by userId, cause "user" is the reference of the collection
+        user: req.query.userId,
+      }).populate({ path: "user", select: "_id" });
 
-    res.status(200).json({
-      message: "All records from our database",
-      amount: allListings.length,
-      allListings,
-    }); // sending the response as a json
-  } catch (error) {
-    console.log("error :>> ", error);
-    res.status(500).json({
-      error: "Something went wrong trying to send the response",
-    });
-  }
+      if (userListings.length === 0) {
+        return res.status(404).json({
+          message: `No listings with user ID ${req.query.userId} in the database`,
+          amount: userListings.length,
+          userListings,
+        });
+      }
 
-  if (req.query) {
-    console.log("testing works");
+      if (userListings.length > 0) {
+        return res.status(200).json({
+          message: `Listings from user ${req.query.userId} from our database`,
+          amount: userListings.length,
+          userListings,
+        });
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 };
 
