@@ -13,7 +13,6 @@ const getAllListings = async (req, res) => {
         path: "user",
         select: ["username", "email"],
       }); // here we're requesting listings from database
-      console.log(allListings);
 
       if (allListings.length === 0) {
         // try to cover as much responses as possible to build a proper UI
@@ -156,7 +155,7 @@ const getListingById = async (req, res) => {
 };
 
 const addNewListing = async (req, res) => {
-  console.log("req.body>>>>", req.body);
+  // console.log("req.body>>>>", req.body);
   const { name, description, district, user } = req.body;
 
   // ! just a suggestion to abstract logic to another file

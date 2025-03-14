@@ -22,7 +22,16 @@ const app = express();
 const port = process.env.PORT || 4000; // until deployment the value will be 4000
 
 const server = createServer(app);
-const io = new Server(server);
+const io = new Server(server, { cors: "http://localhost:5173" });
+
+// by default our client emits an event with a tag called "connection" and if our socket detects it it's gonna trigger the callback
+io.on("connection", (socket) => {
+  console.log("socket.id :>> ", socket.id);
+  console.log("a user connected");
+  socket.on("disconnect", () => {
+    console.log(`socket with id ${socket.id} disconnected`.bgRed);
+  });
+});
 
 const addMiddlewares = () => {
   app.use(express.json());

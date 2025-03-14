@@ -1,6 +1,8 @@
+import socket from "../config/socket";
 import "../styles/testSockets.css";
 
 function TestSockets() {
+  console.log(socket);
   return (
     <div className="chat-body">
       <h1>Live 💬Chat ⚛️</h1>

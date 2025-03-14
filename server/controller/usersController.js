@@ -6,13 +6,12 @@ import deleteTempFile from "../utilities/deleteTempFile.js";
 import { generateToken } from "../utilities/tokenServices.js";
 
 const getAllUsers = async (req, res) => {
-  //   console.log("all users working");
   try {
     const allUsers = await UserModel.find().populate({
       path: "listings",
       select: ["name", "category", "district"],
     });
-    console.log(allUsers);
+
     if (allUsers.length === 0) {
       // try to cover as much responses as possible to build a proper UI
       res.status(400).json({
@@ -193,7 +192,7 @@ const login = async (req, res) => {
 };
 
 const getProfile = async (req, res) => {
-  console.log("req.user>>>>>>", req.user);
+  // console.log("req.user>>>>>>", req.user);
 
   if (!req.user) {
     return res.status(404).json({
