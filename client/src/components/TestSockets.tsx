@@ -1,9 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import socket from "../config/socket";
 import "../styles/testSockets.css";
 
+type Message = {
+  msg: string;
+};
+
 function TestSockets() {
-  console.log(socket);
+  // console.log(socket);
+
+  const [messages, setMessages] = useState<Message[]>([]);
 
   const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -15,10 +21,14 @@ function TestSockets() {
     socket.emit("chat message", message, () => {
       console.log("message sent");
     });
+    // console.log(messages);
   };
 
   const getMessages = (message: string) => {
     console.log("message received :>> ", message);
+    setMessages((prev) => {
+      return [...prev, { msg: message }];
+    });
   };
 
   useEffect(() => {
@@ -37,6 +47,13 @@ function TestSockets() {
       {/* <ConnectionManager /> */}
       <section id="chat">
         {/* <Messages messages={messages} messagesEndRef={messagesEndRef} /> */}
+        <ul>
+          {messages &&
+            messages.map((msg, index) => {
+              return <ChatMessage msg={msg.msg} key={index} />;
+            })}
+        </ul>
+
         <form onSubmit={sendMessage} id="form">
           <input
             type="text"
@@ -57,3 +74,7 @@ function TestSockets() {
 }
 
 export default TestSockets;
+
+function ChatMessage({ msg }: Message) {
+  return <li>{msg}</li>;
+}

@@ -22,16 +22,37 @@ const app = express();
 const port = process.env.PORT || 4000; // until deployment the value will be 4000
 
 const server = createServer(app);
-const io = new Server(server, { cors: "http://localhost:5173" });
+const io = new Server(server, {
+  cors: "http://localhost:5173",
+  // the property makes the server "store" the information for some time - 2 min by default (can't test the feature until deployment)
+  connectionStateRecovery: {},
+});
 
 // by default our client emits an event with a tag called "connection" and if our socket detects it it's gonna trigger the callback
 io.on("connection", (socket) => {
   // the socket represents the individual client that is connecting/disconnecting
   console.log("socket.id :>> ", socket.id);
   console.log("a user connected");
-  socket.on("disconnect", () => {
-    console.log(`socket with id ${socket.id} disconnected`.bgRed);
+  // Handle disconnection
+  socket.on("disconnect", (reason) => {
+    console.log(`User ${socket.id} disconnected: ${reason}`);
+
+    // Detect if it's a temporary disconnection
+    if (reason === "transport close" || reason === "ping timeout") {
+      console.log("The user might reconnect soon...");
+    }
   });
+
+  // socket.recovered is a boolean = true means connection recovered after disconnection
+  if (socket.recovered) {
+    console.log(
+      `User ${socket.id} reconnected and recovered their session`.bgMagenta
+    );
+  }
+  // new user or connection not recovered
+  if (!socket.recovered) {
+    console.log(`New user ${socket.id} connected`.bgGreen);
+  }
 
   socket.on("chat message", (message) => {
     // when we use socket we're communicating with one client
