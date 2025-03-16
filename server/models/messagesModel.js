@@ -11,7 +11,7 @@ const messagesSchema = new mongoose.Schema({
     // require: true,
     unique: false,
   },
-  authorId: {
+  socketId: {
     type: String,
   },
   postingDate: {

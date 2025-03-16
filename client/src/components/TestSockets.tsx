@@ -18,17 +18,19 @@ function TestSockets() {
     const message = formData.get("message");
     console.log("message :>> ", message);
     // client emits a signal that contains "chat message" label and our server listens to the event coming from client that contains same label
-    socket.emit("chat message", message, () => {
+    socket.timeout(1000).emit("chat message", message, () => {
       console.log("message sent");
     });
     // console.log(messages);
   };
 
-  const getMessages = (message: string) => {
+  const getMessages = (message: string, serverOffset: string) => {
     console.log("message received :>> ", message);
     setMessages((prev) => {
       return [...prev, { msg: message }];
     });
+    console.log("socket.auth :>> ", socket.auth);
+    socket.auth.serverOffset = serverOffset;
   };
 
   useEffect(() => {

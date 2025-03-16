@@ -30,9 +30,9 @@ const io = new Server(server, {
 });
 
 // by default our client emits an event with a tag called "connection" and if our socket detects it it's gonna trigger the callback
-io.on("connection", (socket) => {
+io.on("connection", async (socket) => {
   // the socket represents the individual client that is connecting/disconnecting
-  console.log("socket.id :>> ", socket.id);
+  console.log("offset number:>> ".bgYellow, socket.handshake.auth.serverOffset);
   console.log("a user connected");
   // Handle disconnection
   socket.on("disconnect", (reason) => {
@@ -50,9 +50,32 @@ io.on("connection", (socket) => {
       `User ${socket.id} reconnected and recovered their session`.bgMagenta
     );
   }
-  // new user or connection not recovered
+  // new user or disconnection
   if (!socket.recovered) {
     console.log(`New user ${socket.id} connected`.bgGreen);
+    console.log(
+      "offset number after reconnection :>> ".bgBlue,
+      socket.handshake.auth.serverOffset
+    );
+
+    const serverOffset = socket.handshake.auth.serverOffset;
+
+    try {
+      const recoveredMessages = await MessageModel.find({
+        // postingDate: { $gt: serverOffset ? serverOffset : 0 },
+        postingDate: { $gt: serverOffset ?? 0 }, // if left element is null/undefined it returns the right one - zero
+      });
+      recoveredMessages.forEach((message) => {
+        socket.emit(
+          "chat message",
+          message.text,
+          message.postingDate,
+          message.author
+        );
+      });
+    } catch (error) {
+      console.log("error :>> ", error);
+    }
   }
 
   socket.on("chat message", async (message) => {
@@ -62,7 +85,7 @@ io.on("connection", (socket) => {
     try {
       createdMsg = await MessageModel.create({
         text: message,
-        authorId: socket.id,
+        socketId: socket.id,
         postingDate: new Date().getTime(), // ideally a field that autoIncrement itself to use it as a reference
       });
     } catch (error) {
@@ -70,7 +93,7 @@ io.on("connection", (socket) => {
       return;
     }
     // if we use io we communicate with all clients connected to the channel, so we use emit method here
-    io.emit("chat message", message);
+    io.emit("chat message", message, createdMsg.postingDate);
   });
 });
 
