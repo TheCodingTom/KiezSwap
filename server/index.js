@@ -16,6 +16,7 @@ import cloudinaryConfig from "./config/cloudinaryConfig.js";
 import generator from "generate-password";
 import passport from "passport";
 import passportStrategy from "./config/passportConfig.js";
+import MessageModel from "./models/messagesModel.js";
 
 const app = express();
 
@@ -54,9 +55,20 @@ io.on("connection", (socket) => {
     console.log(`New user ${socket.id} connected`.bgGreen);
   }
 
-  socket.on("chat message", (message) => {
+  socket.on("chat message", async (message) => {
     // when we use socket we're communicating with one client
-    console.log("msg>>> ".bgBlue, message);
+    // console.log("msg>>> ".bgBlue, message);
+    let createdMsg;
+    try {
+      createdMsg = await MessageModel.create({
+        text: message,
+        authorID: socket.id,
+        postingDate: new Date().getTime(), // ideally a field that autoIncrement itself to use it as a reference
+      });
+    } catch (error) {
+      console.error(error.message);
+      return;
+    }
     // if we use io we communicate with all clients connected to the channel, so we use emit method here
     io.emit("chat message", message);
   });
