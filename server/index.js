@@ -62,7 +62,7 @@ io.on("connection", (socket) => {
     try {
       createdMsg = await MessageModel.create({
         text: message,
-        authorID: socket.id,
+        authorId: socket.id,
         postingDate: new Date().getTime(), // ideally a field that autoIncrement itself to use it as a reference
       });
     } catch (error) {
