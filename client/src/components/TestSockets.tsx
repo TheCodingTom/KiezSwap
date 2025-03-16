@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import socket from "../config/socket";
 import "../styles/testSockets.css";
+import "../styles/ChatMessages.css";
 
 type Message = {
   msg: string;
+  author: string;
 };
 
 function TestSockets() {
@@ -24,10 +26,14 @@ function TestSockets() {
     // console.log(messages);
   };
 
-  const getMessages = (message: string, serverOffset: string) => {
+  const getMessages = (
+    message: string,
+    serverOffset: string,
+    author: string
+  ) => {
     console.log("message received :>> ", message);
     setMessages((prev) => {
-      return [...prev, { msg: message }];
+      return [...prev, { msg: message, author: author }];
     });
     console.log("socket.auth :>> ", socket.auth);
     socket.auth.serverOffset = serverOffset;
@@ -49,10 +55,12 @@ function TestSockets() {
       {/* <ConnectionManager /> */}
       <section id="chat">
         {/* <Messages messages={messages} messagesEndRef={messagesEndRef} /> */}
-        <ul>
+        <ul id="messages">
           {messages &&
             messages.map((msg, index) => {
-              return <ChatMessage msg={msg.msg} key={index} />;
+              return (
+                <ChatMessage msg={msg.msg} key={index} author={msg.author} />
+              );
             })}
         </ul>
 
@@ -77,6 +85,10 @@ function TestSockets() {
 
 export default TestSockets;
 
-function ChatMessage({ msg }: Message) {
-  return <li>{msg}</li>;
+function ChatMessage({ msg, author }: Message) {
+  return (
+    <li>
+      {author} -- {msg}
+    </li>
+  );
 }

@@ -32,7 +32,8 @@ const io = new Server(server, {
 // by default our client emits an event with a tag called "connection" and if our socket detects it it's gonna trigger the callback
 io.on("connection", async (socket) => {
   // the socket represents the individual client that is connecting/disconnecting
-  console.log("offset number:>> ".bgYellow, socket.handshake.auth.serverOffset);
+  // console.log("offset number:>> ".bgYellow, socket.handshake.auth.serverOffset);
+  console.log("Auth object:>> ".bgYellow, socket.handshake.auth);
   console.log("a user connected");
   // Handle disconnection
   socket.on("disconnect", (reason) => {
@@ -81,11 +82,13 @@ io.on("connection", async (socket) => {
   socket.on("chat message", async (message) => {
     // when we use socket we're communicating with one client
     // console.log("msg>>> ".bgBlue, message);
+    const author = socket.handshake.auth.author;
     let createdMsg;
     try {
       createdMsg = await MessageModel.create({
         text: message,
         socketId: socket.id,
+        author: author,
         postingDate: new Date().getTime(), // ideally a field that autoIncrement itself to use it as a reference
       });
     } catch (error) {
@@ -93,7 +96,7 @@ io.on("connection", async (socket) => {
       return;
     }
     // if we use io we communicate with all clients connected to the channel, so we use emit method here
-    io.emit("chat message", message, createdMsg.postingDate);
+    io.emit("chat message", message, createdMsg.postingDate, author);
   });
 });
 
