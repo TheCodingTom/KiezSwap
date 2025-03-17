@@ -10,7 +10,7 @@ const getAllListings = async (req, res) => {
   if (!req.query.userId) {
     try {
       const allListings = await ListingModel.find().populate({
-        path: "user",
+        path: "seller",
         select: ["username", "email"],
       }); // here we're requesting listings from database
 
@@ -38,7 +38,7 @@ const getAllListings = async (req, res) => {
       const userListings = await ListingModel.find({
         // need to query by user and not by userId, cause "user" is the reference of the collection
         user: req.query.userId,
-      }).populate({ path: "user", select: "_id" });
+      }).populate({ path: "seller", select: "_id" });
 
       if (userListings.length === 0) {
         return res.status(404).json({
@@ -136,7 +136,7 @@ const getListingById = async (req, res) => {
   }
 
   const listing = await ListingModel.findById(listingId).populate({
-    path: "user",
+    path: "seller",
     select: ["username", "email"],
   });
 
@@ -202,7 +202,7 @@ const addNewListing = async (req, res) => {
     district: district,
     image: imageUrl,
     // category: category,
-    user: req.user._id,
+    seller: req.user._id,
   });
 
   const newListing = await newListingObject.save();
@@ -233,7 +233,7 @@ const addNewListing = async (req, res) => {
             // city: newListing.city,
             district: newListing.district,
             image: newListing.image,
-            user: newListing.user,
+            seller: newListing.seller,
 
             // category: newListing.category,
           },

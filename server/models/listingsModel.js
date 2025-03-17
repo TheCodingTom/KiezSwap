@@ -27,15 +27,15 @@ const listingsSchema = mongoose.Schema({
     require: false,
     type: Number,
   },
-  user: {
+  seller: {
     require: true,
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User",
   },
   image: {
     require: true,
     type: String,
-  }
+  },
 });
 
 // 2. turn schema into a model
