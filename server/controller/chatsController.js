@@ -27,27 +27,39 @@ const getAllChats = async (req, res) => {
 };
 
 const getChats = async (req, res) => {
-  console.log("getting user chats works");
-  console.log(req.query);
+  try {
+    // const {sellerId, buyerId} = req.query
+    const sellerId = req.query.sellerId;
+    const buyerId = req.query.buyerId;
 
-  const sellerId = req.query.sellerId;
+    // Build query to match chats for the sellerID or buyerID
+    const query = {
+      // $or returns documents that match at least one of the conditions inside the array
+      $or: [],
+    };
+    if (sellerId) query.$or.push({ sellerId });
+    if (buyerId) query.$or.push({ buyerId });
+    // if we don't have seller or buyerId, $or is removed avoiding an unnecessary query
+    if (query.$or.length === 0) delete query.$or;
 
-  const userChats = await ChatsModel.find({
-    sellerId: "67d81584ba58ee802df47bc5",
-  });
+    const userChats = await ChatsModel.find(query);
 
-  if (!userChats) {
-    res.status(404).json({
-      message: "no chats in the database",
-    });
-  }
+    if (!userChats) {
+      res.status(404).json({
+        message: "no chats in the database",
+      });
+    }
 
-  if (userChats) {
-    res.status(200).json({
-      message: "user chats retrieved successfully",
-      amount: userChats.length,
-      userChats,
-    });
+    if (userChats) {
+      res.status(200).json({
+        message: "user chats retrieved successfully",
+        amount: userChats.length,
+        userChats,
+      });
+    }
+  } catch (error) {
+    console.error("Error fetching user's chat:", error);
+    res.status(404).json({ message: "Error fetching the user's chat", error });
   }
 };
 
