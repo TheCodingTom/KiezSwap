@@ -22,7 +22,7 @@ const createNewChat = async (req, res) => {
   // create new chat data
 
   const chatData = {
-    sellerId: listing.seller._id,
+    sellerId: listing.seller,
     buyerId: user._id,
     listingId: listing._id,
     messages: {

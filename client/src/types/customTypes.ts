@@ -49,7 +49,7 @@ export type ListingType = {
   category?: string;
   likes?: number;
   image: string;
-  user: User;
+  seller: User;
 };
 
 export type NewListingType = {

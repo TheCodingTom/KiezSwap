@@ -62,12 +62,12 @@ h1 {
   padding: 10px;
 }
 
-.card-button {
+/* .card-button {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   bottom: 0px;
-}
+} */
 
 /* registration error handling */
 .error {
