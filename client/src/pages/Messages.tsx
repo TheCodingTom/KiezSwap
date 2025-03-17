@@ -1,5 +1,3 @@
-import TestSockets from "../components/TestSockets";
-
 function Messages() {
   return (
     <div>

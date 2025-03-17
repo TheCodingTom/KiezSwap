@@ -129,6 +129,7 @@ const startServer = () => {
 const loadRoutes = () => {
   app.use("/api/listings", listingsRouter); // we define endpoint of the listingsRouter - if after that comes a "/all", we'll trigger the getAllListings function
   app.use("/api/users", usersRouter);
+  app.use("/api/chats", chatsRouter);
 };
 
 const DBConnection = async () => {
