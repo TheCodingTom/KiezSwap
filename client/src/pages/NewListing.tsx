@@ -7,6 +7,8 @@ function NewListing() {
   const { user } = useContext(AuthContext);
   const { getListings } = useContext(ListingsContext);
 
+  const [confirmMessage, setConfirmMessage] = useState("");
+
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -66,6 +68,7 @@ function NewListing() {
 
         const result = await response.json();
         console.log(result);
+        setConfirmMessage("Listing added successfully!");
         getListings();
       } catch (error) {
         console.error("Error uploading listing:", error);
@@ -131,7 +134,11 @@ function NewListing() {
             />
           )}
         </form>
-        <Button onClick={handleFormSubmit}>Submit</Button>
+        {confirmMessage ? (
+          confirmMessage
+        ) : (
+          <Button onClick={handleFormSubmit}>Submit</Button>
+        )}
       </div>
     </>
   );

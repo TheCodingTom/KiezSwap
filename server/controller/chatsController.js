@@ -26,6 +26,31 @@ const getAllChats = async (req, res) => {
   }
 };
 
+const getChats = async (req, res) => {
+  console.log("getting user chats works");
+  console.log(req.query);
+
+  const sellerId = req.query.sellerId;
+
+  const userChats = await ChatsModel.find({
+    sellerId: "67d81584ba58ee802df47bc5",
+  });
+
+  if (!userChats) {
+    res.status(404).json({
+      message: "no chats in the database",
+    });
+  }
+
+  if (userChats) {
+    res.status(200).json({
+      message: "user chats retrieved successfully",
+      amount: userChats.length,
+      userChats,
+    });
+  }
+};
+
 const createNewChat = async (req, res) => {
   try {
     console.log("creating new chat");
@@ -82,4 +107,4 @@ const createNewChat = async (req, res) => {
   }
 };
 
-export { getAllChats, createNewChat };
+export { getAllChats, getChats, createNewChat };
