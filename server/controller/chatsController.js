@@ -3,6 +3,27 @@ import ListingModel from "../models/listingsModel.js";
 
 const getAllChats = async (req, res) => {
   console.log("getting all chats works");
+
+  try {
+    const allChats = await ChatsModel.find();
+    if (allChats.length === 0) {
+      // try to cover as much responses as possible to build a proper UI
+      return res.status(400).json({
+        message: "No chats in the database",
+      });
+    }
+
+    res.status(200).json({
+      message: "All chats from our database", // consistency is key: if there's a field called message always include it
+      amount: allChats.length,
+      allChats,
+    });
+  } catch (error) {
+    console.log("error :>> ", error);
+    return res.status(500).json({
+      error: "Something went wrong trying to send the allchats response",
+    });
+  }
 };
 
 const createNewChat = async (req, res) => {
@@ -45,7 +66,6 @@ const createNewChat = async (req, res) => {
       chat = await ChatsModel.create(chatData);
     } else {
       // 4. chat already exists, so we add a new message
-
       chat.messages.push({
         senderId: user._id,
         text: req.body.text,
