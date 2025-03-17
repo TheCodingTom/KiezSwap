@@ -1,8 +1,26 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { ListGroup, ListGroupItem } from "react-bootstrap";
+
+type ChatType = {
+  buyerId: string;
+  created_at: string;
+  listingId: string;
+  messages: MessageType[];
+  sellerId: string;
+  updatedAt: string;
+  _id: string;
+};
+
+type MessageType = {
+  senderId: string;
+  text: string;
+  _id: string;
+};
 
 function Messages() {
   const { user } = useContext(AuthContext);
+  const [chats, setChats] = useState<ChatType[] | null>(null);
 
   const getChats = async () => {
     const requestOptions = {
@@ -18,6 +36,7 @@ function Messages() {
       if (response) {
         const result = await response.json();
         console.log(result);
+        setChats(result.userChats);
       }
     } catch (error) {
       console.log("error :>> ", error);
@@ -29,9 +48,28 @@ function Messages() {
   }, []);
 
   return (
-    <div>
-      <h1>this is the messages page</h1>
-    </div>
+    <ListGroup>
+      {!chats ? (
+        <ListGroupItem>No chats found.</ListGroupItem>
+      ) : (
+        chats &&
+        chats.map((chat) => (
+          <ListGroupItem
+            key={chat._id}
+            action
+            onClick={() => console.log("open chat")}
+          >
+            <div>
+              <strong>Listing:</strong> {chat.listingId}
+            </div>
+            <div>
+              <strong>Last Message: </strong>
+              {chat.messages[chat.messages.length - 1]?.text}
+            </div>
+          </ListGroupItem>
+        ))
+      )}
+    </ListGroup>
   );
 }
 
