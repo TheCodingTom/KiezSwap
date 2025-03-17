@@ -16,89 +16,88 @@ import cloudinaryConfig from "./config/cloudinaryConfig.js";
 import generator from "generate-password";
 import passport from "passport";
 import passportStrategy from "./config/passportConfig.js";
-import MessageModel from "./models/messagesModel.js";
 
 const app = express();
 
 const port = process.env.PORT || 4000; // until deployment the value will be 4000
 
-const server = createServer(app);
-const io = new Server(server, {
-  cors: "http://localhost:5173",
-  // the property makes the server "store" the information for some time - 2 min by default (can't test the feature until deployment)
-  connectionStateRecovery: {},
-});
+// const server = createServer(app);
+// const io = new Server(server, {
+//   cors: "http://localhost:5173",
+//   // the property makes the server "store" the information for some time - 2 min by default (can't test the feature until deployment)
+//   connectionStateRecovery: {},
+// });
 
-// by default our client emits an event with a tag called "connection" and if our socket detects it it's gonna trigger the callback
-io.on("connection", async (socket) => {
-  // the socket represents the individual client that is connecting/disconnecting
-  // console.log("offset number:>> ".bgYellow, socket.handshake.auth.serverOffset);
-  console.log("Auth object:>> ".bgYellow, socket.handshake.auth);
-  console.log("a user connected");
-  // Handle disconnection
-  socket.on("disconnect", (reason) => {
-    console.log(`User ${socket.id} disconnected: ${reason}`);
+// // by default our client emits an event with a tag called "connection" and if our socket detects it it's gonna trigger the callback
+// io.on("connection", async (socket) => {
+//   // the socket represents the individual client that is connecting/disconnecting
+//   // console.log("offset number:>> ".bgYellow, socket.handshake.auth.serverOffset);
+//   console.log("Auth object:>> ".bgYellow, socket.handshake.auth);
+//   console.log("a user connected");
+//   // Handle disconnection
+//   socket.on("disconnect", (reason) => {
+//     console.log(`User ${socket.id} disconnected: ${reason}`);
 
-    // Detect if it's a temporary disconnection
-    if (reason === "transport close" || reason === "ping timeout") {
-      console.log("The user might reconnect soon...");
-    }
-  });
+//     // Detect if it's a temporary disconnection
+//     if (reason === "transport close" || reason === "ping timeout") {
+//       console.log("The user might reconnect soon...");
+//     }
+//   });
 
-  // socket.recovered is a boolean = true means connection recovered after disconnection
-  if (socket.recovered) {
-    console.log(
-      `User ${socket.id} reconnected and recovered their session`.bgMagenta
-    );
-  }
-  // new user or disconnection
-  if (!socket.recovered) {
-    console.log(`New user ${socket.id} connected`.bgGreen);
-    console.log(
-      "offset number after reconnection :>> ".bgBlue,
-      socket.handshake.auth.serverOffset
-    );
+//   // socket.recovered is a boolean = true means connection recovered after disconnection
+//   if (socket.recovered) {
+//     console.log(
+//       `User ${socket.id} reconnected and recovered their session`.bgMagenta
+//     );
+//   }
+//   // new user or disconnection
+//   if (!socket.recovered) {
+//     console.log(`New user ${socket.id} connected`.bgGreen);
+//     console.log(
+//       "offset number after reconnection :>> ".bgBlue,
+//       socket.handshake.auth.serverOffset
+//     );
 
-    const serverOffset = socket.handshake.auth.serverOffset;
+//     const serverOffset = socket.handshake.auth.serverOffset;
 
-    try {
-      const recoveredMessages = await MessageModel.find({
-        // postingDate: { $gt: serverOffset ? serverOffset : 0 },
-        postingDate: { $gt: serverOffset ?? 0 }, // if left element is null/undefined it returns the right one - zero
-      });
-      recoveredMessages.forEach((message) => {
-        socket.emit(
-          "chat message",
-          message.text,
-          message.postingDate,
-          message.author
-        );
-      });
-    } catch (error) {
-      console.log("error :>> ", error);
-    }
-  }
+//     try {
+//       const recoveredMessages = await MessageModel.find({
+//         // postingDate: { $gt: serverOffset ? serverOffset : 0 },
+//         postingDate: { $gt: serverOffset ?? 0 }, // if left element is null/undefined it returns the right one - zero
+//       });
+//       recoveredMessages.forEach((message) => {
+//         socket.emit(
+//           "chat message",
+//           message.text,
+//           message.postingDate,
+//           message.author
+//         );
+//       });
+//     } catch (error) {
+//       console.log("error :>> ", error);
+//     }
+//   }
 
-  socket.on("chat message", async (message) => {
-    // when we use socket we're communicating with one client
-    // console.log("msg>>> ".bgBlue, message);
-    const author = socket.handshake.auth.author;
-    let createdMsg;
-    try {
-      createdMsg = await MessageModel.create({
-        text: message,
-        socketId: socket.id,
-        author: author,
-        postingDate: new Date().getTime(), // ideally a field that autoIncrement itself to use it as a reference
-      });
-    } catch (error) {
-      console.error(error.message);
-      return;
-    }
-    // if we use io we communicate with all clients connected to the channel, so we use emit method here
-    io.emit("chat message", message, createdMsg.postingDate, author);
-  });
-});
+//   socket.on("chat message", async (message) => {
+//     // when we use socket we're communicating with one client
+//     // console.log("msg>>> ".bgBlue, message);
+//     const author = socket.handshake.auth.author;
+//     let createdMsg;
+//     try {
+//       createdMsg = await MessageModel.create({
+//         text: message,
+//         socketId: socket.id,
+//         author: author,
+//         postingDate: new Date().getTime(), // ideally a field that autoIncrement itself to use it as a reference
+//       });
+//     } catch (error) {
+//       console.error(error.message);
+//       return;
+//     }
+//     // if we use io we communicate with all clients connected to the channel, so we use emit method here
+//     io.emit("chat message", message, createdMsg.postingDate, author);
+//   });
+// });
 
 const addMiddlewares = () => {
   app.use(express.json());
@@ -108,7 +107,7 @@ const addMiddlewares = () => {
     })
   );
   app.use(cors());
-  app.use(morgan("dev"));
+  // app.use(morgan("dev"));
   cloudinaryConfig();
 
   passport.initialize();
@@ -117,14 +116,14 @@ const addMiddlewares = () => {
 
 const startServer = () => {
   // this to initiate server as a simple express application
-  // app.listen(port, () => {
-  //   console.log(`Server is running on ${port} port`.bgGreen);
-  // });
-
-  // this to initiate server as an http server
-  server.listen(port, () => {
+  app.listen(port, () => {
     console.log(`Server is running on ${port} port`.bgGreen);
   });
+
+  // this to initiate server as an http server
+  // server.listen(port, () => {
+  //   console.log(`Server is running on ${port} port`.bgGreen);
+  // });
 };
 
 const loadRoutes = () => {

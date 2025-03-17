@@ -26,7 +26,9 @@ function ListingCard({ listing }: ListingCardProps) {
         <Card.Text>
           {listing.likes ? `Liked by ${listing.likes} people` : ""}
         </Card.Text>
-        <Button variant="primary">Contact</Button>
+        <div className="card-button">
+          <Button variant="primary">Contact</Button>
+        </div>
       </Card.Body>
     </Card>
   );
