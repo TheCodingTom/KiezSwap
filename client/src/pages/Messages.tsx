@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
+import { NavLink } from "react-router";
 
 type ChatType = {
   buyerId: string;
@@ -54,19 +55,17 @@ function Messages() {
       ) : (
         chats &&
         chats.map((chat) => (
-          <ListGroupItem
-            key={chat._id}
-            action
-            onClick={() => console.log("open chat")}
-          >
-            <div>
-              <strong>Listing:</strong> {chat.listingId}
-            </div>
-            <div>
-              <strong>Last Message: </strong>
-              {chat.messages[chat.messages.length - 1]?.text}
-            </div>
-          </ListGroupItem>
+          <NavLink to={"/profile/singlechat"}>
+            <ListGroupItem key={chat._id} action>
+              <div>
+                <strong>Listing:</strong> {chat.listingId}
+              </div>
+              <div>
+                <strong>Last Message: </strong>
+                {chat.messages[chat.messages.length - 1]?.text}
+              </div>
+            </ListGroupItem>
+          </NavLink>
         ))
       )}
     </ListGroup>
