@@ -16,6 +16,7 @@ import cloudinaryConfig from "./config/cloudinaryConfig.js";
 import generator from "generate-password";
 import passport from "passport";
 import passportStrategy from "./config/passportConfig.js";
+import chatsRouter from "./routes/chatsRoute.js";
 
 const app = express();
 
