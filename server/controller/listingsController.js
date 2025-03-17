@@ -36,8 +36,8 @@ const getAllListings = async (req, res) => {
   } else {
     try {
       const userListings = await ListingModel.find({
-        // need to query by user and not by userId, cause "user" is the reference of the collection
-        user: req.query.userId,
+        // need to query by seller and not by userId, cause "seller" is the reference in the listing collection
+        seller: req.query.userId,
       }).populate({ path: "seller", select: "_id" });
 
       if (userListings.length === 0) {

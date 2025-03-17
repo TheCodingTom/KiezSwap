@@ -6,43 +6,59 @@ const getAllChats = async (req, res) => {
 };
 
 const createNewChat = async (req, res) => {
-  console.log("creating new chat");
-  const listingId = req.body.listingId;
-  const listing = await ListingModel.findById(listingId);
+  try {
+    console.log("creating new chat");
 
-  if (!listing) {
-    res.status(404).json({
-      message: "Listing not found",
+    // the user is populated by the jwt auth middleware
+    const user = req.user;
+
+    // 1. find the listing
+    const listingId = req.body.listingId;
+
+    const listing = await ListingModel.findById(listingId);
+    if (!listing) {
+      res.status(404).json({
+        message: "Listing not found",
+      });
+    }
+    // 2. check if a chat already exists between buyer and seller for this listing
+    let chat = await ChatsModel.findOne({
+      sellerId: listing.seller._id,
+      buyerId: user._id,
+      listingId: listing._id,
     });
-  }
 
-  // the user is populated by the jwt auth middleware
-  const user = req.user;
+    // 3. chat doesn't exist? create it
 
-  // create new chat data
+    if (!chat) {
+      const chatData = {
+        sellerId: listing.seller._id,
+        buyerId: user._id,
+        listingId: listing._id,
+        messages: [
+          {
+            senderId: user._id,
+            text: req.body.text,
+          },
+        ],
+      };
+      chat = await ChatsModel.create(chatData);
+    } else {
+      // 4. chat already exists, so we add a new message
 
-  const chatData = {
-    sellerId: listing.seller._id,
-    buyerId: user._id,
-    listingId: listing._id,
-    messages: {
-      senderId: user._id,
-      text: req.body.text,
-    },
-  };
-  // create chat in the DB
-
-  const chat = await ChatsModel.create(chatData);
-  if (chat) {
-    res.status(200).json({
-      message: "Chat created successfully",
-      chat: chat,
-    });
-  }
-  if (!chat) {
-    res.status(400).json({
-      message: "Error creating the chat",
-    });
+      chat.messages.push({
+        senderId: user._id,
+        text: req.body.text,
+      });
+      await chat.save();
+      res.status(200).json({
+        message: "Chat created successfully",
+        chat: chat,
+      });
+    }
+  } catch (error) {
+    console.error("Error processing chat:", error);
+    res.status(400).json({ message: "Error creating the chat", error });
   }
 };
 

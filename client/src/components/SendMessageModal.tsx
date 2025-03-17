@@ -12,6 +12,8 @@ function SendMessageModal({ listingId }: MessageModalProps) {
   const [message, setMessage] = useState("");
   const [show, setShow] = useState(false);
 
+  const [confirmMessage, setConfirmMessage] = useState("");
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -48,7 +50,7 @@ function SendMessageModal({ listingId }: MessageModalProps) {
       if (response) {
         const result = await response.json();
         console.log(result);
-        setShow(false);
+        setConfirmMessage("Message sent!");
       }
     } catch (error) {
       console.log("error :>> ", error);
@@ -82,9 +84,14 @@ function SendMessageModal({ listingId }: MessageModalProps) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={createNewChat}>
-            Send
-          </Button>
+          {confirmMessage ? (
+            confirmMessage
+          ) : (
+            <Button variant="primary" onClick={createNewChat}>
+              {" "}
+              Send
+            </Button>
+          )}
         </Modal.Footer>
       </Modal>
     </>
