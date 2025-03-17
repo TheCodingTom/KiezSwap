@@ -1,4 +1,4 @@
-import { Button, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { ListingType } from "../types/customTypes";
 import { NavLink } from "react-router";
 import SendMessageModal from "./SendMessageModal";
@@ -28,7 +28,7 @@ function ListingCard({ listing }: ListingCardProps) {
           {listing.likes ? `Liked by ${listing.likes} people` : ""}
         </Card.Text>
         <div>
-          <SendMessageModal />
+          <SendMessageModal listingId={listing._id} />
         </div>
       </Card.Body>
     </Card>
