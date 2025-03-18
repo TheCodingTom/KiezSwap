@@ -2,14 +2,14 @@ import express from "express";
 import {
   createNewChat,
   getAllChats,
-  getChats,
+  getUserChats,
 } from "../controller/chatsController.js";
 import jwtAuth from "../middlewares/jwtAuth.js";
 
 const chatsRouter = express.Router();
 
 chatsRouter.get("/all", getAllChats);
-chatsRouter.get("/userChats", getChats);
+chatsRouter.get("/userChats", getUserChats);
 
 chatsRouter.post("/newChat", jwtAuth, createNewChat);
 

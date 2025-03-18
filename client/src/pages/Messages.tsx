@@ -55,10 +55,10 @@ function Messages() {
       ) : (
         chats &&
         chats.map((chat) => (
-          <NavLink to={"/profile/singlechat"}>
-            <ListGroupItem key={chat._id} action>
+          <NavLink key={chat._id} to={chat._id}>
+            <ListGroupItem action>
               <div>
-                <strong>Listing:</strong> {chat.listingId}
+                <strong>Listing ID:</strong> {chat.listingId}
               </div>
               <div>
                 <strong>Last Message: </strong>

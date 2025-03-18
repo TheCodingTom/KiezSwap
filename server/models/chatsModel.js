@@ -14,7 +14,7 @@ const chatsSchema = new mongoose.Schema(
     },
     listingId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Listing",
       require: true,
     },
     messages: [

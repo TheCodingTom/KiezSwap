@@ -87,7 +87,7 @@ function App() {
                     }
                   />
                   <Route
-                    path="/profile/singlechat"
+                    path="/profile/messages/:chatId"
                     element={
                       <ProtectedRoute>
                         <SingleChat />

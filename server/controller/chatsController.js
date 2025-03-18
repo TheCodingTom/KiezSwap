@@ -5,7 +5,10 @@ const getAllChats = async (req, res) => {
   console.log("getting all chats works");
 
   try {
-    const allChats = await ChatsModel.find();
+    const allChats = await ChatsModel.find().populate({
+      path: "listingId",
+      select: "name",
+    });
     if (allChats.length === 0) {
       // try to cover as much responses as possible to build a proper UI
       return res.status(400).json({
@@ -26,7 +29,7 @@ const getAllChats = async (req, res) => {
   }
 };
 
-const getChats = async (req, res) => {
+const getUserChats = async (req, res) => {
   try {
     // const {sellerId, buyerId} = req.query
     const sellerId = req.query.sellerId;
@@ -42,7 +45,10 @@ const getChats = async (req, res) => {
     // if we don't have seller or buyerId, $or is removed avoiding an unnecessary query
     if (query.$or.length === 0) delete query.$or;
 
-    const userChats = await ChatsModel.find(query);
+    const userChats = await ChatsModel.find(query).populate({
+      path: "listingId",
+      select: ["name", "district"],
+    });
 
     if (!userChats) {
       res.status(404).json({
@@ -100,7 +106,10 @@ const createNewChat = async (req, res) => {
           },
         ],
       };
-      chat = await ChatsModel.create(chatData);
+      chat = (await ChatsModel.create(chatData)).populate({
+        path: "listingId",
+        select: ["name", "district"],
+      });
     } else {
       // 4. chat already exists, so we add a new message
       chat.messages.push({
@@ -119,4 +128,4 @@ const createNewChat = async (req, res) => {
   }
 };
 
-export { getAllChats, getChats, createNewChat };
+export { getAllChats, getUserChats, createNewChat };

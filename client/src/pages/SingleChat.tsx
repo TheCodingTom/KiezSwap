@@ -1,3 +1,5 @@
+import { useParams } from "react-router";
+
 function SingleChat() {
   return (
     <div>
