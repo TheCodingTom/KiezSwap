@@ -15,7 +15,7 @@ import MyListings from "./pages/MyListings";
 import Messages from "./pages/Messages";
 import Favourites from "./pages/Favourites";
 import NavBarProfile from "./components/NavBarProfile";
-import SingleChat from "./pages/SingleChat";
+import SingleChatPage from "./pages/SingleChatPage";
 
 const Root = () => {
   // this route element is the parent of 3 pages, so they all contain the navbar
@@ -90,7 +90,7 @@ function App() {
                     path="/profile/messages/:chatId"
                     element={
                       <ProtectedRoute>
-                        <SingleChat />
+                        <SingleChatPage />
                       </ProtectedRoute>
                     }
                   />

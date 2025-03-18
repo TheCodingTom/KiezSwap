@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { MessageType } from "./Messages";
-import { h1 } from "framer-motion/client";
+import SingleChat from "../components/SingleChat";
 
-function SingleChat() {
+function SingleChatPage() {
   const { chatId } = useParams<string>();
 
   const [messages, setMessages] = useState<MessageType[] | null>(null);
@@ -26,6 +26,7 @@ function SingleChat() {
         console.log(result);
         setMessages(result.chat.messages);
       }
+      console.log(messages);
     } catch (error) {
       console.log("error fetching the single chat :>> ", error);
     }
@@ -40,10 +41,16 @@ function SingleChat() {
       <h1>Single chat page</h1>
       {messages &&
         messages.map((message) => {
-          return <p>{message.text}</p>;
+          return (
+            <SingleChat
+              text={message.text}
+              senderId={message.senderId}
+              key={message._id}
+            />
+          );
         })}
     </div>
   );
 }
 
-export default SingleChat;
+export default SingleChatPage;
