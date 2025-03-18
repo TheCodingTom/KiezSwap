@@ -2,24 +2,24 @@ import mongoose from "mongoose";
 
 const chatsSchema = new mongoose.Schema(
   {
-    sellerId: {
+    seller: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       require: true,
     },
-    buyerId: {
+    buyer: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       require: true,
     },
-    listingId: {
+    listing: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Listing",
       require: true,
     },
     messages: [
       {
-        senderId: {
+        sender: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "User",
           require: true,

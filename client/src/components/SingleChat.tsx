@@ -1,15 +1,22 @@
-import React from "react";
-import { MessageType } from "../pages/Messages";
+import { useState } from "react";
 
 type SingleChatProps = {
-  senderId: string;
+  senderId: SenderType;
   text: string;
 };
 
+type SenderType = {
+  senderId: string;
+  username: string;
+};
+
 function SingleChat({ senderId, text }: SingleChatProps) {
+  const [username, setUsername] = useState("");
   return (
     <div>
-      <p>{text}</p>
+      <p>
+        {senderId.username}: {text}
+      </p>
     </div>
   );
 }

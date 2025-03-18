@@ -5,10 +5,14 @@ const getAllChats = async (req, res) => {
   console.log("getting all chats works");
 
   try {
-    const allChats = await ChatsModel.find().populate({
-      path: "listingId",
-      select: "name",
-    });
+    const allChats = await ChatsModel.find()
+      .populate({
+        path: "listing",
+        select: "name",
+      })
+      .populate({ path: "buyer", select: "username" })
+      .populate({ path: "seller", select: "username" })
+      .populate({ path: "messages.sender", select: "username" });
     if (allChats.length === 0) {
       // try to cover as much responses as possible to build a proper UI
       return res.status(400).json({
@@ -32,23 +36,27 @@ const getAllChats = async (req, res) => {
 const getUserChats = async (req, res) => {
   try {
     // const {sellerId, buyerId} = req.query
-    const sellerId = req.query.sellerId;
-    const buyerId = req.query.buyerId;
+    const seller = req.query.seller;
+    const buyer = req.query.buyer;
 
     // Build query to match chats for the sellerID or buyerID
     const query = {
       // $or returns documents that match at least one of the conditions inside the array
       $or: [],
     };
-    if (sellerId) query.$or.push({ sellerId });
-    if (buyerId) query.$or.push({ buyerId });
+    if (seller) query.$or.push({ seller });
+    if (buyer) query.$or.push({ buyer });
     // if we don't have seller or buyerId, $or is removed avoiding an unnecessary query
     if (query.$or.length === 0) delete query.$or;
 
-    const userChats = await ChatsModel.find(query).populate({
-      path: "listingId",
-      select: "name",
-    });
+    const userChats = await ChatsModel.find(query)
+      .populate({
+        path: "listing",
+        select: "name",
+      })
+      .populate({ path: "buyer", select: "username" })
+      .populate({ path: "seller", select: "username" })
+      .populate({ path: "messages.sender", select: "username" });
 
     if (!userChats) {
       res.status(404).json({
@@ -83,12 +91,12 @@ const getChatById = async (req, res) => {
 
     const chat = await ChatsModel.findById(chatId)
       .populate({
-        path: "listingId",
+        path: "listing",
         select: "name",
       })
-      .populate({ path: "buyerId", select: "username" })
-      .populate({ path: "sellerId", select: "username" })
-      .populate({ path: "messages.senderId", select: "username" });
+      .populate({ path: "buyer", select: "username" })
+      .populate({ path: "seller", select: "username" })
+      .populate({ path: "messages.sender", select: "username" });
 
     if (!chat) {
       return res.status(400).json({
@@ -125,33 +133,33 @@ const createNewChat = async (req, res) => {
     }
     // 2. check if a chat already exists between buyer and seller for this listing
     let chat = await ChatsModel.findOne({
-      sellerId: listing.seller._id,
-      buyerId: user._id,
-      listingId: listing._id,
+      seller: listing.seller._id,
+      buyer: user._id,
+      listing: listing._id,
     });
 
     // 3. chat doesn't exist? create it
 
     if (!chat) {
       const chatData = {
-        sellerId: listing.seller._id,
-        buyerId: user._id,
-        listingId: listing._id,
+        seller: listing.seller._id,
+        buyer: user._id,
+        listing: listing._id,
         messages: [
           {
-            senderId: user._id,
+            sender: user._id,
             text: req.body.text,
           },
         ],
       };
       chat = (await ChatsModel.create(chatData)).populate({
-        path: "listingId",
+        path: "listing",
         select: ["name", "district"],
       });
     } else {
       // 4. chat already exists, so we add a new message
       chat.messages.push({
-        senderId: user._id,
+        sender: user._id,
         text: req.body.text,
       });
       await chat.save();
