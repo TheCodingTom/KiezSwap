@@ -1,9 +1,10 @@
 import express from "express";
 import {
-  createNewChat,
+  createNewMessage,
   getAllChats,
   getChatById,
   getUserChats,
+  sendMessage,
 } from "../controller/chatsController.js";
 import jwtAuth from "../middlewares/jwtAuth.js";
 
@@ -13,6 +14,7 @@ chatsRouter.get("/all", getAllChats);
 chatsRouter.get("/userChats", getUserChats);
 chatsRouter.get("/userChats/:chatId", getChatById);
 
-chatsRouter.post("/newChat", jwtAuth, createNewChat);
+chatsRouter.post("/newChat", jwtAuth, createNewMessage);
+chatsRouter.post("/userChats/send/:chatId", sendMessage);
 
 export default chatsRouter;

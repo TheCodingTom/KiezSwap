@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { MessageType } from "./Messages";
 import SingleChat from "../components/SingleChat";
+import "../styles/SingleChat.css";
+import SendMessageChat from "../components/SendMessageChat";
 
 function SingleChatPage() {
   const { chatId } = useParams<string>();
@@ -38,16 +40,19 @@ function SingleChatPage() {
   return (
     <div>
       <h1>Single chat page</h1>
-      {messages &&
-        messages.map((message) => {
-          return (
-            <SingleChat
-              text={message.text}
-              senderId={message.senderId}
-              key={message._id}
-            />
-          );
-        })}
+      <div className="chat-container">
+        {messages &&
+          messages.map((message) => {
+            return (
+              <SingleChat
+                text={message.text}
+                sender={message.sender}
+                key={message._id}
+              />
+            );
+          })}
+      </div>
+      <SendMessageChat />
     </div>
   );
 }

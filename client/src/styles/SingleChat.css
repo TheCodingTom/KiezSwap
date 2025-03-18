@@ -1,0 +1,9 @@
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  outline: solid black 2px;
+  padding: 20px;
+  margin: auto;
+  width: 80%;
+}

@@ -1,21 +1,21 @@
-import { useState } from "react";
+import "../styles/SingleChat.css";
 
 type SingleChatProps = {
-  senderId: SenderType;
+  sender: SenderType;
   text: string;
 };
 
 type SenderType = {
-  senderId: string;
+  _id: string;
   username: string;
 };
 
-function SingleChat({ senderId, text }: SingleChatProps) {
-  const [username, setUsername] = useState("");
+function SingleChat({ sender, text }: SingleChatProps) {
   return (
     <div>
       <p>
-        {senderId.username}: {text}
+        <strong>{sender.username}: </strong>
+        {text}
       </p>
     </div>
   );

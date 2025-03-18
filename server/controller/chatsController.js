@@ -115,7 +115,7 @@ const getChatById = async (req, res) => {
   }
 };
 
-const createNewChat = async (req, res) => {
+const createNewMessage = async (req, res) => {
   try {
     console.log("creating new chat");
 
@@ -164,7 +164,7 @@ const createNewChat = async (req, res) => {
       });
       await chat.save();
       res.status(200).json({
-        message: "Chat created successfully",
+        message: "Message added successfully",
         chat: chat,
       });
     }
@@ -174,4 +174,14 @@ const createNewChat = async (req, res) => {
   }
 };
 
-export { getAllChats, getUserChats, getChatById, createNewChat };
+const sendMessage = () => {
+  console.log("Send message route working");
+};
+
+export {
+  getAllChats,
+  getUserChats,
+  getChatById,
+  createNewMessage,
+  sendMessage,
+};
