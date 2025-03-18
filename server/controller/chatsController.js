@@ -69,6 +69,40 @@ const getUserChats = async (req, res) => {
   }
 };
 
+const getChatById = () => {
+  console.log("route working");
+
+  // const getListingById = async (req, res) => {
+  //   console.log("params:", req.params);
+
+  //   const listingId = req.params.listingId;
+
+  //   if (!listingId) {
+  //     return res.status(400).json({
+  //       message: `No listing with the ID ${listingId} in the database`,
+  //     });
+  //   }
+
+  //   const listing = await ListingModel.findById(listingId).populate({
+  //     path: "seller",
+  //     select: ["username", "email"],
+  //   });
+
+  //   if (!listing) {
+  //     return res.status(400).json({
+  //       message: "Couldn't retrieve listing from the DB",
+  //     });
+  //   }
+
+  //   if (listing) {
+  //     return res.status(200).json({
+  //       message: "Listing retrieved successfully",
+  //       listing,
+  //     });
+  //   }
+  // };
+};
+
 const createNewChat = async (req, res) => {
   try {
     console.log("creating new chat");
@@ -128,4 +162,4 @@ const createNewChat = async (req, res) => {
   }
 };
 
-export { getAllChats, getUserChats, createNewChat };
+export { getAllChats, getUserChats, getChatById, createNewChat };
