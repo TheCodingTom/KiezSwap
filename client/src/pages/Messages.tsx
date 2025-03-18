@@ -13,7 +13,7 @@ type ChatType = {
   _id: string;
 };
 
-type MessageType = {
+export type MessageType = {
   senderId: string;
   text: string;
   _id: string;

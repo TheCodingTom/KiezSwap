@@ -1,8 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { MessageType } from "./Messages";
+import { h1 } from "framer-motion/client";
 
 function SingleChat() {
   const { chatId } = useParams<string>();
+
+  const [messages, setMessages] = useState<MessageType[] | null>(null);
   const getChatById = async () => {
     try {
       const requestOptions = {
@@ -20,6 +24,7 @@ function SingleChat() {
       if (response.ok) {
         const result = await response.json();
         console.log(result);
+        setMessages(result.chat.messages);
       }
     } catch (error) {
       console.log("error fetching the single chat :>> ", error);
@@ -33,6 +38,10 @@ function SingleChat() {
   return (
     <div>
       <h1>Single chat page</h1>
+      {messages &&
+        messages.map((message) => {
+          return <p>{message.text}</p>;
+        })}
     </div>
   );
 }
