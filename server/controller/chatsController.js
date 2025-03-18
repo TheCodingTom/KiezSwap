@@ -81,10 +81,14 @@ const getChatById = async (req, res) => {
       });
     }
 
-    const chat = await ChatsModel.findById(chatId).populate({
-      path: "listingId",
-      select: "name",
-    });
+    const chat = await ChatsModel.findById(chatId)
+      .populate({
+        path: "listingId",
+        select: "name",
+      })
+      .populate({ path: "buyerId", select: "username" })
+      .populate({ path: "sellerId", select: "username" })
+      .populate({ path: "messages.senderId", select: "username" });
 
     if (!chat) {
       return res.status(400).json({

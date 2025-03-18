@@ -26,7 +26,6 @@ function SingleChatPage() {
         console.log(result);
         setMessages(result.chat.messages);
       }
-      console.log(messages);
     } catch (error) {
       console.log("error fetching the single chat :>> ", error);
     }
