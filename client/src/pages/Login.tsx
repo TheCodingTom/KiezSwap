@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
   const { user, login } = useContext(AuthContext);
@@ -17,8 +19,8 @@ function Login() {
   });
 
   const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // regular expression used to validate emails
-    return emailRegex.test(email); // test method checks if the email string matches the pattern
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   const validatePassword = (password: string) => {
@@ -31,7 +33,6 @@ function Login() {
     setEmail(e.target.value);
     setErrors({
       ...errors,
-
       email: validateEmail(e.target.value) ? "" : "Invalid email format",
     });
   };
@@ -42,7 +43,6 @@ function Login() {
     setPassword(e.target.value);
     setErrors({
       ...errors,
-
       password: validatePassword(e.target.value)
         ? ""
         : "Password must be at least 6 characters",
@@ -65,9 +65,13 @@ function Login() {
 
     if (email && password) {
       login(email, password);
-
-      // if login is successfull
-      goToHome("/");
+      toast.success("Login successful!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      setTimeout(() => {
+        goToHome("/");
+      }, 3000);
     }
   };
 
@@ -107,7 +111,11 @@ function Login() {
             ""
           )}
         </form>
-        {!errors.email && !errors.password ?  <Button onClick={handleSubmitLogin}>Login</Button> : <Button disabled >Login</Button>}
+        {!errors.email && !errors.password ? (
+          <Button onClick={handleSubmitLogin}>Login</Button>
+        ) : (
+          <Button disabled>Login</Button>
+        )}
         <p>
           Don't have an account yet?{" "}
           <Link to="/register">Create one here!</Link>
@@ -126,6 +134,8 @@ function Login() {
           </div>
         )}
       </div>
+
+      <ToastContainer />
     </>
   );
 }

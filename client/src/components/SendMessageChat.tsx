@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 type SendMessageChatProps = {
-  chatId: string;
+  chatId?: string;
 };
 
 function SendMessageChat({ chatId }: SendMessageChatProps) {
