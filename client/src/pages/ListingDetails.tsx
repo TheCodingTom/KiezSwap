@@ -8,11 +8,10 @@ function ListingDetails() {
   const [listing, setListing] = useState<ListingType | null>(null);
 
   const getListingById = async () => {
-    const requestOptions = {
-      method: "GET",
-    };
-
     try {
+      const requestOptions = {
+        method: "GET",
+      };
       const response = await fetch(
         `http://localhost:4000/api/listings/${listingId}`,
         requestOptions
