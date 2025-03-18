@@ -1,7 +1,10 @@
-import React, { useState } from "react";
-import { Form } from "react-router";
+import { useState } from "react";
 
-function SendMessageChat() {
+type SendMessageChatProps = {
+  chatId: string;
+};
+
+function SendMessageChat({ chatId }: SendMessageChatProps) {
   const token = localStorage.getItem("token");
   const [message, setMessage] = useState("");
   const [confirmMessage, setConfirmMessage] = useState("");
@@ -16,12 +19,12 @@ function SendMessageChat() {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
+
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
     myHeaders.append("Authorization", `Bearer ${token}`);
 
     const urlencoded = new URLSearchParams();
-    urlencoded.append("listingId", listingId);
     urlencoded.append("text", message);
 
     const requestOptions = {
@@ -31,15 +34,16 @@ function SendMessageChat() {
     };
 
     const response = await fetch(
-      "http://localhost:4000/api/chats/newChat",
+      `http://localhost:4000/api/chats/userChats/send/${chatId}`,
       requestOptions
     );
 
     try {
-      if (response) {
+      if (response.ok) {
         const result = await response.json();
         console.log(result);
         setConfirmMessage("Message sent!");
+        setMessage(""); // Clear the input after sending
       }
     } catch (error) {
       console.log("error :>> ", error);
@@ -57,10 +61,13 @@ function SendMessageChat() {
           autoCapitalize="on"
           autoComplete="off"
           autoCorrect="on"
+          onChange={handleInputText}
+          value={message}
         />
         <button onClick={sendMessage} id="button-send" type="submit">
           Send
         </button>
+        {confirmMessage && <p>{confirmMessage}</p>}
       </form>
     </div>
   );

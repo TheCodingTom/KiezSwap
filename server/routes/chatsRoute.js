@@ -15,6 +15,6 @@ chatsRouter.get("/userChats", getUserChats);
 chatsRouter.get("/userChats/:chatId", getChatById);
 
 chatsRouter.post("/newChat", jwtAuth, createNewMessage);
-chatsRouter.post("/userChats/send/:chatId", sendMessage);
+chatsRouter.post("/userChats/send/:chatId", jwtAuth, sendMessage);
 
 export default chatsRouter;

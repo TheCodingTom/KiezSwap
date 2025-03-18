@@ -174,8 +174,40 @@ const createNewMessage = async (req, res) => {
   }
 };
 
-const sendMessage = () => {
-  console.log("Send message route working");
+const sendMessage = async (req, res) => {
+  try {
+    console.log("Sending message");
+
+    // the user is populated by the jwt auth middleware
+    const user = req.user;
+    const chatId = req.params.chatId;
+
+    // 1. Find the chat
+    const chat = await ChatsModel.findById(chatId).populate({
+      path: "listing",
+      select: ["name", "district"],
+    });
+
+    if (!chat) {
+      return res.status(404).json({ message: "Chat not found" });
+    }
+
+    // 2. Add new message to the chat
+    chat.messages.push({
+      sender: user._id,
+      text: req.body.text,
+    });
+
+    await chat.save();
+
+    res.status(200).json({
+      message: "Message sent successfully",
+      chat: chat,
+    });
+  } catch (error) {
+    console.error("Error sending message:", error);
+    res.status(400).json({ message: "Error sending the message", error });
+  }
 };
 
 export {

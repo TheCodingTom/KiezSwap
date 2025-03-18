@@ -9,6 +9,7 @@ function SingleChatPage() {
   const { chatId } = useParams<string>();
 
   const [messages, setMessages] = useState<MessageType[] | null>(null);
+
   const getChatById = async () => {
     try {
       const requestOptions = {
@@ -52,7 +53,7 @@ function SingleChatPage() {
             );
           })}
       </div>
-      <SendMessageChat />
+      <SendMessageChat chatId={chatId} />
     </div>
   );
 }
