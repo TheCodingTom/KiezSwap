@@ -11,7 +11,7 @@ const chatsRouter = express.Router();
 
 chatsRouter.get("/all", getAllChats);
 chatsRouter.get("/userChats", getUserChats);
-chatsRouter.get("/userChats/:listingId", getChatById);
+chatsRouter.get("/userChats/:chatId", getChatById);
 
 chatsRouter.post("/newChat", jwtAuth, createNewChat);
 

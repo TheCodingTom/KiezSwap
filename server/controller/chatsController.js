@@ -69,38 +69,38 @@ const getUserChats = async (req, res) => {
   }
 };
 
-const getChatById = () => {
-  console.log("route working");
+const getChatById = async (req, res) => {
+  try {
+    console.log("params:", req.params);
 
-  // const getListingById = async (req, res) => {
-  //   console.log("params:", req.params);
+    const chatId = req.params.chatId;
 
-  //   const listingId = req.params.listingId;
+    if (!chatId) {
+      return res.status(400).json({
+        message: `No chat with the ID ${chatId} in the database`,
+      });
+    }
 
-  //   if (!listingId) {
-  //     return res.status(400).json({
-  //       message: `No listing with the ID ${listingId} in the database`,
-  //     });
-  //   }
+    const chat = await ChatsModel.findById(chatId).populate({
+      path: "listingId",
+      select: "name",
+    });
 
-  //   const listing = await ListingModel.findById(listingId).populate({
-  //     path: "seller",
-  //     select: ["username", "email"],
-  //   });
+    if (!chat) {
+      return res.status(400).json({
+        message: "Couldn't retrieve chat from the DB",
+      });
+    }
 
-  //   if (!listing) {
-  //     return res.status(400).json({
-  //       message: "Couldn't retrieve listing from the DB",
-  //     });
-  //   }
-
-  //   if (listing) {
-  //     return res.status(200).json({
-  //       message: "Listing retrieved successfully",
-  //       listing,
-  //     });
-  //   }
-  // };
+    if (chat) {
+      return res.status(200).json({
+        message: "Chat retrieved successfully",
+        chat,
+      });
+    }
+  } catch (error) {
+    console.log("error :>> ", error.message);
+  }
 };
 
 const createNewChat = async (req, res) => {
