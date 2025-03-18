@@ -47,7 +47,7 @@ const getUserChats = async (req, res) => {
 
     const userChats = await ChatsModel.find(query).populate({
       path: "listingId",
-      select: ["name", "district"],
+      select: "name",
     });
 
     if (!userChats) {

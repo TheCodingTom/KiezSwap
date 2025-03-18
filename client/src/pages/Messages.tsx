@@ -6,7 +6,7 @@ import { NavLink } from "react-router";
 type ChatType = {
   buyerId: string;
   created_at: string;
-  listingId: string;
+  listingId: ChatListingType;
   messages: MessageType[];
   sellerId: string;
   updatedAt: string;
@@ -16,6 +16,11 @@ type ChatType = {
 type MessageType = {
   senderId: string;
   text: string;
+  _id: string;
+};
+
+type ChatListingType = {
+  name: string;
   _id: string;
 };
 
@@ -58,7 +63,7 @@ function Messages() {
           <NavLink key={chat._id} to={chat._id}>
             <ListGroupItem action>
               <div>
-                <strong>Listing ID:</strong> {chat.listingId}
+                <strong>Listing:</strong> {chat.listingId.name}
               </div>
               <div>
                 <strong>Last Message: </strong>
