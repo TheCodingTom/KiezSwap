@@ -102,7 +102,7 @@ function NewListing() {
             <Form.Control
               as="textarea"
               rows={3}
-              placeholder="Enter description"
+              placeholder="Enter description, conditions, etc."
               name="description"
               value={formData.description}
               onChange={handleInputChange}
@@ -111,13 +111,28 @@ function NewListing() {
 
           <Form.Group controlId="district">
             <Form.Label>District</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter district"
+            <Form.Select
               name="district"
               value={formData.district}
               onChange={handleInputChange}
-            />
+            >
+              <option value="">Select district...</option>
+              <optgroup>
+                <option value="charlottenburg">Charlottenburg</option>
+                <option value="friedrichshain">Friedrichshain</option>
+                <option value="kreuzberg">Kreuzberg</option>
+                <option value="lichtenberg">Lichtenberg</option>
+
+                <option value="mitte">Mitte</option>
+                <option value="neukoelln">Neukölln</option>
+                <option value="pankow">Pankow</option>
+
+                <option value="steglitz">Steglitz</option>
+                <option value="tempelhof">Tempelhof</option>
+                <option value="schoeneberg">Schöneberg</option>
+                <option value="treptow">Treptow</option>
+              </optgroup>
+            </Form.Select>
           </Form.Group>
 
           <Form.Group controlId="category">
@@ -129,9 +144,14 @@ function NewListing() {
             >
               <option value="">Select category...</option>
               <optgroup>
+                <option value="accessories">Accessories</option>
                 <option value="books">Books</option>
                 <option value="clothes">Clothes</option>
                 <option value="electronics">Electronics</option>
+                <option value="furniture">Furniture</option>
+                <option value="games">Games</option>
+                <option value="vinyls">Vinyls</option>
+                <option value="other">Other</option>
               </optgroup>
             </Form.Select>
           </Form.Group>
