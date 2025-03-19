@@ -35,6 +35,7 @@ const getAllListings = async (req, res) => {
     }
   } else {
     try {
+      // getting all listings of a specific user
       const userListings = await ListingModel.find({
         // need to query by seller and not by userId, cause "seller" is the reference in the listing collection
         seller: req.query.userId,
@@ -156,18 +157,9 @@ const getListingById = async (req, res) => {
 
 const addNewListing = async (req, res) => {
   // console.log("req.body>>>>", req.body);
-  const { name, description, district, user } = req.body;
+  const { name, description, district, category } = req.body;
 
-  // ! just a suggestion to abstract logic to another file
-  const checkFields = (fields) => {
-    if (!name || !description || !district || !user) {
-      return "field... is miisng";
-    } else {
-      return true;
-    }
-  };
-  //! -----
-  if (!name || !description || !district || !user) {
+  if (!name || !description || !district || !category) {
     return res
       .status(400)
       .json({ error: "All fields except image are required" });
@@ -198,10 +190,10 @@ const addNewListing = async (req, res) => {
   const newListingObject = new ListingModel({
     name: name,
     description: description,
-    // city: city,
     district: district,
     image: imageUrl,
-    // category: category,
+    category: category,
+    // the user is populated by the jwt auth middleware
     seller: req.user._id,
   });
 
@@ -230,12 +222,10 @@ const addNewListing = async (req, res) => {
             id: newListing._id,
             name: newListing.name,
             description: newListing.description,
-            // city: newListing.city,
             district: newListing.district,
             image: newListing.image,
+            category: newListing.category,
             seller: newListing.seller,
-
-            // category: newListing.category,
           },
         });
       }

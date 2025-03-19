@@ -10,11 +10,12 @@ const listingsSchema = mongoose.Schema({
     require: true,
     type: String,
   },
-  price: { require: false, type: Number },
-  // location: {
-  //   city: { require: true, type: String },
-  //   district: { require: true, type: String },
-  // },
+  condition: {
+    require: true,
+    type: String,
+  },
+  // price: { require: false, type: Number },
+
   district: {
     require: true,
     type: String,

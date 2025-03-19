@@ -105,7 +105,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
         requestOptions
       );
       const result = (await response.json()) as LoginOkResponse;
-      alert(result.message);
+      // alert(result.message);
       console.log(result);
 
       if (!result.token) {
@@ -135,33 +135,33 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       setIsAuthenticated(true); //  ensures that user stays logged in after refresh
 
       // if (!user) {
-        // if the user is not set, we fetch data from the backend
-        const myHeaders = new Headers();
-        myHeaders.append("Authorization", `Bearer ${token}`);
+      // if the user is not set, we fetch data from the backend
+      const myHeaders = new Headers();
+      myHeaders.append("Authorization", `Bearer ${token}`);
 
-        const requestOptions = {
-          method: "GET",
-          headers: myHeaders,
-        };
+      const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+      };
 
-        try {
-          const response = await fetch(
-            "http://localhost:4000/api/users/profile",
-            requestOptions
-          );
-          if (!response.ok) {
-            console.log("Log in again, redirect user to login page");
-            return;
-          }
-
-          if (response.ok) {
-            const result = await response.json();
-            console.log("result in the check user status):>> ", result);
-            setUser(result);
-          }
-        } catch (error) {
-          console.log("error :>> ", error);
+      try {
+        const response = await fetch(
+          "http://localhost:4000/api/users/profile",
+          requestOptions
+        );
+        if (!response.ok) {
+          console.log("Log in again, redirect user to login page");
+          return;
         }
+
+        if (response.ok) {
+          const result = await response.json();
+          console.log("result in the check user status):>> ", result);
+          setUser(result);
+        }
+      } catch (error) {
+        console.log("error :>> ", error);
+      }
       // }
     } else {
       // if no token, the user is logged out

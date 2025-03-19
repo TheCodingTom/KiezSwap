@@ -1,5 +1,4 @@
-import { useContext, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { useState } from "react";
 
 type SendMessageChatProps = {
   chatId?: string;
@@ -43,7 +42,9 @@ function SendMessageChat({ chatId }: SendMessageChatProps) {
       if (response.ok) {
         const result = await response.json();
         console.log(result);
+
         setConfirmMessage("Message sent!");
+
         setMessage(""); // Clear the input after sending
       }
     } catch (error) {

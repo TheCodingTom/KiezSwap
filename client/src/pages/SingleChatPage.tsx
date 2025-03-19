@@ -5,9 +5,15 @@ import SingleChat from "../components/SingleChat";
 import "../styles/SingleChat.css";
 import SendMessageChat from "../components/SendMessageChat";
 
+// type SenderType = {
+//   username: string;
+//   _id: string;
+// };
+
 function SingleChatPage() {
   const { chatId } = useParams<string>();
 
+  // const [sender, setSender] = useState<SenderType | null>(null);
   const [messages, setMessages] = useState<MessageType[] | null>(null);
 
   const getChatById = async () => {
@@ -41,6 +47,7 @@ function SingleChatPage() {
   return (
     <div>
       <h1>Single chat page</h1>
+
       <div className="chat-container">
         {messages &&
           messages.map((message) => {

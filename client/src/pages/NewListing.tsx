@@ -13,6 +13,7 @@ function NewListing() {
     name: "",
     description: "",
     district: "",
+    category: "",
   });
 
   const [selectedFile, setSelectedFile] = useState<File | string>("");
@@ -51,6 +52,7 @@ function NewListing() {
       form.append("name", formData.name);
       form.append("description", formData.description);
       form.append("district", formData.district);
+      form.append("category", formData.category);
       form.append("user", user.id);
       form.append("image", selectedFile);
 
@@ -112,6 +114,16 @@ function NewListing() {
               placeholder="Enter district"
               name="district"
               value={formData.district}
+              onChange={handleInputChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="category">
+            <Form.Label>Category</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter category"
+              name="category"
+              value={formData.category}
               onChange={handleInputChange}
             />
           </Form.Group>
