@@ -1,7 +1,8 @@
 import { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router";
 
 function Register() {
@@ -16,7 +17,6 @@ function Register() {
     email: "",
     password: "",
   });
-  const goToLogin = useNavigate();
 
   const validateUsername = (username: string) => {
     return username.length >= 4;
@@ -86,7 +86,10 @@ function Register() {
 
     if (username && email && password) {
       register(username, email, password);
-      goToLogin("/login");
+      toast.success("User registered!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -154,8 +157,13 @@ function Register() {
             ""
           )}
         </form>
-       {!errors.email && !errors.username && !errors.password ?  <Button onClick={handleSubmitRegister}>Register</Button> : <Button disabled >Register</Button>}
+        {!errors.email && !errors.username && !errors.password ? (
+          <Button onClick={handleSubmitRegister}>Register</Button>
+        ) : (
+          <Button disabled>Register</Button>
+        )}
       </div>
+      <ToastContainer />
     </>
   );
 }

@@ -76,8 +76,16 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
         `${baseUrl}/api/users/register`,
         requestOptions
       );
-      const result = (await response.json()) as RegisterOkResponse;
-      console.log(result.message);
+      if (!response.ok) {
+        console.log("Error while trying to register new user");
+        return;
+      }
+
+      if (response.ok) {
+        const result = (await response.json()) as RegisterOkResponse;
+        console.log(result.message);
+        return;
+      }
     } catch (error) {
       console.log("error :>> ", error);
     }
@@ -106,19 +114,27 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
         `${baseUrl}/api/users/login`,
         requestOptions
       );
-      const result = (await response.json()) as LoginOkResponse;
-      // alert(result.message);
-      console.log(result);
-
-      if (!result.token) {
-        // do something if token is not there
+      if (!response.ok) {
+        console.log("Error while trying to login");
+        return;
       }
 
-      if (result.token) {
-        // store token in the local storage
-        localStorage.setItem("token", result.token);
-        setUser(result.user);
-        setIsAuthenticated(true);
+      if (response.ok) {
+        const result = (await response.json()) as LoginOkResponse;
+        console.log(result);
+
+        if (!result.token) {
+          console.log("Login failed: no token received");
+          setIsAuthenticated(false);
+        }
+
+        if (result.token) {
+          // store token in the local storage
+          localStorage.setItem("token", result.token);
+          setUser(result.user);
+          setIsAuthenticated(true);
+          return;
+        }
       }
     } catch (error) {
       console.log("error :>> ", error);
@@ -136,8 +152,6 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     if (token) {
       setIsAuthenticated(true); //  ensures that user stays logged in after refresh
 
-      // if (!user) {
-      // if the user is not set, we fetch data from the backend
       const myHeaders = new Headers();
       myHeaders.append("Authorization", `Bearer ${token}`);
 

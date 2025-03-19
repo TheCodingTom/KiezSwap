@@ -69,9 +69,10 @@ function Login() {
         position: "top-right",
         autoClose: 3000,
       });
-      setTimeout(() => {
-        goToHome("/");
-      }, 3000);
+
+      // setTimeout(() => {
+      //   goToHome("/");
+      // }, 3000);
     }
   };
 
