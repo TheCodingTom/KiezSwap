@@ -1,6 +1,7 @@
 import express from "express";
 import {
   addNewListing,
+  deleteListing,
   getAllListings,
   getListingById,
   getListingsByCategory,
@@ -20,5 +21,7 @@ listingsRouter.post(
   multerUpload.single("image"),
   addNewListing
 );
+
+listingsRouter.delete("/userListings/:listingId", deleteListing);
 
 export default listingsRouter;

@@ -236,4 +236,14 @@ const addNewListing = async (req, res) => {
   }
 };
 
-export { getAllListings, getListingsByCategory, getListingById, addNewListing };
+const deleteListing = () => {
+  console.log("route working");
+};
+
+export {
+  getAllListings,
+  getListingsByCategory,
+  getListingById,
+  addNewListing,
+  deleteListing,
+};
