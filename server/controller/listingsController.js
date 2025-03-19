@@ -236,8 +236,31 @@ const addNewListing = async (req, res) => {
   }
 };
 
-const deleteListing = () => {
-  console.log("route working");
+const deleteListing = async (req, res) => {
+  console.log("deleting listing");
+
+  // the user is populated by the jwt auth middleware
+
+  const listingId = req.params.listingId;
+
+  const listing = await ListingModel.findByIdAndDelete(listingId);
+
+  if (!listing) {
+    res.status(404).json({
+      message: "Listing not found",
+    });
+  }
+
+  try {
+    if (listing) {
+      return res.status(201).json({
+        message: "Listing deleted",
+        info: listing,
+      });
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 export {
