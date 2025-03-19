@@ -31,7 +31,9 @@ function NewListing() {
   };
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -117,15 +119,21 @@ function NewListing() {
               onChange={handleInputChange}
             />
           </Form.Group>
+
           <Form.Group controlId="category">
             <Form.Label>Category</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter category"
+            <Form.Select
               name="category"
               value={formData.category}
               onChange={handleInputChange}
-            />
+            >
+              <option value="">Select category...</option>
+              <optgroup>
+                <option value="books">Books</option>
+                <option value="clothes">Clothes</option>
+                <option value="electronics">Electronics</option>
+              </optgroup>
+            </Form.Select>
           </Form.Group>
 
           <Form.Group controlId="image">
