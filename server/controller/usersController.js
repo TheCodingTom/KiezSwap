@@ -112,7 +112,7 @@ const registerNewUser = async (req, res) => {
           return res.status(201).json({
             message: "User registered successfully",
             user: {
-              id: newUser._id,
+              _id: newUser._id,
               username: newUser.username,
               email: newUser.email,
               image: newUser.image,
@@ -173,7 +173,7 @@ const login = async (req, res) => {
             user: {
               username: existingUser.username,
               email: existingUser.email,
-              id: existingUser._id,
+              _id: existingUser._id,
               image: existingUser.image, // double check this
               // listings: existingUser.listings
             },
@@ -202,7 +202,7 @@ const getProfile = async (req, res) => {
   if (req.user) {
     return res.status(200).json({
       message: "User profile",
-      id: req.user._id,
+      _id: req.user._id,
       username: req.user.username,
       email: req.user.email,
       image: req.user.image,

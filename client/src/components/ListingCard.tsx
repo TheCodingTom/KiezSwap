@@ -2,12 +2,19 @@ import { Card } from "react-bootstrap";
 import { ListingType } from "../types/customTypes";
 import { NavLink } from "react-router";
 import SendMessageModal from "./SendMessageModal";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 type ListingCardProps = {
   listing: ListingType;
 };
 
 function ListingCard({ listing }: ListingCardProps) {
+  console.log(listing.seller);
+
+  const { user } = useContext(AuthContext);
+  console.log(user);
+
   return (
     <Card style={{ width: "18rem" }}>
       <NavLink to={listing._id}>
@@ -28,7 +35,11 @@ function ListingCard({ listing }: ListingCardProps) {
           {listing.likes ? `Liked by ${listing.likes} people` : ""}
         </Card.Text>
         <div>
-          <SendMessageModal listingId={listing._id} />
+          {listing.seller._id !== user?._id ? (
+            <SendMessageModal listingId={listing._id} />
+          ) : (
+            ""
+          )}
         </div>
       </Card.Body>
     </Card>

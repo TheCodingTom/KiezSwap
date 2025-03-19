@@ -17,7 +17,7 @@ function UserListings() {
     if (user) {
       try {
         const response = await fetch(
-          `${baseUrl}/api/listings/all?userId=${user.id}`,
+          `${baseUrl}/api/listings/all?userId=${user._id}`,
           requestOptions
         );
 

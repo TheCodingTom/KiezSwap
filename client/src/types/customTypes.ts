@@ -1,6 +1,6 @@
 export type UserType = {
   email: string;
-  id: string;
+  _id: string;
   image: string;
   username: string;
   password: string;
@@ -8,6 +8,12 @@ export type UserType = {
 };
 
 export type User = Omit<UserType, "password">;
+
+export type SellerType = {
+  username: string;
+  _id: string;
+  email: string;
+};
 
 export type ImageUploadOkResponse = {
   message: string;
@@ -27,7 +33,7 @@ export type LoginOkResponse = {
 
 export type GetProfileOkResponse = {
   message: string;
-  id: string;
+  _id: string;
   username: string;
   email: string;
   image: string;
@@ -42,5 +48,5 @@ export type ListingType = {
   category: string;
   likes?: number;
   image: string;
-  seller: User;
+  seller: SellerType;
 };

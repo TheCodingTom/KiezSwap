@@ -1,4 +1,4 @@
-import { Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import { ListingType } from "../types/customTypes";
 
 type UserListingCardProps = {
@@ -17,11 +17,13 @@ function UserListingCard({ listing }: UserListingCardProps) {
       <Card.Body>
         <Card.Title>{listing.name}</Card.Title>
 
-        <Card.Text>{listing.description}</Card.Text>
-
         <Card.Text>
           {listing.likes ? `Liked by ${listing.likes} people` : ""}
         </Card.Text>
+        <div className="user-card-buttons">
+          <Button>Update</Button>
+          <Button>Delete</Button>
+        </div>
       </Card.Body>
     </Card>
   );
