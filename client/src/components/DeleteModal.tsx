@@ -27,8 +27,14 @@ function DeleteModal({ handleDeleteListing }: DeleteModalProps) {
           <Button variant="secondary" onClick={handleClose}>
             No, I was joking
           </Button>
-          <Button variant="primary" onClick={handleDeleteListing}>
-            Yes, trash that thing
+          <Button
+            variant="primary"
+            onClick={() => {
+              handleDeleteListing();
+              handleClose();
+            }}
+          >
+            Yes, leave me alone!
           </Button>
         </Modal.Footer>
       </Modal>

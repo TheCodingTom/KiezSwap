@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { ListingType } from "../types/customTypes";
 import { Button, Card } from "react-bootstrap";
 import { baseUrl } from "../utils/baseUrl";
+import SendMessageModal from "../components/SendMessageModal";
+import { AuthContext } from "../context/AuthContext";
 
 function ListingDetails() {
   const { listingId } = useParams<string>();
+  const { user } = useContext(AuthContext);
   const [listing, setListing] = useState<ListingType | null>(null);
 
   const getListingById = async () => {
@@ -45,7 +48,11 @@ function ListingDetails() {
           {/* <UserModal user={listing?.user} /> */}
 
           <Card.Text>{listing?.description}</Card.Text>
-          <Button variant="primary">Contact</Button>
+          {listing && listing?.seller._id !== user?._id ? (
+            <SendMessageModal listingId={listing._id} />
+          ) : (
+            ""
+          )}
         </Card.Body>
       </Card>
     </div>

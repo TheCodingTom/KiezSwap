@@ -40,7 +40,7 @@ function Messages() {
     };
 
     const response = await fetch(
-      `${baseUrl}/api/chats/userChats/?sellerId=${user?.id}&buyerId=${user?.id}`,
+      `${baseUrl}/api/chats/userChats/?sellerId=${user?._id}&buyerId=${user?._id}`,
       requestOptions
     );
 
@@ -61,7 +61,7 @@ function Messages() {
 
   return (
     <ListGroup>
-      {!chats ? (
+      {chats && chats.length < 1 ? (
         <ListGroupItem>No chats found.</ListGroupItem>
       ) : (
         chats &&
