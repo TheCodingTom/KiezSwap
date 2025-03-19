@@ -33,6 +33,7 @@ const contextInitialValue: AuthContextType = {
 
 import { createContext, ReactNode, useEffect, useState } from "react";
 import {
+  GetProfileOkResponse,
   LoginOkResponse,
   RegisterOkResponse,
   User,
@@ -156,7 +157,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
         }
 
         if (response.ok) {
-          const result = await response.json();
+          const result = (await response.json()) as GetProfileOkResponse;
           console.log("result in the check user status):>> ", result);
           setUser(result);
         }

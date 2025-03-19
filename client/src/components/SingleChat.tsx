@@ -5,7 +5,7 @@ type SingleChatProps = {
   text: string;
 };
 
-type SenderType = {
+export type SenderType = {
   _id: string;
   username: string;
 };

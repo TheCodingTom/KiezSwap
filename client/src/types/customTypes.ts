@@ -9,13 +9,6 @@ export type UserType = {
 
 export type User = Omit<UserType, "password">;
 
-export type UserRegisterFormType = {
-  email: string;
-  image?: string;
-  password: string;
-  username: string;
-};
-
 export type ImageUploadOkResponse = {
   message: string;
   imageURL: string;
@@ -38,29 +31,16 @@ export type GetProfileOkResponse = {
   username: string;
   email: string;
   image: string;
+  listings: ListingType[];
 };
 
 export type ListingType = {
   _id: string;
   name: string;
   description: string;
-  location?: LocationType;
   district: string;
-  category?: string;
+  category: string;
   likes?: number;
   image: string;
   seller: User;
 };
-
-export type NewListingType = {
-  name: string;
-  description: string;
-  district: string;
-};
-
-export type LocationType = {
-  city: string;
-  district: string;
-};
-
-export type ListingFormType = Omit<ListingType, "_id">;

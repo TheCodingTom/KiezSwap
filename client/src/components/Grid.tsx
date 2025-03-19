@@ -4,12 +4,15 @@ import ListingCard from "./ListingCard";
 
 function Grid() {
   const { listings } = useContext(ListingsContext);
+
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
 
   if (!listings) {
     return <h3>Loading listings...</h3>;
   }
+
+  console.log(listings);
 
   // .map creates array of all categories from listings, with Set we remove duplicates and the spread operator converts the set in an array
 
