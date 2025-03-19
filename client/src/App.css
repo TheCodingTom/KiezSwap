@@ -29,25 +29,8 @@ h1 {
   width: 350px;
 }
 
-/* dropdown menu - not used atm */
-
-.dropdown-container {
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-}
-
-.dropdown {
-  border-radius: 50%;
-  /* height: 50px;
-  width: 50px; */
-}
-
-.dropdown-menu {
-  border-radius: 20%;
-  background-color: rgb(144, 190, 206);
-}
 /* listings page */
+
 .cards-container {
   display: flex;
   flex-direction: row;
@@ -62,14 +45,8 @@ h1 {
   padding: 10px;
 }
 
-/* .card-button {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  bottom: 0px;
-} */
+/* registration/login error handling */
 
-/* registration error handling */
 .error {
   color: red;
   font-size: 15px;
@@ -77,7 +54,8 @@ h1 {
 .errorInput {
   border: 1px solid red;
 }
-/* single listing page*/
+
+/* single listing page */
 .single-listing-container {
   display: flex;
   justify-content: center;
@@ -119,6 +97,8 @@ h1 {
   flex-direction: row;
   gap: 10px;
 }
+
+/* profile nav bar animation */
 
 .shake-left-right :hover {
   animation: shake-left-right 0.8s linear both;

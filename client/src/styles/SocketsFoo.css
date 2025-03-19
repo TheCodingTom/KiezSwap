@@ -1,13 +1,89 @@
+.chat-body {
+  height: 80vh;
+  padding: 36px 36px 100px 36px;
+  text-align: center;
+}
+
+#chat {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: 550px;
+  height: 70vh;
+  max-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+#form {
+  /* height: 5vh; */
+  bottom: 0;
+  display: flex;
+  left: 0;
+  padding: 4px;
+  position: fixed;
+
+  right: 0;
+  width: 100%;
+  max-width: 728px;
+}
+
+#message-input {
+  border-radius: 9999px;
+  border: 1px solid #999;
+  flex: 1; /* to take as much space as possible */
+  margin: 4px;
+  padding: 0 8px;
+
+  /* &:focus {
+    outline: 0;
+  } */
+}
+
+#button-send {
+  background-color: #09f;
+  border-radius: 9999px;
+  margin: 4px;
+  background-color: #52af5d;
+  border: none;
+  color: white;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 1.25rem;
+  &:hover {
+    background: #2f5b2f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+}
+
+#chat-status {
+  color: green;
+  &.off {
+    color: red;
+  }
+}
 #messages {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
-
 #messages > li {
   padding: 0.5rem 1rem;
 }
 
 #messages > li:nth-child(odd) {
   background: #eee;
+}
+@media screen and (max-width: 768px) {
+  body:has(.active) {
+    & #chat {
+      margin-top: 8rem;
+      height: 65vh;
+    }
+  }
 }

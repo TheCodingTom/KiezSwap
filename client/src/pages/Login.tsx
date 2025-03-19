@@ -88,6 +88,9 @@ function Login() {
               placeholder="Enter email"
               name="email"
               onChange={handleEmailInputChange}
+              className={
+                errors.email && errors.email.length > 0 ? "errorInput" : ""
+              }
             />
           </Form.Group>
 
@@ -103,6 +106,11 @@ function Login() {
               placeholder="Enter password"
               name="password"
               onChange={handlePasswordInputChange}
+              className={
+                errors.password && errors.password.length > 0
+                  ? "errorInput"
+                  : ""
+              }
             />
           </Form.Group>
 

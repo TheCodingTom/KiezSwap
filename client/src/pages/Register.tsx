@@ -108,7 +108,7 @@ function Register() {
               className={
                 errors.username && errors.username.length > 0
                   ? "errorInput"
-                  : "input"
+                  : ""
               }
             />
           </Form.Group>
@@ -126,7 +126,7 @@ function Register() {
               name="email"
               onChange={handleEmailInputChange}
               className={
-                errors.email && errors.email.length > 0 ? "errorInput" : "input"
+                errors.email && errors.email.length > 0 ? "errorInput" : ""
               }
             />
           </Form.Group>
@@ -146,7 +146,7 @@ function Register() {
               className={
                 errors.password && errors.password.length > 0
                   ? "errorInput"
-                  : "input"
+                  : ""
               }
             />
           </Form.Group>
