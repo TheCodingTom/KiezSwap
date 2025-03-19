@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { ListingType } from "../types/customTypes";
-import { Button, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { baseUrl } from "../utils/baseUrl";
 import SendMessageModal from "../components/SendMessageModal";
 import { AuthContext } from "../context/AuthContext";

@@ -4,17 +4,17 @@ import { NavLink } from "react-router";
 function NavBarProfile() {
   return (
     <Nav className="justify-content-center">
-      <Nav.Item>
+      <Nav.Item className="shake-left-right">
         <Nav.Link as={NavLink} to={"/profile/userlistings"}>
           My Listings
         </Nav.Link>
       </Nav.Item>
-      <Nav.Item>
+      <Nav.Item className="shake-left-right">
         <Nav.Link as={NavLink} to={"/profile/messages"}>
           Messages
         </Nav.Link>
       </Nav.Item>
-      <Nav.Item>
+      <Nav.Item className="shake-left-right">
         <Nav.Link as={NavLink} to={"/profile/favourites"}>
           Favourites
         </Nav.Link>

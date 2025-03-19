@@ -1,4 +1,4 @@
-import { Button, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { ListingType } from "../types/customTypes";
 import { baseUrl } from "../utils/baseUrl";
 import { useContext } from "react";
