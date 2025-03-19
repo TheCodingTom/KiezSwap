@@ -56,7 +56,7 @@ function NewListing() {
       form.append("description", formData.description);
       form.append("district", formData.district);
       form.append("category", formData.category);
-      form.append("user", user.id);
+      form.append("user", user._id);
       form.append("image", selectedFile);
 
       try {

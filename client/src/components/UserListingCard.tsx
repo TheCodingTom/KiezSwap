@@ -1,11 +1,35 @@
 import { Button, Card } from "react-bootstrap";
 import { ListingType } from "../types/customTypes";
+import { baseUrl } from "../utils/baseUrl";
+import { useContext } from "react";
+import { ListingsContext } from "../context/ListingsContext";
 
 type UserListingCardProps = {
   listing: ListingType;
 };
 
 function UserListingCard({ listing }: UserListingCardProps) {
+  const { getListings } = useContext(ListingsContext);
+  const handleDeleteListing = async () => {
+    const requestOptions = {
+      method: "DELETE",
+    };
+
+    try {
+      const response = await fetch(
+        `${baseUrl}/api/listings/userListings/${listing._id}`,
+        requestOptions
+      );
+
+      const result = await response.json();
+      console.log(result);
+
+      getListings();
+    } catch (error) {
+      console.error("Error deleting listing:", error);
+    }
+  };
+
   return (
     <Card style={{ width: "16rem" }}>
       <Card.Img
@@ -22,7 +46,7 @@ function UserListingCard({ listing }: UserListingCardProps) {
         </Card.Text>
         <div className="user-card-buttons">
           <Button>Update</Button>
-          <Button>Delete</Button>
+          <Button onClick={handleDeleteListing}>Delete</Button>
         </div>
       </Card.Body>
     </Card>
