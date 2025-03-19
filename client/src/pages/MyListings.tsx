@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ListingType } from "../types/customTypes";
 import ListingCard from "../components/ListingCard";
+import { baseUrl } from "../utils/baseUrl";
 
 function MyListings() {
   const { user } = useContext(AuthContext);
@@ -15,7 +16,7 @@ function MyListings() {
     if (user) {
       try {
         const response = await fetch(
-          `http://localhost:4000/api/listings/all?userId=${user.id}`,
+          `${baseUrl}/api/listings/all?userId=${user.id}`,
           requestOptions
         );
 

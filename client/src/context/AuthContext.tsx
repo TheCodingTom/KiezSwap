@@ -37,6 +37,7 @@ import {
   RegisterOkResponse,
   User,
 } from "../types/customTypes";
+import { baseUrl } from "../utils/baseUrl";
 
 export const AuthContext = createContext<AuthContextType>(contextInitialValue);
 
@@ -71,7 +72,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
 
     try {
       const response = await fetch(
-        "http://localhost:4000/api/users/register",
+        `${baseUrl}/api/users/register`,
         requestOptions
       );
       const result = (await response.json()) as RegisterOkResponse;
@@ -101,7 +102,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
 
     try {
       const response = await fetch(
-        "http://localhost:4000/api/users/login",
+        `${baseUrl}/api/users/login`,
         requestOptions
       );
       const result = (await response.json()) as LoginOkResponse;
@@ -146,7 +147,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
 
       try {
         const response = await fetch(
-          "http://localhost:4000/api/users/profile",
+          `${baseUrl}/api/users/profile`,
           requestOptions
         );
         if (!response.ok) {

@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { NavLink } from "react-router";
+import { baseUrl } from "../utils/baseUrl";
 
 type ChatType = {
   buyerId: string;
@@ -39,7 +40,7 @@ function Messages() {
     };
 
     const response = await fetch(
-      `http://localhost:4000/api/chats/userChats/?sellerId=${user?.id}&buyerId=${user?.id}`,
+      `${baseUrl}/api/chats/userChats/?sellerId=${user?.id}&buyerId=${user?.id}`,
       requestOptions
     );
 

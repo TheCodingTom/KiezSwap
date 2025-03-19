@@ -1,14 +1,15 @@
 import { useContext, useState } from "react";
 import { ListingsContext } from "../context/ListingsContext";
 import ListingCard from "./ListingCard";
-import { ListingType } from "../types/customTypes";
 
 function Grid() {
-  const { listings } = useContext(ListingsContext) as {
-    listings: ListingType[];
-  };
+  const { listings } = useContext(ListingsContext);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
+
+  if (!listings) {
+    return <h3>Loading listings...</h3>;
+  }
 
   // .map creates array of all categories from listings, with Set we remove duplicates and the spread operator converts the set in an array
 
@@ -25,7 +26,7 @@ function Grid() {
 
   return (
     <div>
-      <div className="filters mb-4 flex gap-4">
+      <div className="">
         <select
           className="p-2 border rounded"
           value={selectedCategory}
@@ -60,7 +61,7 @@ function Grid() {
             <ListingCard listing={listing} key={listing._id} />
           ))
         ) : (
-          <p>No listings found.</p>
+          <h3>No listings found.</h3>
         )}
       </div>
     </div>

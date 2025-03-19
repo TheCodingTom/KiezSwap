@@ -4,13 +4,13 @@ type ListingsContextProviderProps = {
 
 type ListingsContextType = {
   listings: ListingType[] | null;
-  url: string;
+
   getListings: () => void;
 };
 
 const initialValue: ListingsContextType = {
   listings: null,
-  url: "",
+
   getListings: () => {
     throw new Error("Context not initialised");
   },
@@ -18,6 +18,7 @@ const initialValue: ListingsContextType = {
 
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { ListingType } from "../types/customTypes";
+import { baseUrl } from "../utils/baseUrl";
 
 export const ListingsContext = createContext(initialValue);
 
@@ -26,11 +27,9 @@ export const ListingsContextProvider = ({
 }: ListingsContextProviderProps) => {
   const [listings, setListings] = useState<ListingType[] | null>(null);
 
-  const url = "http://localhost:4000/api/listings/all";
-
   const getListings = async () => {
     try {
-      const response = await fetch(url);
+      const response = await fetch(`${baseUrl}/api/listings/all`);
       const result = await response.json();
       // console.log(result);
       setListings(result.allListings);
@@ -45,7 +44,7 @@ export const ListingsContextProvider = ({
 
   return (
     <div>
-      <ListingsContext.Provider value={{ listings, url, getListings }}>
+      <ListingsContext.Provider value={{ listings, getListings }}>
         {children}
       </ListingsContext.Provider>
     </div>

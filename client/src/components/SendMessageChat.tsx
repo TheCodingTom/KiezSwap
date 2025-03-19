@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { baseUrl } from "../utils/baseUrl";
 
 type SendMessageChatProps = {
   chatId?: string;
@@ -34,7 +35,7 @@ function SendMessageChat({ chatId }: SendMessageChatProps) {
     };
 
     const response = await fetch(
-      `http://localhost:4000/api/chats/userChats/send/${chatId}`,
+      `${baseUrl}/api/chats/userChats/send/${chatId}`,
       requestOptions
     );
 

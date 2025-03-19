@@ -2,6 +2,7 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import { baseUrl } from "../utils/baseUrl";
 
 type MessageModalProps = {
   listingId: string;
@@ -42,7 +43,7 @@ function SendMessageModal({ listingId }: MessageModalProps) {
     };
 
     const response = await fetch(
-      "http://localhost:4000/api/chats/newChat",
+      `${baseUrl}/api/chats/newChat`,
       requestOptions
     );
 

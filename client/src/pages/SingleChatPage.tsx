@@ -4,6 +4,7 @@ import { MessageType } from "./Messages";
 import SingleChat from "../components/SingleChat";
 import "../styles/SingleChat.css";
 import SendMessageChat from "../components/SendMessageChat";
+import { baseUrl } from "../utils/baseUrl";
 
 // type SenderType = {
 //   username: string;
@@ -22,7 +23,7 @@ function SingleChatPage() {
         method: "GET",
       };
       const response = await fetch(
-        `http://localhost:4000/api/chats/userChats/${chatId}`,
+        `${baseUrl}/api/chats/userChats/${chatId}`,
         requestOptions
       );
 

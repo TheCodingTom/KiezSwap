@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { ImageUploadOkResponse } from "../types/customTypes";
 import { AuthContext } from "../context/AuthContext";
+import { baseUrl } from "../utils/baseUrl";
 
 function UploadAvatar() {
   const { user, checkUserStatus } = useContext(AuthContext);
@@ -35,7 +36,7 @@ function UploadAvatar() {
 
     try {
       const response = await fetch(
-        "http://localhost:4000/api/users/uploadImage",
+        `${baseUrl}/api/users/uploadImage`,
         requestOptions
       );
       const result = (await response.json()) as ImageUploadOkResponse;

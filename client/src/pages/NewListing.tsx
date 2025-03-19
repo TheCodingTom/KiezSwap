@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import { ListingsContext } from "../context/ListingsContext";
+import { baseUrl } from "../utils/baseUrl";
 
 function NewListing() {
   const { user } = useContext(AuthContext);
@@ -59,16 +60,13 @@ function NewListing() {
       form.append("image", selectedFile);
 
       try {
-        const response = await fetch(
-          "http://localhost:4000/api/listings/newlisting",
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            body: form,
-          }
-        );
+        const response = await fetch(`${baseUrl}/api/listings/newlisting`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: form,
+        });
 
         const result = await response.json();
         console.log(result);
@@ -118,19 +116,19 @@ function NewListing() {
             >
               <option value="">Select district...</option>
               <optgroup>
-                <option value="charlottenburg">Charlottenburg</option>
-                <option value="friedrichshain">Friedrichshain</option>
-                <option value="kreuzberg">Kreuzberg</option>
-                <option value="lichtenberg">Lichtenberg</option>
+                <option value="Charlottenburg">Charlottenburg</option>
+                <option value="Friedrichshain">Friedrichshain</option>
+                <option value="Kreuzberg">Kreuzberg</option>
+                <option value="Lichtenberg">Lichtenberg</option>
 
-                <option value="mitte">Mitte</option>
-                <option value="neukoelln">Neukölln</option>
-                <option value="pankow">Pankow</option>
+                <option value="Mitte">Mitte</option>
+                <option value="Neukölln">Neukölln</option>
+                <option value="Pankow">Pankow</option>
 
-                <option value="steglitz">Steglitz</option>
-                <option value="tempelhof">Tempelhof</option>
-                <option value="schoeneberg">Schöneberg</option>
-                <option value="treptow">Treptow</option>
+                <option value="Steglitz">Steglitz</option>
+                <option value="Tempelhof">Tempelhof</option>
+                <option value="Schoeneberg">Schöneberg</option>
+                <option value="Treptow">Treptow</option>
               </optgroup>
             </Form.Select>
           </Form.Group>
@@ -144,14 +142,14 @@ function NewListing() {
             >
               <option value="">Select category...</option>
               <optgroup>
-                <option value="accessories">Accessories</option>
-                <option value="books">Books</option>
-                <option value="clothes">Clothes</option>
-                <option value="electronics">Electronics</option>
-                <option value="furniture">Furniture</option>
-                <option value="games">Games</option>
-                <option value="vinyls">Vinyls</option>
-                <option value="other">Other</option>
+                <option value="Accessories">Accessories</option>
+                <option value="Books">Books</option>
+                <option value="Clothes">Clothes</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Furniture">Furniture</option>
+                <option value="Games">Games</option>
+                <option value="Vinyls">Vinyls</option>
+                <option value="Other">Other</option>
               </optgroup>
             </Form.Select>
           </Form.Group>

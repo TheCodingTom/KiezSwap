@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { ListingType } from "../types/customTypes";
 import { Button, Card } from "react-bootstrap";
+import { baseUrl } from "../utils/baseUrl";
 
 function ListingDetails() {
   const { listingId } = useParams<string>();
@@ -13,7 +14,7 @@ function ListingDetails() {
         method: "GET",
       };
       const response = await fetch(
-        `http://localhost:4000/api/listings/${listingId}`,
+        `${baseUrl}/api/listings/${listingId}`,
         requestOptions
       );
 
