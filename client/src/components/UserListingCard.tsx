@@ -3,6 +3,7 @@ import { ListingType } from "../types/customTypes";
 import { baseUrl } from "../utils/baseUrl";
 import { useContext } from "react";
 import { ListingsContext } from "../context/ListingsContext";
+import DeleteModal from "./DeleteModal";
 
 type UserListingCardProps = {
   listing: ListingType;
@@ -23,7 +24,6 @@ function UserListingCard({ listing }: UserListingCardProps) {
 
       const result = await response.json();
       console.log(result);
-
       getListings();
     } catch (error) {
       console.error("Error deleting listing:", error);
@@ -45,8 +45,7 @@ function UserListingCard({ listing }: UserListingCardProps) {
           {listing.likes ? `Liked by ${listing.likes} people` : ""}
         </Card.Text>
         <div className="user-card-buttons">
-          <Button>Update</Button>
-          <Button onClick={handleDeleteListing}>Delete</Button>
+          <DeleteModal handleDeleteListing={handleDeleteListing} />
         </div>
       </Card.Body>
     </Card>
