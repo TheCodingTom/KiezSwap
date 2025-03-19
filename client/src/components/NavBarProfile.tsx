@@ -5,7 +5,7 @@ function NavBarProfile() {
   return (
     <Nav className="justify-content-center">
       <Nav.Item>
-        <Nav.Link as={NavLink} to={"/profile/mylistings"}>
+        <Nav.Link as={NavLink} to={"/profile/userlistings"}>
           My Listings
         </Nav.Link>
       </Nav.Item>

@@ -3,8 +3,9 @@ import { AuthContext } from "../context/AuthContext";
 import { ListingType } from "../types/customTypes";
 import ListingCard from "../components/ListingCard";
 import { baseUrl } from "../utils/baseUrl";
+import UserListingCard from "../components/UserListingCard";
 
-function MyListings() {
+function UserListings() {
   const { user } = useContext(AuthContext);
   const [listings, setListings] = useState<ListingType[] | null>(null);
 
@@ -41,15 +42,21 @@ function MyListings() {
 
   return (
     <div>
-      <h1>My Listings</h1>
-      <div className="profile-cards-container">
-        {listings &&
-          listings.map((listing) => {
-            return <ListingCard listing={listing} key={listing._id} />;
-          })}
-      </div>
+      {!listings ? (
+        <h1>No listings yet</h1>
+      ) : (
+        <div>
+          <h1>My Listings</h1>
+          <div className="profile-cards-container">
+            {listings &&
+              listings.map((listing) => {
+                return <UserListingCard listing={listing} key={listing._id} />;
+              })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-export default MyListings;
+export default UserListings;

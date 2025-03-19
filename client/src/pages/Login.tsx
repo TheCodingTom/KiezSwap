@@ -112,27 +112,18 @@ function Login() {
             ""
           )}
         </form>
-        {!errors.email && !errors.password ? (
+        {!errors.email && !errors.password && !user ? (
           <Button onClick={handleSubmitLogin}>Login</Button>
         ) : (
           <Button disabled>Login</Button>
         )}
-        <p>
-          Don't have an account yet?{" "}
-          <Link to="/register">Create one here!</Link>
-        </p>
-      </div>
-
-      <div>
-        {user && (
-          <div>
-            <h3>Logged in user: {user.username}</h3>
-            <img
-              src={user.image}
-              alt="avatar image"
-              style={{ width: "200px" }}
-            />
-          </div>
+        {!user ? (
+          <p>
+            Don't have an account yet?{" "}
+            <Link to="/register">Create one here!</Link>
+          </p>
+        ) : (
+          ""
         )}
       </div>
 

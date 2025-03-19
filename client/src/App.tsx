@@ -11,7 +11,7 @@ import Profile from "./pages/Profile";
 import ProtectedRoute from "./components/ProtectedRouteComponent";
 import NewListing from "./pages/NewListing";
 import ListingDetails from "./pages/ListingDetails";
-import MyListings from "./pages/MyListings";
+import UserListings from "./pages/UserListings";
 import Messages from "./pages/Messages";
 import Favourites from "./pages/Favourites";
 import NavBarProfile from "./components/NavBarProfile";
@@ -71,10 +71,10 @@ function App() {
                     }
                   />
                   <Route
-                    path="/profile/mylistings"
+                    path="/profile/userlistings"
                     element={
                       <ProtectedRoute>
-                        <MyListings />
+                        <UserListings />
                       </ProtectedRoute>
                     }
                   />
