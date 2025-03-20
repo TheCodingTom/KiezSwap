@@ -99,7 +99,7 @@ export const ChatsContextProvider = ({
   useEffect(() => {
     getChats();
     getChatById();
-  }, [user]);
+  }, []);
 
   return (
     <ChatsContext.Provider value={{ chats, messages, getChats, getChatById }}>

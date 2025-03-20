@@ -240,8 +240,9 @@ const deleteListing = async (req, res) => {
   console.log("deleting listing");
 
   // the user is populated by the jwt auth middleware
-
+  const userId = req.user;
   const listingId = req.params.listingId;
+  console.log(userId);
 
   const listing = await ListingModel.findByIdAndDelete(listingId);
 
@@ -253,6 +254,11 @@ const deleteListing = async (req, res) => {
 
   try {
     if (listing) {
+      // Remove the listing reference from the user's listings array
+      await UserModel.findByIdAndUpdate(userId, {
+        $pull: { listings: listingId },
+      });
+
       return res.status(201).json({
         message: "Listing deleted",
         info: listing,

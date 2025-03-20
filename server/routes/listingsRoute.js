@@ -22,6 +22,6 @@ listingsRouter.post(
   addNewListing
 );
 
-listingsRouter.delete("/userListings/:listingId", deleteListing);
+listingsRouter.delete("/userListings/:listingId", jwtAuth, deleteListing);
 
 export default listingsRouter;

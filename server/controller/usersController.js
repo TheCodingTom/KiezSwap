@@ -211,8 +211,36 @@ const getProfile = async (req, res) => {
   }
 };
 
-const updateFavourites = () => {
-  console.log("updatefav working");
+const addFavourites = async (req, res) => {
+  try {
+    console.log("Adding to fav");
+
+    // the user is populated by the jwt auth middleware
+    const userId = req.user;
+    const listingId = req.params.listingId;
+
+    // 1. Find the chat
+    const user = await UserModel.findById(userId);
+
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    // 2. Add new message to the chat
+    user.favourites.push({
+      listings: [listingId],
+    });
+
+    await user.save();
+
+    res.status(200).json({
+      message: "Added to the fav successfully",
+      user: user,
+    });
+  } catch (error) {
+    console.error("Error adding to fav:", error);
+    res.status(400).json({ message: "Error adding to fav", error });
+  }
 };
 
 export {
@@ -221,5 +249,5 @@ export {
   registerNewUser,
   login,
   getProfile,
-  updateFavourites,
+  addFavourites,
 };

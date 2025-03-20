@@ -79,8 +79,6 @@ const getUserChats = async (req, res) => {
 
 const getChatById = async (req, res) => {
   try {
-    console.log("params:", req.params);
-
     const chatId = req.params.chatId;
 
     if (!chatId) {

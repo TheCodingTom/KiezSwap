@@ -11,23 +11,33 @@ type UserListingCardProps = {
 
 function UserListingCard({ listing }: UserListingCardProps) {
   const { getListings, getUserListings } = useContext(ListingsContext);
+  const token = localStorage.getItem("token");
+
   const handleDeleteListing = async () => {
     const requestOptions = {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`, // Send the token
+      },
     };
 
-    try {
-      const response = await fetch(
-        `${baseUrl}/api/listings/userListings/${listing._id}`,
-        requestOptions
-      );
+    if (token) {
+      try {
+        const response = await fetch(
+          `${baseUrl}/api/listings/userListings/${listing._id}`,
+          requestOptions
+        );
 
-      const result = await response.json();
-      console.log(result);
-      getUserListings();
-      getListings();
-    } catch (error) {
-      console.error("Error deleting listing:", error);
+        const result = await response.json();
+        console.log(result);
+        getUserListings();
+        getListings();
+      } catch (error) {
+        console.error("Error deleting listing:", error);
+      }
+    } else {
+      console.log("user has to login");
     }
   };
 
