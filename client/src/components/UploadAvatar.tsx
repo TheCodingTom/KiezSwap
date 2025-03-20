@@ -26,7 +26,7 @@ function UploadAvatar() {
     const formdata = new FormData();
     formdata.append("image", selectedFile);
     if (user) {
-      formdata.append("userId", user?.id);
+      formdata.append("userId", user?._id);
     }
 
     const requestOptions = {

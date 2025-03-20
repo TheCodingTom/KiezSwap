@@ -1,9 +1,10 @@
 import { Card } from "react-bootstrap";
 import { ListingType } from "../types/customTypes";
-import { NavLink } from "react-router";
+
 import SendMessageModal from "./SendMessageModal";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { NavLink } from "react-router";
 
 type ListingCardProps = {
   listing: ListingType;
@@ -24,10 +25,14 @@ function ListingCard({ listing }: ListingCardProps) {
           style={{ height: 250, objectFit: "cover" }}
         />
       </NavLink>
-      <Card.Body className="card-body">
-        <NavLink to={listing._id}>
+      <Card.Body>
+        <NavLink className={"card-title"} to={listing._id}>
           <Card.Title>{listing.name}</Card.Title>
         </NavLink>
+
+        <Card.Text className="text-muted small">
+          Posted by: {listing.seller.username}
+        </Card.Text>
 
         <Card.Text>{listing.description}</Card.Text>
 

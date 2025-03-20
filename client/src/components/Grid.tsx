@@ -29,7 +29,7 @@ function Grid() {
 
   return (
     <div>
-      <div className="">
+      <div className="filters-container">
         <select
           className="p-2 border rounded"
           value={selectedCategory}
