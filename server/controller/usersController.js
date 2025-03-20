@@ -211,4 +211,15 @@ const getProfile = async (req, res) => {
   }
 };
 
-export { getAllUsers, imageUpload, registerNewUser, login, getProfile };
+const updateFavourites = () => {
+  console.log("updatefav working");
+};
+
+export {
+  getAllUsers,
+  imageUpload,
+  registerNewUser,
+  login,
+  getProfile,
+  updateFavourites,
+};

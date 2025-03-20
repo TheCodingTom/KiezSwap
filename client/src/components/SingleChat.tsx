@@ -1,15 +1,9 @@
-import { useContext } from "react";
 import "../styles/SingleChat.css";
-import { ChatsContext } from "../context/ChatsContext";
+import { SenderType } from "../types/customTypes";
 
 type SingleChatProps = {
   sender: SenderType;
   text: string;
-};
-
-export type SenderType = {
-  _id: string;
-  username: string;
 };
 
 function SingleChat({ sender, text }: SingleChatProps) {

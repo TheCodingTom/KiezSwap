@@ -27,7 +27,15 @@ const usersSchema = mongoose.Schema(
         ref: "Listing",
       },
     ],
+    favourites: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Listing",
+        required: false,
+      },
+    ],
   },
+
   { timestamps: { createdAt: "created_at", modifiedAt: "modified_at" } }
 );
 
