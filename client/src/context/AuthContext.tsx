@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 type AuthContextProviderProps = {
   children: ReactNode;
 };
@@ -39,6 +41,7 @@ import {
   User,
 } from "../types/customTypes";
 import { baseUrl } from "../utils/baseUrl";
+import { useNavigate } from "react-router";
 
 export const AuthContext = createContext<AuthContextType>(contextInitialValue);
 
@@ -47,6 +50,8 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   const token = localStorage.getItem("token");
+  const goToHome = useNavigate();
+  const goToLogin = useNavigate();
 
   const register = async (
     username: string,
@@ -78,12 +83,19 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       );
       if (!response.ok) {
         console.log("Error while trying to register new user");
+        toast.error("Registration failed. Please try again.", {
+          position: "top-right",
+          autoClose: 3000,
+        });
         return;
       }
 
       if (response.ok) {
         const result = (await response.json()) as RegisterOkResponse;
         console.log(result.message);
+        setTimeout(() => {
+          goToLogin("/login");
+        }, 3000);
         return;
       }
     } catch (error) {
@@ -116,6 +128,11 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       );
       if (!response.ok) {
         console.log("Error while trying to login");
+        toast.error("Login failed. Please try again.", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+
         return;
       }
 
@@ -133,6 +150,17 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
           localStorage.setItem("token", result.token);
           setUser(result.user);
           setIsAuthenticated(true);
+          toast.success(
+            "Login successful! You'll be redirected in 3 seconds.",
+            {
+              position: "top-right",
+              autoClose: 3000,
+            }
+          );
+
+          setTimeout(() => {
+            goToHome("/");
+          }, 3000);
           return;
         }
       }

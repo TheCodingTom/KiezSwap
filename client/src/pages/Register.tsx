@@ -1,9 +1,8 @@
 import { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router";
 
 function Register() {
   const { register } = useContext(AuthContext);
@@ -86,10 +85,6 @@ function Register() {
 
     if (username && email && password) {
       register(username, email, password);
-      toast.success("User registered!", {
-        position: "top-right",
-        autoClose: 3000,
-      });
     }
   };
 

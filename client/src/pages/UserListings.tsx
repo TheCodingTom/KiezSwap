@@ -5,8 +5,6 @@ import { ListingsContext } from "../context/ListingsContext";
 function UserListings() {
   const { userListings, getUserListings } = useContext(ListingsContext);
 
-  console.log(userListings);
-
   useEffect(() => {
     getUserListings();
   }, []);

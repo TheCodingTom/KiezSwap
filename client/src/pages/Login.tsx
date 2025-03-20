@@ -1,14 +1,12 @@
 import React, { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
-import { Link, useNavigate } from "react-router";
-import { ToastContainer, toast } from "react-toastify";
+import { Link } from "react-router";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
   const { user, login } = useContext(AuthContext);
-
-  const goToHome = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -65,14 +63,6 @@ function Login() {
 
     if (email && password) {
       login(email, password);
-      toast.success("Login successful!", {
-        position: "top-right",
-        autoClose: 3000,
-      });
-
-      // setTimeout(() => {
-      //   goToHome("/");
-      // }, 3000);
     }
   };
 
