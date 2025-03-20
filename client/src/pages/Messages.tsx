@@ -3,57 +3,35 @@ import { AuthContext } from "../context/AuthContext";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { NavLink } from "react-router";
 import { baseUrl } from "../utils/baseUrl";
-
-type ChatType = {
-  buyerId: string;
-  created_at: string;
-  listing: ChatListingType;
-  messages: MessageType[];
-  sellerId: string;
-  updatedAt: string;
-  _id: string;
-};
-
-export type MessageType = {
-  sender: SenderType;
-  text: string;
-  _id: string;
-};
-
-export type SenderType = {
-  username: string;
-  _id: string;
-};
-
-type ChatListingType = {
-  name: string;
-  _id: string;
-};
+import { ChatType } from "../types/customTypes";
+import { ChatsContext } from "../context/ChatsContext";
 
 function Messages() {
   const { user } = useContext(AuthContext);
-  const [chats, setChats] = useState<ChatType[] | null>(null);
 
-  const getChats = async () => {
-    const requestOptions = {
-      method: "GET",
-    };
+  const { chats } = useContext(ChatsContext);
+  // const [chats, setChats] = useState<ChatType[] | null>(null);
 
-    const response = await fetch(
-      `${baseUrl}/api/chats/userChats/?sellerId=${user?._id}&buyerId=${user?._id}`,
-      requestOptions
-    );
+  // const getChats = async () => {
+  //   const requestOptions = {
+  //     method: "GET",
+  //   };
 
-    try {
-      if (response) {
-        const result = await response.json();
-        console.log(result);
-        setChats(result.userChats);
-      }
-    } catch (error) {
-      console.log("error :>> ", error);
-    }
-  };
+  //   const response = await fetch(
+  //     `${baseUrl}/api/chats/userChats/?sellerId=${user?._id}&buyerId=${user?._id}`,
+  //     requestOptions
+  //   );
+
+  //   try {
+  //     if (response) {
+  //       const result = await response.json();
+  //       console.log(result);
+  //       setChats(result.userChats);
+  //     }
+  //   } catch (error) {
+  //     console.log("error :>> ", error);
+  //   }
+  // };
 
   useEffect(() => {
     getChats();

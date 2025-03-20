@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { MessageType } from "./Messages";
+
 import SingleChat from "../components/SingleChat";
 import "../styles/SingleChat.css";
 import SendMessageChat from "../components/SendMessageChat";
 import { baseUrl } from "../utils/baseUrl";
-
-// type SenderType = {
-//   username: string;
-//   _id: string;
-// };
+import { MessageType } from "../types/customTypes";
 
 function SingleChatPage() {
   const { chatId } = useParams<string>();

@@ -50,3 +50,29 @@ export type ListingType = {
   image: string;
   seller: SellerType;
 };
+
+export type ChatType = {
+  buyerId: string;
+  created_at: string;
+  listing: ChatListingType;
+  messages: MessageType[];
+  sellerId: string;
+  updatedAt: string;
+  _id: string;
+};
+
+export type MessageType = {
+  sender: SenderType;
+  text: string;
+  _id: string;
+};
+
+export type SenderType = {
+  username: string;
+  _id: string;
+};
+
+export type ChatListingType = {
+  name: string;
+  _id: string;
+};
