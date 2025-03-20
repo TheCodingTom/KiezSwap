@@ -17,6 +17,7 @@ import Favourites from "./pages/Favourites";
 import NavBarProfile from "./components/NavBarProfile";
 import SingleChatPage from "./pages/SingleChatPage";
 import { ChatsContextProvider } from "./context/ChatsContext";
+import BackButtonThemeContainer from "./components/BackButtonThemeContainer";
 
 const Root = () => {
   // this route element is the parent of 3 pages, so they all contain the navbar
@@ -24,6 +25,7 @@ const Root = () => {
     // if I want to add a footer, it will go under outlet
     <>
       <NavBar />
+      <BackButtonThemeContainer />
       <Outlet />
     </>
   );
