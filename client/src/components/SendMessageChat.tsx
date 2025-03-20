@@ -9,7 +9,7 @@ type SendMessageChatProps = {
 function SendMessageChat({ chatId }: SendMessageChatProps) {
   const token = localStorage.getItem("token");
   const [message, setMessage] = useState("");
-  const [confirmMessage, setConfirmMessage] = useState("");
+
   const { getChatById } = useContext(ChatsContext);
 
   const handleInputText = (
@@ -45,9 +45,6 @@ function SendMessageChat({ chatId }: SendMessageChatProps) {
       if (response.ok) {
         const result = await response.json();
         console.log(result);
-
-        setConfirmMessage("Message sent!");
-
         setMessage(""); // Clear the input after sending
         getChatById();
       }
@@ -70,10 +67,13 @@ function SendMessageChat({ chatId }: SendMessageChatProps) {
           onChange={handleInputText}
           value={message}
         />
-        <button onClick={sendMessage} id="button-send" type="submit">
-          Send
-        </button>
-        {confirmMessage && <p>{confirmMessage}</p>}
+        {message.length > 0 ? (
+          <button onClick={sendMessage} id="button-send" type="submit">
+            Send
+          </button>
+        ) : (
+          <button disabled>Send</button>
+        )}
       </form>
     </div>
   );

@@ -93,6 +93,13 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       if (response.ok) {
         const result = (await response.json()) as RegisterOkResponse;
         console.log(result.message);
+        toast.success(
+          "Registration successful! You'll be redirected in 3 seconds.",
+          {
+            position: "top-right",
+            autoClose: 3000,
+          }
+        );
         setTimeout(() => {
           goToLogin("/login");
         }, 3000);

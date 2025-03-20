@@ -24,7 +24,7 @@ function ListingCard({ listing }: ListingCardProps) {
           style={{ height: 250, objectFit: "cover" }}
         />
       </NavLink>
-      <Card.Body style={{ backgroundColor: "lightgrey" }}>
+      <Card.Body className="card-body">
         <NavLink to={listing._id}>
           <Card.Title>{listing.name}</Card.Title>
         </NavLink>
