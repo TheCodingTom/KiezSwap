@@ -39,13 +39,13 @@ const getAllListings = async (req, res) => {
       const userListings = await ListingModel.find({
         // need to query by seller and not by userId, cause "seller" is the reference in the listing collection
         seller: req.query.userId,
-      }).populate({ path: "seller", select: "_id" });
+      }).populate({ path: "seller", select: ["_id", "listings"] });
 
       if (userListings.length === 0) {
-        return res.status(404).json({
+        return res.status(200).json({
           message: `No listings with user ID ${req.query.userId} in the database`,
-          amount: userListings.length,
-          userListings,
+          amount: 0,
+          userListings: [],
         });
       }
 

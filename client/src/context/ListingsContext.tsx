@@ -65,7 +65,7 @@ export const ListingsContextProvider = ({
         );
 
         if (!response.ok) {
-          throw new Error("Something went wrong fetching the user's listings");
+          console.log("User didn't post any listings yet");
         }
 
         if (response.ok) {
@@ -74,7 +74,7 @@ export const ListingsContextProvider = ({
           setUserListings(result.userListings);
         }
       } catch (error) {
-        console.log("error fetching the single listing :>> ", error);
+        console.log("error fetching the user's listings :>> ", error);
       }
     }
   };

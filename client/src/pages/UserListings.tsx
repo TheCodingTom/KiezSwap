@@ -1,24 +1,19 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
-import { ListingType } from "../types/customTypes";
-import ListingCard from "../components/ListingCard";
-import { baseUrl } from "../utils/baseUrl";
+import { useContext, useEffect } from "react";
 import UserListingCard from "../components/UserListingCard";
 import { ListingsContext } from "../context/ListingsContext";
 
 function UserListings() {
-  const { user } = useContext(AuthContext);
   const { userListings, getUserListings } = useContext(ListingsContext);
 
   console.log(userListings);
 
   useEffect(() => {
     getUserListings();
-  }, [user]);
+  }, []);
 
   return (
     <div>
-      {!userListings ? (
+      {userListings && userListings.length < 1 ? (
         <h1>No listings yet</h1>
       ) : (
         <div>
