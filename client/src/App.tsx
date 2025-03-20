@@ -16,6 +16,7 @@ import Messages from "./pages/Messages";
 import Favourites from "./pages/Favourites";
 import NavBarProfile from "./components/NavBarProfile";
 import SingleChatPage from "./pages/SingleChatPage";
+import { ChatsContextProvider } from "./context/ChatsContext";
 
 const Root = () => {
   // this route element is the parent of 3 pages, so they all contain the navbar
@@ -45,68 +46,70 @@ function App() {
       <BrowserRouter>
         <AuthContextProvider>
           <ListingsContextProvider>
-            <Routes>
-              <Route path="/" />
-              <Route element={<Root />}>
-                <Route index element={<Home />} />
-                <Route path="/listings" element={<Listings />} />
-                <Route path="/newlisting" element={<NewListing />} />
-                <Route
-                  path="/listings/:listingId"
-                  element={
-                    <ProtectedRoute>
-                      <ListingDetails />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route path="/register" element={<Register />} />
-                <Route path="/login" element={<Login />} />
-                <Route element={<Layout />}>
+            <ChatsContextProvider>
+              <Routes>
+                <Route path="/" />
+                <Route element={<Root />}>
+                  <Route index element={<Home />} />
+                  <Route path="/listings" element={<Listings />} />
+                  <Route path="/newlisting" element={<NewListing />} />
                   <Route
-                    path="/profile"
+                    path="/listings/:listingId"
                     element={
                       <ProtectedRoute>
-                        <Profile />
+                        <ListingDetails />
                       </ProtectedRoute>
                     }
                   />
-                  <Route
-                    path="/profile/userlistings"
-                    element={
-                      <ProtectedRoute>
-                        <UserListings />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/profile/messages"
-                    element={
-                      <ProtectedRoute>
-                        <Messages />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/profile/messages/:chatId"
-                    element={
-                      <ProtectedRoute>
-                        <SingleChatPage />
-                      </ProtectedRoute>
-                    }
-                  />
-                  <Route
-                    path="/profile/favourites"
-                    element={
-                      <ProtectedRoute>
-                        <Favourites />
-                      </ProtectedRoute>
-                    }
-                  />
-                </Route>
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route element={<Layout />}>
+                    <Route
+                      path="/profile"
+                      element={
+                        <ProtectedRoute>
+                          <Profile />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/profile/userlistings"
+                      element={
+                        <ProtectedRoute>
+                          <UserListings />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/profile/messages"
+                      element={
+                        <ProtectedRoute>
+                          <Messages />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/profile/messages/:chatId"
+                      element={
+                        <ProtectedRoute>
+                          <SingleChatPage />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/profile/favourites"
+                      element={
+                        <ProtectedRoute>
+                          <Favourites />
+                        </ProtectedRoute>
+                      }
+                    />
+                  </Route>
 
-                <Route path="*" />
-              </Route>
-            </Routes>
+                  <Route path="*" />
+                </Route>
+              </Routes>
+            </ChatsContextProvider>
           </ListingsContextProvider>
         </AuthContextProvider>
       </BrowserRouter>

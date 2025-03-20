@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { ChatType } from "../types/customTypes";
+import { ChatType, MessageType } from "../types/customTypes";
 import { baseUrl } from "../utils/baseUrl";
 import { AuthContext } from "./AuthContext";
 
@@ -15,12 +15,18 @@ type ChatsContextProviderProps = {
 
 type ChatsContextType = {
   chats: ChatType[] | null;
+  messages: MessageType[] | null;
   getChats: () => void;
+  getChatById: () => void;
 };
 
 const initialValue: ChatsContextType = {
   chats: null,
+  messages: null,
   getChats: () => {
+    throw new Error("Context not initialised");
+  },
+  getChatById: () => {
     throw new Error("Context not initialised");
   },
 };
@@ -32,6 +38,8 @@ export const ChatsContextProvider = ({
 }: ChatsContextProviderProps) => {
   const { user } = useContext(AuthContext);
   const [chats, setChats] = useState<ChatType[] | null>(null);
+
+  const [messages, setMessages] = useState<MessageType[] | null>(null);
 
   const getChats = async () => {
     if (!user) return;
@@ -58,12 +66,43 @@ export const ChatsContextProvider = ({
     }
   };
 
+  const getChatById = async () => {
+    try {
+      const chatId = window.location.pathname.split("/").pop(); // Gets the last part of the URL
+
+      if (!chatId) {
+        console.error("No chatId found in URL");
+        return;
+      }
+
+      const requestOptions = {
+        method: "GET",
+      };
+
+      const response = await fetch(
+        `${baseUrl}/api/chats/userChats/${chatId}`,
+        requestOptions
+      );
+
+      if (!response.ok) {
+        throw new Error("Something went wrong fetching the single chat");
+      }
+
+      const result = await response.json();
+      console.log(result);
+      setMessages(result.chat.messages);
+    } catch (error) {
+      console.log("error fetching the single chat :>> ", error);
+    }
+  };
+
   useEffect(() => {
     getChats();
+    getChatById();
   }, [user]);
 
   return (
-    <ChatsContext.Provider value={{ chats, getChats }}>
+    <ChatsContext.Provider value={{ chats, messages, getChats, getChatById }}>
       {children}
     </ChatsContext.Provider>
   );

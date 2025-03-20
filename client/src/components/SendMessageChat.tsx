@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { baseUrl } from "../utils/baseUrl";
+import { ChatsContext } from "../context/ChatsContext";
 
 type SendMessageChatProps = {
   chatId?: string;
@@ -9,6 +10,7 @@ function SendMessageChat({ chatId }: SendMessageChatProps) {
   const token = localStorage.getItem("token");
   const [message, setMessage] = useState("");
   const [confirmMessage, setConfirmMessage] = useState("");
+  const { getChatById } = useContext(ChatsContext);
 
   const handleInputText = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -47,6 +49,7 @@ function SendMessageChat({ chatId }: SendMessageChatProps) {
         setConfirmMessage("Message sent!");
 
         setMessage(""); // Clear the input after sending
+        getChatById();
       }
     } catch (error) {
       console.log("error :>> ", error);

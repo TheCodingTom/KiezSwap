@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import "../styles/SingleChat.css";
+import { ChatsContext } from "../context/ChatsContext";
 
 type SingleChatProps = {
   sender: SenderType;
