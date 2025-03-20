@@ -10,7 +10,7 @@ type UserListingCardProps = {
 };
 
 function UserListingCard({ listing }: UserListingCardProps) {
-  const { getListings } = useContext(ListingsContext);
+  const { getUserListings } = useContext(ListingsContext);
   const handleDeleteListing = async () => {
     const requestOptions = {
       method: "DELETE",
@@ -24,7 +24,7 @@ function UserListingCard({ listing }: UserListingCardProps) {
 
       const result = await response.json();
       console.log(result);
-      getListings();
+      getUserListings();
     } catch (error) {
       console.error("Error deleting listing:", error);
     }

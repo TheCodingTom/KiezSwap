@@ -42,9 +42,9 @@ const Layout = () => {
 function App() {
   return (
     <>
-      <AuthContextProvider>
-        <ListingsContextProvider>
-          <BrowserRouter>
+      <BrowserRouter>
+        <AuthContextProvider>
+          <ListingsContextProvider>
             <Routes>
               <Route path="/" />
               <Route element={<Root />}>
@@ -107,9 +107,9 @@ function App() {
                 <Route path="*" />
               </Route>
             </Routes>
-          </BrowserRouter>
-        </ListingsContextProvider>
-      </AuthContextProvider>
+          </ListingsContextProvider>
+        </AuthContextProvider>
+      </BrowserRouter>
     </>
   );
 }
