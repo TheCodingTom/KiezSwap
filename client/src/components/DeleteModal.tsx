@@ -20,7 +20,7 @@ function DeleteModal({ handleDeleteListing }: DeleteModalProps) {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Hey, watch out!</Modal.Title>
+          <Modal.Title>Watch out!</Modal.Title>
         </Modal.Header>
         <Modal.Body>Are you sure you want to delete your listing?</Modal.Body>
         <Modal.Footer>
@@ -34,7 +34,7 @@ function DeleteModal({ handleDeleteListing }: DeleteModalProps) {
               handleClose();
             }}
           >
-            Yes, leave me alone!
+            Yes, trash that thing!
           </Button>
         </Modal.Footer>
       </Modal>

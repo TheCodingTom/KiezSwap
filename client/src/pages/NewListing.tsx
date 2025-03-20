@@ -3,12 +3,16 @@ import { Button, Form } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import { ListingsContext } from "../context/ListingsContext";
 import { baseUrl } from "../utils/baseUrl";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router";
 
 function NewListing() {
   const { user } = useContext(AuthContext);
   const { getListings } = useContext(ListingsContext);
 
-  const [confirmMessage, setConfirmMessage] = useState("");
+  const goToListings = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -21,11 +25,9 @@ function NewListing() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const handleAttachFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e);
     const file = e.target.files?.[0];
 
     if (file instanceof File) {
-      // if our document/image matches the File type the function will run
       setSelectedFile(file);
       setImagePreview(URL.createObjectURL(file));
     }
@@ -44,9 +46,34 @@ function NewListing() {
   ) => {
     e.preventDefault();
 
+    if (
+      !formData.name ||
+      !formData.description ||
+      !formData.district ||
+      !formData.category
+    ) {
+      toast.error("All fields are required!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return;
+    }
+
+    if (!selectedFile) {
+      toast.error("Please upload an image.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return;
+    }
+
     const token = localStorage.getItem("token");
     if (!token) {
       console.error("No auth token found");
+      toast.error("Authentication error. Please log in again.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
       return;
     }
 
@@ -68,12 +95,29 @@ function NewListing() {
           body: form,
         });
 
+        if (!response.ok) {
+          throw new Error("Failed to add listing");
+        }
+
         const result = await response.json();
         console.log(result);
-        setConfirmMessage("Listing added successfully!");
+        toast.success(
+          "Listing added successfully! You'll be redirected in 3 seconds.",
+          {
+            position: "top-right",
+            autoClose: 3000,
+          }
+        );
         getListings();
+        setTimeout(() => {
+          goToListings("/listings");
+        }, 3000);
       } catch (error) {
         console.error("Error uploading listing:", error);
+        toast.error("Error uploading listing. Please try again.", {
+          position: "top-right",
+          autoClose: 3000,
+        });
       }
     }
   };
@@ -120,11 +164,9 @@ function NewListing() {
                 <option value="Friedrichshain">Friedrichshain</option>
                 <option value="Kreuzberg">Kreuzberg</option>
                 <option value="Lichtenberg">Lichtenberg</option>
-
                 <option value="Mitte">Mitte</option>
                 <option value="Neukölln">Neukölln</option>
                 <option value="Pankow">Pankow</option>
-
                 <option value="Steglitz">Steglitz</option>
                 <option value="Tempelhof">Tempelhof</option>
                 <option value="Schoeneberg">Schöneberg</option>
@@ -172,12 +214,9 @@ function NewListing() {
             />
           )}
         </form>
-        {confirmMessage ? (
-          confirmMessage
-        ) : (
-          <Button onClick={handleFormSubmit}>Submit</Button>
-        )}
+        <Button onClick={handleFormSubmit}>Submit</Button>
       </div>
+      <ToastContainer />
     </>
   );
 }
