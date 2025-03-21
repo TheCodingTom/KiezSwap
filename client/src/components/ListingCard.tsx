@@ -7,6 +7,7 @@ import { AuthContext } from "../context/AuthContext";
 import { NavLink } from "react-router";
 import { baseUrl } from "../utils/baseUrl";
 import { ListingsContext } from "../context/ListingsContext";
+import { Favorite } from "@mui/icons-material";
 
 type ListingCardProps = {
   listing: ListingType;

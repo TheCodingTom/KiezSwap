@@ -5,7 +5,7 @@ export type UserType = {
   username: string;
   password: string;
   listings: ListingType[];
-  favourites: ListingType[];
+  favourites: string[];
 };
 
 export type User = Omit<UserType, "password">;
