@@ -24,7 +24,7 @@ function NoMatchPage() {
   return (
     <div className="error-page">
       <h1>Sorry, nothing to display here</h1>
-      <img src={picture} className="logo" alt="" />
+      <img src={picture} className="logo" alt="error logo" />
       <h4>You'll be redirected to the home page in 3 seconds </h4>
       <Button onClick={redirectTo}>Go back to home page</Button>
     </div>

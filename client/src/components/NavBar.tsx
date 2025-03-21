@@ -4,8 +4,7 @@ import { NavLink } from "react-router";
 import { AuthContext } from "../context/AuthContext";
 
 function NavBar() {
-
-  const {user, logout} = useContext(AuthContext)
+  const { user, logout } = useContext(AuthContext);
   return (
     <>
       <Navbar
@@ -28,10 +27,22 @@ function NavBar() {
               <Nav.Link as={NavLink} to={"/listings"}>
                 Listings
               </Nav.Link>
-              {user ? <Nav.Link as={NavLink} to={"/profile"}>Profile</Nav.Link> : ""}
+              {user ? (
+                <Nav.Link as={NavLink} to={"/profile"}>
+                  Profile
+                </Nav.Link>
+              ) : (
+                ""
+              )}
             </Nav>
             <Nav>
-              {user ? <NavLink to={"/"}><Button onClick={logout}>Logout</Button> </NavLink>: <NavLink to={"/login"}><Button>Login</Button></NavLink>}
+              {user ? (
+                <Button onClick={logout}>Logout</Button>
+              ) : (
+                <NavLink to={"/login"}>
+                  <Button>Login</Button>
+                </NavLink>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
