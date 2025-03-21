@@ -36,13 +36,15 @@ function NavBar() {
               )}
             </Nav>
             <Nav>
-              {user ? (
-                <Button onClick={logout}>Logout</Button>
-              ) : (
-                <NavLink to={"/login"}>
-                  <Button>Login</Button>
-                </NavLink>
-              )}
+              <div>
+                {user ? (
+                  <Button onClick={logout}>Logout</Button>
+                ) : (
+                  <NavLink to={"/login"}>
+                    <Button>Login</Button>
+                  </NavLink>
+                )}
+              </div>
             </Nav>
           </Navbar.Collapse>
         </Container>

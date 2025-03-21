@@ -50,7 +50,7 @@ export const ChatsContextProvider = ({
 
     try {
       const response = await fetch(
-        `${baseUrl}/api/chats/userChats/?sellerId=${user._id}&buyerId=${user._id}`,
+        `${baseUrl}/api/chats/userChats/?seller=${user._id}&buyer=${user._id}`,
         requestOptions
       );
 
