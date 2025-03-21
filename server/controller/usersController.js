@@ -219,23 +219,28 @@ const addFavourites = async (req, res) => {
     const userId = req.user;
     const listingId = req.params.listingId;
 
-    // 1. Find the chat
-    const user = await UserModel.findById(userId);
-
+    // 1. Find the user
+    let user = await UserModel.findById(userId);
     if (!user) {
       return res.status(400).json({ message: "User not found" });
     }
+    // 2. initialize favourites if null
+    if (!user.favourites) {
+      user.favourites = [];
+      await user.save();
+    }
 
-    // 2. Add new message to the chat
-    user.favourites.push({
-      listings: [listingId],
-    });
+    // 3. pull listingdId from favourites
 
-    await user.save();
+    user = await UserModel.findByIdAndUpdate(
+      userId,
+      { $pull: { favourites: listingId } },
+      { new: true }
+    );
 
-    res.status(200).json({
+    return res.status(200).json({
       message: "Added to the fav successfully",
-      user: user,
+      user,
     });
   } catch (error) {
     console.error("Error adding to fav:", error);

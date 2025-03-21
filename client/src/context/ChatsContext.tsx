@@ -68,7 +68,8 @@ export const ChatsContextProvider = ({
 
   const getChatById = async () => {
     try {
-      const chatId = window.location.pathname.split("/").pop(); // Gets the last part of the URL
+      // split() turns a string into an array splitting at each "/" and pop() removes and returns the last item
+      const chatId = window.location.pathname.split("/").pop();
 
       if (!chatId) {
         console.error("No chatId found in URL");
@@ -78,6 +79,8 @@ export const ChatsContextProvider = ({
       const requestOptions = {
         method: "GET",
       };
+
+      console.log("ssss :>> ");
 
       const response = await fetch(
         `${baseUrl}/api/chats/userChats/${chatId}`,
@@ -98,7 +101,10 @@ export const ChatsContextProvider = ({
 
   useEffect(() => {
     getChats();
-    getChatById();
+
+    if (window.location.pathname.startsWith("/messages")) {
+      getChatById();
+    }
   }, []);
 
   return (
