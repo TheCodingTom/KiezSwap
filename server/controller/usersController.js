@@ -4,6 +4,7 @@ import cloudinaryUpload from "../utilities/cloudinaryUpload.js";
 import { hashPassword, verifyPassword } from "../utilities/passwordServices.js";
 import deleteTempFile from "../utilities/deleteTempFile.js";
 import { generateToken } from "../utilities/tokenServices.js";
+import ListingModel from "../models/listingsModel.js";
 
 const getAllUsers = async (req, res) => {
   try {
@@ -225,16 +226,13 @@ const addFavourites = async (req, res) => {
       return res.status(400).json({ message: "User not found" });
     }
     // 2. initialize favourites if null
-    if (!user.favourites) {
+    if (!user.favourites || user.favourites.length === 0) {
       user.favourites = [];
-      await user.save();
     }
-
-    // 3. pull listingdId from favourites
 
     user = await UserModel.findByIdAndUpdate(
       userId,
-      { $pull: { favourites: listingId } },
+      { $push: { favourites: listingId } },
       { new: true }
     );
 
