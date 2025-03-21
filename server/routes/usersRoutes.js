@@ -1,11 +1,11 @@
 import express from "express";
 import {
-  addFavourites,
   getAllUsers,
   getProfile,
   imageUpload,
   login,
   registerNewUser,
+  updateFavourites,
 } from "../controller/usersController.js";
 import multerUpload from "../middlewares/multer.js";
 import jwtAuth from "../middlewares/jwtAuth.js";
@@ -23,6 +23,6 @@ usersRouter.post("/login", login);
 // jwtAuth takes the token, decodes it, extracts the user ID, looks for the user in DB. if user exists -> sends info to the request
 
 usersRouter.get("/profile", jwtAuth, getProfile); // middleware here cause to get profile user needs a token
-usersRouter.post("/addFavourites/:listingId", jwtAuth, addFavourites);
+usersRouter.post("/addFavourites/:listingId", jwtAuth, updateFavourites);
 
 export default usersRouter;

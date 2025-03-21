@@ -15,10 +15,11 @@ import UserListings from "./pages/UserListings";
 import Messages from "./pages/Messages";
 import Favourites from "./pages/Favourites";
 import NavBarProfile from "./components/NavBarProfile";
-import SingleChatPage from "./pages/SingleChatPage";
+
 import { ChatsContextProvider } from "./context/ChatsContext";
 import BackButtonThemeContainer from "./components/BackButtonThemeContainer";
 import NoMatchPage from "./pages/NoMatchPage";
+import SingleChatPage from "./pages/SingleChatPage";
 
 const Root = () => {
   // this route element is the parent of 3 pages, so they all contain the navbar
