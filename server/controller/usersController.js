@@ -248,23 +248,11 @@ const updateFavourites = async (req, res) => {
       { new: true }
     );
     console.log("user after  :>> ", pullOrPush, "----", user);
-    return res.status(400).json({
+    return res.status(200).json({
       message: `Listing ${
         pullOrPush === "$pull" ? "removed" : "added"
       } from favourites`,
     });
-
-    // // 5. add the listing to likes array
-    // user = await UserModel.findByIdAndUpdate(
-    //   userId,
-    //   { $push: { favourites: listingId } },
-    //   { new: true }
-    // );
-
-    // return res.status(200).json({
-    //   message: "Listing liked successfully",
-    //   user,
-    // });
   } catch (error) {
     console.error("Error liking listing:", error);
     res.status(500).json({ message: "Error liking listing", error });

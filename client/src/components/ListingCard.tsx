@@ -1,10 +1,11 @@
-import { Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import { ListingType } from "../types/customTypes";
 
 import SendMessageModal from "./SendMessageModal";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { NavLink } from "react-router";
+import { baseUrl } from "../utils/baseUrl";
 
 type ListingCardProps = {
   listing: ListingType;
@@ -15,6 +16,35 @@ function ListingCard({ listing }: ListingCardProps) {
 
   const { user } = useContext(AuthContext);
   console.log(user);
+  const token = localStorage.getItem("token");
+
+  const handleUpdateFavourites = async () => {
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+    };
+
+    try {
+      const response = await fetch(
+        `${baseUrl}/api/users/updateFavourites/${listing._id}`,
+        requestOptions
+      );
+
+      console.log(response);
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log(result);
+      } else {
+        console.log("Failed to add/remove fav");
+      }
+    } catch (error) {
+      console.log("Error add/removing fav: ", error);
+    }
+  };
 
   return (
     <Card style={{ width: "18rem" }}>
@@ -49,6 +79,8 @@ function ListingCard({ listing }: ListingCardProps) {
           ) : (
             ""
           )}
+
+          <Button onClick={handleUpdateFavourites}>Like</Button>
         </div>
       </Card.Body>
     </Card>

@@ -23,6 +23,6 @@ usersRouter.post("/login", login);
 // jwtAuth takes the token, decodes it, extracts the user ID, looks for the user in DB. if user exists -> sends info to the request
 
 usersRouter.get("/profile", jwtAuth, getProfile); // middleware here cause to get profile user needs a token
-usersRouter.post("/addFavourites/:listingId", jwtAuth, updateFavourites);
+usersRouter.post("/updateFavourites/:listingId", jwtAuth, updateFavourites);
 
 export default usersRouter;

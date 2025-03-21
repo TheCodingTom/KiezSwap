@@ -259,6 +259,10 @@ const deleteListing = async (req, res) => {
         $pull: { listings: listingId },
       });
 
+      await UserModel.findByIdAndUpdate(userId, {
+        $pull: { favourites: listingId },
+      });
+
       return res.status(201).json({
         message: "Listing deleted",
         info: listing,
