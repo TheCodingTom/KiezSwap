@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { NavLink } from "react-router";
 import { baseUrl } from "../utils/baseUrl";
+import { ListingsContext } from "../context/ListingsContext";
 
 type ListingCardProps = {
   listing: ListingType;
@@ -15,6 +16,7 @@ function ListingCard({ listing }: ListingCardProps) {
   console.log(listing.seller);
 
   const { user } = useContext(AuthContext);
+  const { getListings } = useContext(ListingsContext);
   console.log(user);
   const token = localStorage.getItem("token");
 
@@ -38,6 +40,7 @@ function ListingCard({ listing }: ListingCardProps) {
       if (response.ok) {
         const result = await response.json();
         console.log(result);
+        getListings();
       } else {
         console.log("Failed to add/remove fav");
       }
@@ -73,14 +76,22 @@ function ListingCard({ listing }: ListingCardProps) {
         {/* <Card.Text>
           {listing.likes ? `Liked by ${listing.likes} people` : ""}
         </Card.Text> */}
-        <div>
+        <div className="listingCard-buttons">
           {listing.seller._id !== user?._id ? (
             <SendMessageModal listingId={listing._id} />
           ) : (
             ""
           )}
 
-          <Button onClick={handleUpdateFavourites}>Like</Button>
+          {listing.seller._id !== user?._id ? (
+            user?.favourites.includes(listing._id) ? (
+              <Button onClick={handleUpdateFavourites}>Unlike</Button>
+            ) : (
+              <Button onClick={handleUpdateFavourites}>Like</Button>
+            )
+          ) : (
+            ""
+          )}
         </div>
       </Card.Body>
     </Card>

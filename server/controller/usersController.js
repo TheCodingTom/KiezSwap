@@ -209,6 +209,7 @@ const getProfile = async (req, res) => {
       email: req.user.email,
       image: req.user.image,
       listings: req.user.listings,
+      favourites: req.user.favourites,
     });
   }
 };

@@ -46,6 +46,12 @@ h1 {
 
 /* listings page */
 
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .cards-container {
   display: flex;
   flex-direction: row;
@@ -70,6 +76,13 @@ h1 {
 
 .card-title {
   text-decoration: none;
+}
+
+.listingCard-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  bottom: 0px;
 }
 
 /* registration/login error handling */
