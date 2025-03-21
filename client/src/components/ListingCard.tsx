@@ -7,7 +7,6 @@ import { AuthContext } from "../context/AuthContext";
 import { NavLink } from "react-router";
 import { baseUrl } from "../utils/baseUrl";
 import { ListingsContext } from "../context/ListingsContext";
-import { Favorite } from "@mui/icons-material";
 
 type ListingCardProps = {
   listing: ListingType;
@@ -16,8 +15,8 @@ type ListingCardProps = {
 function ListingCard({ listing }: ListingCardProps) {
   console.log(listing.seller);
 
-  const { user } = useContext(AuthContext);
-  const { getListings } = useContext(ListingsContext);
+  const { user, checkUserStatus } = useContext(AuthContext);
+
   console.log(user);
   const token = localStorage.getItem("token");
 
@@ -41,7 +40,7 @@ function ListingCard({ listing }: ListingCardProps) {
       if (response.ok) {
         const result = await response.json();
         console.log(result);
-        getListings();
+        checkUserStatus();
       } else {
         console.log("Failed to add/remove fav");
       }
