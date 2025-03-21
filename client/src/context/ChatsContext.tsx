@@ -80,8 +80,6 @@ export const ChatsContextProvider = ({
         method: "GET",
       };
 
-      console.log("ssss :>> ");
-
       const response = await fetch(
         `${baseUrl}/api/chats/userChats/${chatId}`,
         requestOptions

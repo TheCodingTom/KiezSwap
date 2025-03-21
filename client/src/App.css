@@ -1,7 +1,6 @@
 :root {
   --background-color: #add7ed;
   --color: #37474f;
-  --card-background: #ffffff;
 }
 
 .dark-theme {
@@ -108,6 +107,16 @@ h1 {
     background-color: transparent;
     color: black;
   }
+}
+
+/* profile - messages */
+
+.messages-link {
+  text-decoration: none;
+}
+
+.message-list {
+  background-color: #add7ed;
 }
 
 /* my profile - listings */

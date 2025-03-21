@@ -4,11 +4,16 @@ import { SenderType } from "../types/customTypes";
 type SingleChatProps = {
   sender: SenderType;
   text: string;
+  isUserMessage: boolean;
 };
 
-function SingleChat({ sender, text }: SingleChatProps) {
+function SingleChat({ sender, text, isUserMessage }: SingleChatProps) {
   return (
-    <div>
+    <div
+      className={`single-message-container ${
+        isUserMessage ? "user-message" : "other-message"
+      }`}
+    >
       <p>
         <strong>{sender.username}: </strong>
         {text}

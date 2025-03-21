@@ -19,8 +19,8 @@ function Messages() {
       ) : (
         chats &&
         chats.map((chat) => (
-          <NavLink key={chat._id} to={chat._id}>
-            <ListGroupItem action>
+          <NavLink className={"messages-link"} key={chat._id} to={chat._id}>
+            <ListGroupItem action className="message-list">
               <div>
                 <strong>Listing:</strong> {chat.listing.name}
               </div>
