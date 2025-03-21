@@ -212,24 +212,73 @@ const getProfile = async (req, res) => {
   }
 };
 
+// const addFavourites = async (req, res) => {
+//   try {
+//     console.log("Adding to fav");
+
+//     // the user is populated by the jwt auth middleware
+//     const userId = req.user;
+//     const listingId = req.params.listingId;
+
+//     // 1. Find the user
+//     let user = await UserModel.findById(userId);
+//     if (!user) {
+//       return res.status(400).json({ message: "User not found" });
+//     }
+//     // 2. initialize favourites if null
+//     if (!user.favourites || user.favourites.length === 0) {
+//       user.favourites = [];
+//     }
+
+//     user = await UserModel.findByIdAndUpdate(
+//       userId,
+//       { $push: { favourites: listingId } },
+//       { new: true }
+//     );
+
+//     return res.status(200).json({
+//       message: "Added to the fav successfully",
+//       user,
+//     });
+//   } catch (error) {
+//     console.error("Error adding to fav:", error);
+//     res.status(400).json({ message: "Error adding to fav", error });
+//   }
+// };
+
 const addFavourites = async (req, res) => {
   try {
-    console.log("Adding to fav");
+    console.log("Liking listing");
 
     // the user is populated by the jwt auth middleware
-    const userId = req.user;
+    const userId = req.user._id;
     const listingId = req.params.listingId;
 
-    // 1. Find the user
+    // 1. Validate listing exists
+    const listing = await ListingModel.findById(listingId);
+    if (!listing) {
+      return res.status(404).json({ message: "Listing not found" });
+    }
+
+    // 2. Find the user
     let user = await UserModel.findById(userId);
     if (!user) {
-      return res.status(400).json({ message: "User not found" });
+      return res.status(404).json({ message: "User not found" });
     }
-    // 2. initialize favourites if null
-    if (!user.favourites || user.favourites.length === 0) {
+
+    // 3. Initialize likes if null or undefined
+    if (!user.favourites) {
       user.favourites = [];
     }
 
+    // 4. Check if listing is already liked
+    if (user.favourites.includes(listingId)) {
+      return res
+        .status(400)
+        .json({ message: "Listing already added to favourites" });
+    }
+
+    // 5. Add the listing to likes
     user = await UserModel.findByIdAndUpdate(
       userId,
       { $push: { favourites: listingId } },
@@ -237,12 +286,12 @@ const addFavourites = async (req, res) => {
     );
 
     return res.status(200).json({
-      message: "Added to the fav successfully",
+      message: "Listing liked successfully",
       user,
     });
   } catch (error) {
-    console.error("Error adding to fav:", error);
-    res.status(400).json({ message: "Error adding to fav", error });
+    console.error("Error liking listing:", error);
+    res.status(500).json({ message: "Error liking listing", error });
   }
 };
 

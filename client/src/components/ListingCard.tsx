@@ -30,15 +30,19 @@ function ListingCard({ listing }: ListingCardProps) {
           <Card.Title>{listing.name}</Card.Title>
         </NavLink>
 
-        <Card.Text className="text-muted small">
-          Posted by: {listing.seller.username}
-        </Card.Text>
+        {user?._id === listing.seller._id ? (
+          <Card.Text className="text-muted small">
+            This is your listing.
+          </Card.Text>
+        ) : (
+          <Card.Text className="text-muted small">
+            Posted by: {listing.seller.username}
+          </Card.Text>
+        )}
 
-        <Card.Text>{listing.description}</Card.Text>
-
-        <Card.Text>
+        {/* <Card.Text>
           {listing.likes ? `Liked by ${listing.likes} people` : ""}
-        </Card.Text>
+        </Card.Text> */}
         <div>
           {listing.seller._id !== user?._id ? (
             <SendMessageModal listingId={listing._id} />

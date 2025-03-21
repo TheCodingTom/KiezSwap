@@ -45,7 +45,15 @@ function ListingDetails() {
         <Card.Img variant="top" src={listing?.image} />
         <Card.Body>
           <Card.Title>{listing?.name}</Card.Title>
-          {/* <UserModal user={listing?.user} /> */}
+          {user?._id === listing?.seller._id ? (
+            <Card.Text className="text-muted small">
+              This is your listing.
+            </Card.Text>
+          ) : (
+            <Card.Text className="text-muted small">
+              Posted by: {listing?.seller.username}
+            </Card.Text>
+          )}
 
           <Card.Text>{listing?.description}</Card.Text>
           {listing && listing?.seller._id !== user?._id ? (
