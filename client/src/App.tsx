@@ -18,6 +18,7 @@ import NavBarProfile from "./components/NavBarProfile";
 import SingleChatPage from "./pages/SingleChatPage";
 import { ChatsContextProvider } from "./context/ChatsContext";
 import BackButtonThemeContainer from "./components/BackButtonThemeContainer";
+import NoMatchPage from "./pages/NoMatchPage";
 
 const Root = () => {
   // this route element is the parent of 3 pages, so they all contain the navbar
@@ -108,7 +109,7 @@ function App() {
                     />
                   </Route>
 
-                  <Route path="*" />
+                  <Route path="*" element={<NoMatchPage />} />
                 </Route>
               </Routes>
             </ChatsContextProvider>

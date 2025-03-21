@@ -4,12 +4,12 @@ import SingleChat from "../components/SingleChat";
 import "../styles/SingleChat.css";
 import SendMessageChat from "../components/SendMessageChat";
 import { ChatsContext } from "../context/ChatsContext";
-import { AuthContext } from "../context/AuthContext"; // Assuming you have an AuthContext to get current user
+import { AuthContext } from "../context/AuthContext";
 
 function SingleChatPage() {
   const { chatId } = useParams<string>();
   const { messages, getChatById } = useContext(ChatsContext);
-  const { user } = useContext(AuthContext); // Get current user from context
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     getChatById();
@@ -27,12 +27,13 @@ function SingleChatPage() {
               <SingleChat
                 text={message.text}
                 sender={message.sender}
-                isUserMessage={isUserMessage} // Pass this information to SingleChat
+                isUserMessage={isUserMessage}
                 key={message._id}
               />
             );
           })}
       </div>
+
       <SendMessageChat chatId={chatId} />
     </div>
   );

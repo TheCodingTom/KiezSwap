@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { baseUrl } from "../utils/baseUrl";
 import { ChatsContext } from "../context/ChatsContext";
+import { Button } from "react-bootstrap";
 
 type SendMessageChatProps = {
   chatId?: string;
@@ -54,7 +55,7 @@ function SendMessageChat({ chatId }: SendMessageChatProps) {
   };
 
   return (
-    <div>
+    <div className="input-chat-container">
       <form id="form">
         <input
           type="text"
@@ -67,12 +68,13 @@ function SendMessageChat({ chatId }: SendMessageChatProps) {
           onChange={handleInputText}
           value={message}
         />
+
         {message.length > 0 ? (
-          <button onClick={sendMessage} id="button-send" type="submit">
+          <Button onClick={sendMessage} id="button-send" type="submit">
             Send
-          </button>
+          </Button>
         ) : (
-          <button disabled>Send</button>
+          <Button disabled>Send</Button>
         )}
       </form>
     </div>
