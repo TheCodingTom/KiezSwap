@@ -38,6 +38,7 @@ export const ListingsContextProvider = ({
   children,
 }: ListingsContextProviderProps) => {
   const { user } = useContext(AuthContext);
+
   const [listings, setListings] = useState<ListingType[] | null>(null);
   const [userListings, setUserListings] = useState<ListingType[] | null>(null);
 

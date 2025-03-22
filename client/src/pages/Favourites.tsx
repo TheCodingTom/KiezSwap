@@ -1,7 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { baseUrl } from "../utils/baseUrl";
+import UserListingCard from "../components/UserListingCard";
+
+type FavType = {
+  image: string;
+  name: string;
+  seller: string;
+  _id: string;
+};
 
 function Favourites() {
+  const [favListings, setFavListings] = useState<FavType[] | null>(null);
   const token = localStorage.getItem("token");
 
   const getFavourites = async () => {
@@ -22,6 +31,7 @@ function Favourites() {
       if (response.ok) {
         const result = await response.json();
         console.log(result);
+        setFavListings(result.favourites);
       } else {
         console.log("Failed to fetch favourites");
       }
@@ -36,7 +46,19 @@ function Favourites() {
 
   return (
     <div>
-      <h1>My fav page</h1>
+      {favListings && favListings.length < 1 ? (
+        <h1>No favourites yet</h1>
+      ) : (
+        <div>
+          <h1>My Favourites</h1>
+          <div className="profile-cards-container">
+            {favListings &&
+              favListings.map((listing) => {
+                return <UserListingCard listing={listing} key={listing._id} />;
+              })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
