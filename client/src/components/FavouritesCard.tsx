@@ -30,7 +30,7 @@ function FavouritesCard({
       <Card.Body>
         <Card.Title>{listing.name}</Card.Title>
 
-        <div className="user-card-buttons">
+        <div className="listingCard-buttons">
           <SendMessageModal listingId={listing._id} />
           <LikeUnlikeButton
             isLiked={isLiked}

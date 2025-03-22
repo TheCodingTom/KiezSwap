@@ -37,11 +37,6 @@ function SingleChatPage() {
       </div>
 
       <SendMessageChat chatId={chatId} />
-
-      <div>
-        <SolidHeart className={"heart-icon"} />
-        <OutlineHeart className={"heart-icon"} />
-      </div>
     </div>
   );
 }

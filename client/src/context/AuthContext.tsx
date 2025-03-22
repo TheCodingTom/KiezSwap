@@ -7,6 +7,8 @@ type AuthContextProviderProps = {
 type AuthContextType = {
   user: User | null;
   isAuthenticated: boolean;
+  // favListings: FavType[] | null;
+  // getFavourites: () => void;
   register: (
     username: string,
     email: string,
@@ -21,6 +23,7 @@ type AuthContextType = {
 const contextInitialValue: AuthContextType = {
   user: null,
   isAuthenticated: false,
+  // favListings: null,
   register: () => {
     throw Error("context not initialised");
   },
@@ -31,6 +34,9 @@ const contextInitialValue: AuthContextType = {
     throw Error("context not initialised");
   },
   checkUserStatus: async () => {},
+  // getFavourites: () => {
+  //   throw Error("context not initialised");
+  // },
 };
 
 import { createContext, ReactNode, useEffect, useState } from "react";
@@ -48,6 +54,7 @@ export const AuthContext = createContext<AuthContextType>(contextInitialValue);
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  // const [favListings, setFavListings] = useState<FavType[] | null>(null);
 
   const token = localStorage.getItem("token");
   const goToHome = useNavigate();
@@ -222,6 +229,33 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     }
   };
 
+  // const getFavourites = async () => {
+  //   const myHeaders = new Headers();
+  //   myHeaders.append("Authorization", `Bearer ${token}`);
+
+  //   const requestOptions = {
+  //     method: "GET",
+  //     headers: myHeaders,
+  //   };
+
+  //   try {
+  //     const response = await fetch(
+  //       `${baseUrl}/api/users/profile/favourites`,
+  //       requestOptions
+  //     );
+
+  //     if (response.ok) {
+  //       const result = await response.json();
+  //       console.log(result);
+  //       setFavListings(result.favourites);
+  //     } else {
+  //       console.log("Failed to fetch favourites");
+  //     }
+  //   } catch (error) {
+  //     console.log("Error while fetching favourites: ", error);
+  //   }
+  // };
+
   // check if the user is logged in when the app loads
   useEffect(() => {
     checkUserStatus();
@@ -233,6 +267,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
         value={{
           user,
           isAuthenticated,
+
           register,
           login,
           logout,

@@ -41,20 +41,24 @@ function ListingCard({ listing, handleUpdateFavourites }: ListingCardProps) {
           </Card.Text>
         )}
 
-        <div className="listingCard-buttons">
-          {listing.seller._id !== user?._id && (
-            <>
-              <SendMessageModal listingId={listing._id} />
+        {user ? (
+          <div className="listingCard-buttons">
+            {listing.seller._id !== user?._id && (
+              <>
+                <SendMessageModal listingId={listing._id} />
 
-              <LikeUnlikeButton
-                isLiked={isLiked}
-                handleUpdateFavourites={() =>
-                  handleUpdateFavourites(listing._id)
-                }
-              />
-            </>
-          )}
-        </div>
+                <LikeUnlikeButton
+                  isLiked={isLiked}
+                  handleUpdateFavourites={() =>
+                    handleUpdateFavourites(listing._id)
+                  }
+                />
+              </>
+            )}
+          </div>
+        ) : (
+          ""
+        )}
       </Card.Body>
     </Card>
   );
