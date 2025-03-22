@@ -41,7 +41,7 @@ function ListingDetails() {
 
   return (
     <div className="single-listing-container">
-      <Card style={{ width: "23rem" }}>
+      <Card style={{ width: "21rem" }}>
         <Card.Img variant="top" src={listing?.image} />
         <Card.Body>
           <Card.Title>{listing?.name}</Card.Title>
@@ -55,12 +55,14 @@ function ListingDetails() {
             </Card.Text>
           )}
 
-          <Card.Text>{listing?.description}</Card.Text>
-          {listing && listing?.seller._id !== user?._id ? (
-            <SendMessageModal listingId={listing._id} />
-          ) : (
-            ""
-          )}
+          <div>
+            <Card.Text>{listing?.description}</Card.Text>
+            {listing && listing?.seller._id !== user?._id ? (
+              <SendMessageModal listingId={listing._id} />
+            ) : (
+              ""
+            )}
+          </div>
         </Card.Body>
       </Card>
     </div>

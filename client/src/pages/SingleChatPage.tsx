@@ -5,6 +5,8 @@ import "../styles/SingleChat.css";
 import SendMessageChat from "../components/SendMessageChat";
 import { ChatsContext } from "../context/ChatsContext";
 import { AuthContext } from "../context/AuthContext";
+import { HeartIcon as SolidHeart } from "@heroicons/react/24/solid";
+import { HeartIcon as OutlineHeart } from "@heroicons/react/24/outline";
 
 function SingleChatPage() {
   const { chatId } = useParams<string>();
@@ -22,7 +24,7 @@ function SingleChatPage() {
       <div className="chat-container">
         {messages &&
           messages.map((message) => {
-            const isUserMessage = message.sender._id === user?._id; // Check if message is from the current user
+            const isUserMessage = message.sender._id === user?._id; // Check if message is from the logged in user
             return (
               <SingleChat
                 text={message.text}
@@ -35,6 +37,11 @@ function SingleChatPage() {
       </div>
 
       <SendMessageChat chatId={chatId} />
+
+      <div>
+        <SolidHeart className={"heart-icon"} />
+        <OutlineHeart className={"heart-icon"} />
+      </div>
     </div>
   );
 }

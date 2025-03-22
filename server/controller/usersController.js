@@ -260,6 +260,10 @@ const updateFavourites = async (req, res) => {
   }
 };
 
+const getUserFavourites = () => {
+  console.log("user fav working");
+};
+
 export {
   getAllUsers,
   imageUpload,
@@ -267,4 +271,5 @@ export {
   login,
   getProfile,
   updateFavourites,
+  getUserFavourites,
 };
