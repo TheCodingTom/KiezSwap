@@ -110,7 +110,7 @@ h1 {
   align-items: center;
 }
 
-.open-modal-button {
+/* .open-modal-button {
   background-color: white;
   color: black;
   border: transparent;
@@ -122,7 +122,7 @@ h1 {
     background-color: transparent;
     color: black;
   }
-}
+} */
 
 /* profile - messages */
 
@@ -211,5 +211,10 @@ h1 {
 
 .heart-icon {
   color: red;
-  height: 40px;
+  height: 30px;
+}
+
+#like-button {
+  background-color: white;
+  border: transparent;
 }
