@@ -12,10 +12,6 @@ function Grid() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
 
-  // useEffect(() => {
-  //   if (user) checkUserStatus();
-  // }, []);
-
   const handleUpdateFavourites = async (listingId: string) => {
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
@@ -56,6 +52,13 @@ function Grid() {
       (selectedDistrict === "" || listing.district === selectedDistrict)
     );
   });
+
+  useEffect(() => {
+    // this way I can always see the liked listings when the component mounts
+    if (user) {
+      checkUserStatus();
+    }
+  }, []);
 
   return (
     <div>

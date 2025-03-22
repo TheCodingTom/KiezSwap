@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { ImageUploadOkResponse } from "../types/customTypes";
 import { AuthContext } from "../context/AuthContext";
 import { baseUrl } from "../utils/baseUrl";
+import { Button, Form } from "react-bootstrap";
 
 function UploadAvatar() {
   const { user, checkUserStatus } = useContext(AuthContext);
@@ -20,7 +21,9 @@ function UploadAvatar() {
     }
   };
 
-  const handleImageUpload = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleImageUpload = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     e.preventDefault();
 
     const formdata = new FormData();
@@ -40,7 +43,6 @@ function UploadAvatar() {
         requestOptions
       );
       const result = (await response.json()) as ImageUploadOkResponse;
-
       checkUserStatus(); // updates user avatar after uploading the new pic
       console.log("result :>> ", result);
     } catch (error) {
@@ -53,19 +55,17 @@ function UploadAvatar() {
     }
   };
   return (
-    <form
-      action="submit"
-      className="register-form"
-      onSubmit={handleImageUpload}
-    >
-      <input
-        type="file"
-        name="image"
-        id="image"
-        accept="image/*"
-        onChange={handleAttachFile}
-      />
-      <button>Upload image</button>
+    <form action="submit" className="register-form">
+      <Form.Group controlId="image">
+        <Form.Label>Change your avatar</Form.Label>
+        <Form.Control
+          type="file"
+          name="image"
+          accept="image/*"
+          onChange={handleAttachFile}
+        />
+      </Form.Group>
+
       {imagePreview && (
         <img
           src={imagePreview}
@@ -73,6 +73,13 @@ function UploadAvatar() {
           style={{ width: "100px" }}
         />
       )}
+      <div>
+        {imagePreview ? (
+          <Button onClick={handleImageUpload}>Upload image</Button>
+        ) : (
+          <Button disabled>Upload image</Button>
+        )}
+      </div>
     </form>
   );
 }
