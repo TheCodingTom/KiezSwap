@@ -1,9 +1,10 @@
-import { Button, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { ListingType } from "../types/customTypes";
 import SendMessageModal from "./SendMessageModal";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { NavLink } from "react-router";
+import LikeUnlikeButton from "./LikeUnlikeButton";
 
 type ListingCardProps = {
   listing: ListingType;
@@ -12,6 +13,9 @@ type ListingCardProps = {
 
 function ListingCard({ listing, handleUpdateFavourites }: ListingCardProps) {
   const { user } = useContext(AuthContext);
+
+  const isLiked =
+    Array.isArray(user?.favourites) && user.favourites.includes(listing._id);
 
   return (
     <Card style={{ width: "18rem" }}>
@@ -42,16 +46,10 @@ function ListingCard({ listing, handleUpdateFavourites }: ListingCardProps) {
             <>
               <SendMessageModal listingId={listing._id} />
 
-              {Array.isArray(user?.favourites) &&
-              user.favourites.includes(listing._id) ? (
-                <Button onClick={() => handleUpdateFavourites(listing._id)}>
-                  Unlike
-                </Button>
-              ) : (
-                <Button onClick={() => handleUpdateFavourites(listing._id)}>
-                  Like
-                </Button>
-              )}
+              <LikeUnlikeButton
+                isLiked={isLiked}
+                onClick={() => handleUpdateFavourites(listing._id)}
+              />
             </>
           )}
         </div>
