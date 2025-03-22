@@ -2,7 +2,6 @@ import express from "express";
 import {
   getAllUsers,
   getProfile,
-  getUserFavourites,
   imageUpload,
   login,
   registerNewUser,
@@ -25,6 +24,6 @@ usersRouter.post("/login", login);
 
 usersRouter.get("/profile", jwtAuth, getProfile); // middleware here cause to get profile user needs a token
 usersRouter.post("/updateFavourites/:listingId", jwtAuth, updateFavourites);
-usersRouter.get("/profile/favourites/:userId", getUserFavourites);
+// usersRouter.get("/profile/favourites/:userId", getUserFavourites);
 
 export default usersRouter;

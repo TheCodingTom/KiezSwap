@@ -1,27 +1,57 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { ListingsContext } from "../context/ListingsContext";
+import { AuthContext } from "../context/AuthContext";
 import ListingCard from "./ListingCard";
+import { baseUrl } from "../utils/baseUrl";
 
 function Grid() {
   const { listings } = useContext(ListingsContext);
+  const { user, checkUserStatus } = useContext(AuthContext);
+  const token = localStorage.getItem("token");
 
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
 
+  useEffect(() => {
+    if (user) checkUserStatus();
+  }, []);
+
+  const handleUpdateFavourites = async (listingId: string) => {
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+    };
+
+    try {
+      const response = await fetch(
+        `${baseUrl}/api/users/updateFavourites/${listingId}`,
+        requestOptions
+      );
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log(result);
+        checkUserStatus(); // Refresh user status to reflect changes
+      } else {
+        console.log("Failed to add/remove favourite");
+      }
+    } catch (error) {
+      console.log("Error adding/removing favourite: ", error);
+    }
+  };
+
   if (!listings) {
     return <h3>Loading listings...</h3>;
   }
-
-  console.log(listings);
-
-  // .map creates array of all categories from listings, with Set we remove duplicates and the spread operator converts the set in an array
 
   const categories = [...new Set(listings.map((listing) => listing.category))];
   const districts = [...new Set(listings.map((listing) => listing.district))];
 
   const filteredListings = listings.filter((listing) => {
     return (
-      // If no category/district is selected, all listings will be shown
       (selectedCategory === "" || listing.category === selectedCategory) &&
       (selectedDistrict === "" || listing.district === selectedDistrict)
     );
@@ -36,12 +66,11 @@ function Grid() {
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
           <option value="">All Categories</option>
-          {listings &&
-            categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
+          {categories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
         </select>
 
         <select
@@ -61,7 +90,11 @@ function Grid() {
       <div className="cards-container">
         {filteredListings.length > 0 ? (
           filteredListings.map((listing) => (
-            <ListingCard listing={listing} key={listing._id} />
+            <ListingCard
+              listing={listing}
+              key={listing._id}
+              handleUpdateFavourites={handleUpdateFavourites}
+            />
           ))
         ) : (
           <h3>No listings found.</h3>

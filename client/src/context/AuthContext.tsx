@@ -150,6 +150,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
         if (!result.token) {
           console.log("Login failed: no token received");
           setIsAuthenticated(false);
+          return;
         }
 
         if (result.token) {
@@ -157,6 +158,10 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
           localStorage.setItem("token", result.token);
           setUser(result.user);
           setIsAuthenticated(true);
+
+          // all checkUserStatus right after logging in
+          await checkUserStatus();
+
           toast.success(
             "Login successful! You'll be redirected in 3 seconds.",
             {
