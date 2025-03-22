@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { baseUrl } from "../utils/baseUrl";
-import UserListingCard from "../components/UserListingCard";
 
-type FavType = {
+import FavouritesCard from "../components/FavouritesCard";
+
+export type FavType = {
   image: string;
   name: string;
   seller: string;
@@ -54,7 +55,7 @@ function Favourites() {
           <div className="profile-cards-container">
             {favListings &&
               favListings.map((listing) => {
-                return <UserListingCard listing={listing} key={listing._id} />;
+                return <FavouritesCard listing={listing} key={listing._id} />;
               })}
           </div>
         </div>
