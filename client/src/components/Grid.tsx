@@ -12,9 +12,9 @@ function Grid() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
 
-  useEffect(() => {
-    if (user) checkUserStatus();
-  }, []);
+  // useEffect(() => {
+  //   if (user) checkUserStatus();
+  // }, []);
 
   const handleUpdateFavourites = async (listingId: string) => {
     const myHeaders = new Headers();
@@ -44,7 +44,7 @@ function Grid() {
   };
 
   if (!listings) {
-    return <h3>Loading listings...</h3>;
+    return <h3>No listings yet.</h3>;
   }
 
   const categories = [...new Set(listings.map((listing) => listing.category))];

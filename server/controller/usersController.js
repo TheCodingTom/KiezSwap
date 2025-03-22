@@ -274,43 +274,6 @@ const updateFavourites = async (req, res) => {
   }
 };
 
-// const getUserFavourites = async (req, res) => {
-
-//   try {
-//     // Check if we are fetching the logged-in user's profile
-//     const userId = req.user ? req.user._id
-
-//     // Fetch user from database by ID and populate
-//     const user = await UserModel.findById(userId).populate({
-//       path: "favourites",
-//       populate: {
-//         path: "seller",
-//         select: "username avatar postedListings createdAt",
-//       },
-//     });
-
-//     if (!user) {
-//       return res.status(404).json({ message: "User not found" });
-//     }
-
-//     return res.status(200).json({
-//       userProfile: {
-//         username: user.username,
-//         email: user.email,
-//         avatar: user.avatar,
-//         userId: user._id,
-//         postedListings: user.postedListings,
-//         favourites: user.favourites,
-//         createdAt: user.createdAt,
-//         updatedAt: user.updatedAt,
-//       },
-//     });
-//   } catch (error) {
-//     console.log("Error fetching user profile:", error);
-//     return res.status(500).json({ error: "Something went wrong" });
-//   }
-// };
-
 const getUserFavourites = async (req, res) => {
   try {
     const userId = req.user._id;
