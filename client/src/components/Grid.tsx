@@ -44,7 +44,7 @@ function Grid() {
   };
 
   if (!listings) {
-    return <h3>No listings yet.</h3>;
+    return <h3>No listings</h3>;
   }
 
   const categories = [...new Set(listings.map((listing) => listing.category))];

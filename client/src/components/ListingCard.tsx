@@ -48,7 +48,9 @@ function ListingCard({ listing, handleUpdateFavourites }: ListingCardProps) {
 
               <LikeUnlikeButton
                 isLiked={isLiked}
-                onClick={() => handleUpdateFavourites(listing._id)}
+                handleUpdateFavourites={() =>
+                  handleUpdateFavourites(listing._id)
+                }
               />
             </>
           )}

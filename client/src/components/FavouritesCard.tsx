@@ -2,12 +2,23 @@ import { Card } from "react-bootstrap";
 
 import { FavType } from "../pages/Favourites";
 import SendMessageModal from "./SendMessageModal";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import LikeUnlikeButton from "./LikeUnlikeButton";
 
 type FavouritesCardProps = {
   listing: FavType;
+  handleUpdateFavourites: (listingId: string) => void;
 };
 
-function FavouritesCard({ listing }: FavouritesCardProps) {
+function FavouritesCard({
+  listing,
+  handleUpdateFavourites,
+}: FavouritesCardProps) {
+  const { user } = useContext(AuthContext);
+
+  const isLiked =
+    Array.isArray(user?.favourites) && user.favourites.includes(listing._id);
   return (
     <Card style={{ width: "16rem" }}>
       <Card.Img
@@ -21,6 +32,10 @@ function FavouritesCard({ listing }: FavouritesCardProps) {
 
         <div className="user-card-buttons">
           <SendMessageModal listingId={listing._id} />
+          <LikeUnlikeButton
+            isLiked={isLiked}
+            handleUpdateFavourites={() => handleUpdateFavourites(listing._id)}
+          />
         </div>
       </Card.Body>
     </Card>

@@ -4,17 +4,15 @@ import { HeartIcon as OutlineHeart } from "@heroicons/react/24/outline";
 
 type LikeUnlikeButtonProps = {
   isLiked: boolean;
-  onClick: () => void;
+  handleUpdateFavourites: () => void;
 };
 
-function LikeUnlikeButton({ isLiked, onClick }: LikeUnlikeButtonProps) {
+function LikeUnlikeButton({
+  isLiked,
+  handleUpdateFavourites,
+}: LikeUnlikeButtonProps) {
   return (
-    <Button id="like-button" onClick={onClick}>
-      {" "}
-      {/* <div>
-        <SolidHeart className={"heart-icon"} />
-        <OutlineHeart className={"heart-icon"} />
-      </div> */}
+    <Button id="like-button" onClick={handleUpdateFavourites}>
       {isLiked ? (
         <SolidHeart className={"heart-icon"} />
       ) : (
