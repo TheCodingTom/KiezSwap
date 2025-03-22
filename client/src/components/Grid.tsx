@@ -6,7 +6,7 @@ import { baseUrl } from "../utils/baseUrl";
 
 function Grid() {
   const { listings } = useContext(ListingsContext);
-  const { user, checkUserStatus } = useContext(AuthContext);
+  const { checkUserStatus } = useContext(AuthContext);
   const token = localStorage.getItem("token");
 
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -55,9 +55,7 @@ function Grid() {
 
   useEffect(() => {
     // this way I can always see the liked listings when the component mounts
-    if (user) {
-      checkUserStatus();
-    }
+    checkUserStatus();
   }, []);
 
   return (
