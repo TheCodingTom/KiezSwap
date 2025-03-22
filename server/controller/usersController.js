@@ -236,23 +236,37 @@ const updateFavourites = async (req, res) => {
     // 3. initialize likes array if null or undefined
     if (!user.favourites) {
       user.favourites = [];
-      return;
     }
 
     const pullOrPush = updateOperatorSelection(favourites, listingId);
 
     // 4. check if listing is already liked
 
-    user = await UserModel.findByIdAndUpdate(
+    // user = await UserModel.findByIdAndUpdate(
+    //   userId,
+    //   { [pullOrPush]: { favourites: listingId } },
+    //   { new: true }
+    // ).populate({
+    //   path: "favourites",
+    //   select: ["name", "image", "seller"],
+    // });
+
+    await UserModel.findByIdAndUpdate(
       userId,
       { [pullOrPush]: { favourites: listingId } },
       { new: true }
     );
+
+    user = await UserModel.findById(userId).populate({
+      path: "favourites",
+      select: ["name", "image", "seller"],
+    });
+
     console.log("user after  :>> ", pullOrPush, "----", user);
     return res.status(200).json({
       message: `Listing ${
-        pullOrPush === "$pull" ? "removed" : "added"
-      } from favourites`,
+        pullOrPush === "$pull" ? "removed from" : "added to"
+      } favourites`,
     });
   } catch (error) {
     console.error("Error liking listing:", error);
@@ -297,6 +311,35 @@ const updateFavourites = async (req, res) => {
 //   }
 // };
 
+const getUserFavourites = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    const user = await UserModel.findById(userId).populate({
+      path: "favourites",
+      select: ["name", "image", "seller"],
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+    if (user) {
+      res.status(200).json({
+        message: "User favourites retrieved successfully",
+        amount: user.favourites.length,
+        favourites: user.favourites,
+      });
+    }
+  } catch (error) {
+    console.error("Error fetching user's favourites:", error);
+    res
+      .status(500)
+      .json({ message: "Error fetching user's favourites", error });
+  }
+};
+
 export {
   getAllUsers,
   imageUpload,
@@ -304,4 +347,5 @@ export {
   login,
   getProfile,
   updateFavourites,
+  getUserFavourites,
 };

@@ -10,10 +10,7 @@ const listingsSchema = mongoose.Schema({
     require: true,
     type: String,
   },
-  condition: {
-    require: true,
-    type: String,
-  },
+
   // price: { require: false, type: Number },
 
   district: {

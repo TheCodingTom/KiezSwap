@@ -39,6 +39,7 @@ export type GetProfileOkResponse = {
   email: string;
   image: string;
   listings: ListingType[];
+  favourites: string[];
 };
 
 export type ListingType = {

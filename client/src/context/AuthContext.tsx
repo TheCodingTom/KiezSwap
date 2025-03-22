@@ -159,9 +159,6 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
           setUser(result.user);
           setIsAuthenticated(true);
 
-          // all checkUserStatus right after logging in
-          await checkUserStatus();
-
           toast.success(
             "Login successful! You'll be redirected in 3 seconds.",
             {
