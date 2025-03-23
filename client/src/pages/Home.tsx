@@ -7,7 +7,7 @@ function Home() {
   const { user } = useContext(AuthContext);
   return (
     <div className="home-container">
-      <h1>Welcome to</h1>
+      {user ? <h1>Welcome, {user?.username}!</h1> : <h1>Welcome, friend!</h1>}
       <div className="home-logo-container">
         <TrueFocus
           sentence="Kiez Swap"
@@ -19,7 +19,6 @@ function Home() {
         />
         <img src={bear} className="home-logo" alt="image of berlin bear" />
       </div>
-      {user ? <h1>{user?.username}!</h1> : ""}
     </div>
   );
 }

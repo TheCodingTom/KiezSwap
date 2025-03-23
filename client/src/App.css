@@ -1,5 +1,7 @@
+/* dark-light mode */
+
 :root {
-  --background-color: #add7ed;
+  --background-color: #dee4e7;
   --color: #37474f;
 }
 
@@ -17,10 +19,67 @@ body {
   transition: 0.15s;
 }
 
+/* nav links */
+
+body .nav-link {
+  color: #000;
+}
+
+body.dark-theme .nav-link {
+  color: #fff;
+}
+
+body.dark-theme .btn-primary {
+  background-color: #80cbc4;
+  border: solid 1px #80cbc4;
+  color: black;
+}
+
+body .nav-link:hover {
+  color: #007bff;
+}
+
+body.dark-theme .nav-link:hover {
+  color: #007bff;
+}
+
+body.dark-theme .navbar-light {
+  background-color: #353b3e !important;
+}
+
+body.dark-theme .navbar-brand {
+  color: white;
+}
+
+/* active link will always have the same color */
+
+body.dark-theme .nav-link.active {
+  color: #007bff !important;
+}
+.nav-link.active {
+  color: #007bff !important;
+}
+
+body.dark-theme .card {
+  background-color: #263238;
+  color: #dee4e7;
+  border: 1px solid #455a64;
+}
+
+body.dark-theme .form-control {
+  background-color: #455a64;
+  color: #dee4e7;
+  border: 1px solid #f0f0f0;
+}
+
+/* general */
+
 h1 {
   text-align: center;
   padding: 10px;
 }
+
+/* home */
 
 .home-container {
   display: flex;
@@ -42,6 +101,11 @@ h1 {
 
 .bg-body-tertiary {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+  margin-bottom: 8px;
+}
+
+body.dark-theme .bg-body-tertiary {
+  box-shadow: 0 2px 4px 0 rgba(79, 79, 79, 0.989);
   margin-bottom: 8px;
 }
 
@@ -126,20 +190,6 @@ h1 {
   align-items: center;
 }
 
-/* .open-modal-button {
-  background-color: white;
-  color: black;
-  border: transparent;
-
-  &:hover,
-  &:focus,
-  &:active,
-  &:target {
-    background-color: transparent;
-    color: black;
-  }
-} */
-
 /* profile - messages */
 
 .messages-link {
@@ -203,32 +253,8 @@ h1 {
   border: transparent;
 }
 
-/* profile nav bar animation */
+/* animation */
 
-/* Light/Dark theme support */
-body .nav-link {
-  color: #000;
-}
-
-body.dark-theme .nav-link {
-  color: #fff;
-}
-
-body.dark-theme .btn-primary {
-  background-color: #fff;
-}
-
-body .nav-link:hover {
-  color: #007bff;
-}
-
-body.dark-theme .nav-link:hover {
-  color: #66b2ff;
-}
-
-body.dark-theme .navbar-light {
-  background-color: black !important;
-}
 .shake-left-right :hover {
   animation: shake-left-right 0.8s linear both;
 }

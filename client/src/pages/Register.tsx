@@ -94,10 +94,10 @@ function Register() {
     }
   };
 
-  const myStyle = {
-    width: "250px",
-    height: "40px",
-  };
+  // const myStyle = {
+  //   width: "250px",
+  //   height: "40px",
+  // };
 
   return (
     <>

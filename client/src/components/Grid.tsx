@@ -53,10 +53,12 @@ function Grid() {
     );
   });
 
+  // every time the token changes ( when user logs in) function gets called and the liked listings are fetched
   useEffect(() => {
-    // this way I can always see the liked listings when the component mounts
-    checkUserStatus();
-  }, []);
+    if (token) {
+      checkUserStatus();
+    }
+  }, [token]);
 
   return (
     <div>
