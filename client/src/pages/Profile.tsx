@@ -2,6 +2,7 @@ import { useContext } from "react";
 
 import { AuthContext } from "../context/AuthContext";
 import UploadAvatar from "../components/UploadAvatar";
+import "../styles/Profile.css";
 
 function Profile() {
   const { user } = useContext(AuthContext);

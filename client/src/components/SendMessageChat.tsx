@@ -61,6 +61,7 @@ function SendMessageChat({ chatId }: SendMessageChatProps) {
           <Form.Group controlId="message-input">
             <Form.Control
               type="text"
+              as="textarea"
               placeholder="Type a message"
               name="message"
               autoCapitalize="on"

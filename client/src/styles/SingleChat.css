@@ -6,6 +6,7 @@
   flex-direction: column;
   gap: 15px;
   margin: auto;
+  margin-top: 20px;
   max-height: 500px;
   min-height: 300px;
   outline: solid black 2px;
@@ -21,7 +22,7 @@
   border-radius: 10px;
   margin: 5px;
   color: black;
-  outline: 1px lightgrey solid;
+  outline: 1px grey solid;
 }
 
 .input-chat-container {
@@ -48,6 +49,7 @@
 .send-message-container {
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 15px;
 }
 

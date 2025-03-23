@@ -17,8 +17,6 @@ function SingleChatPage() {
 
   return (
     <div>
-      <h1>Single chat page</h1>
-
       <div className="chat-container">
         {messages &&
           messages.map((message) => {

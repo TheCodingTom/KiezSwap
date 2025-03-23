@@ -144,7 +144,7 @@ function NewListing() {
             <Form.Control
               as="textarea"
               rows={3}
-              placeholder="Enter description, conditions, etc."
+              placeholder="Provide a brief description of the item and specify the listing type (swap or giveaway)."
               name="description"
               value={formData.description}
               onChange={handleInputChange}
