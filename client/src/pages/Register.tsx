@@ -3,6 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "../styles/LoginRegister.css";
 
 function Register() {
   const { register } = useContext(AuthContext);

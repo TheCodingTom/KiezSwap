@@ -213,8 +213,10 @@ function NewListing() {
               style={{ width: "100px" }}
             />
           )}
+          <div className="addlisting-button">
+            <Button onClick={handleFormSubmit}>Submit</Button>
+          </div>
         </form>
-        <Button onClick={handleFormSubmit}>Submit</Button>
       </div>
       <ToastContainer />
     </>
