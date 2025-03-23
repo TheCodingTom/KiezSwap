@@ -5,8 +5,6 @@ import "../styles/SingleChat.css";
 import SendMessageChat from "../components/SendMessageChat";
 import { ChatsContext } from "../context/ChatsContext";
 import { AuthContext } from "../context/AuthContext";
-import { HeartIcon as SolidHeart } from "@heroicons/react/24/solid";
-import { HeartIcon as OutlineHeart } from "@heroicons/react/24/outline";
 
 function SingleChatPage() {
   const { chatId } = useParams<string>();

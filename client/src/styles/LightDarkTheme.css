@@ -27,6 +27,7 @@ body,
 form,
 .card-text,
 .message-preview,
+.chat-container,
 select {
   transition: color 0.8s, background-color 0.8s, border-color 0.8s;
 }
@@ -162,4 +163,22 @@ body.dark-theme .modal-footer {
 body.dark-theme .message-preview {
   background-color: #455a64;
   color: #dee4e7;
+}
+
+body.dark-theme .messages-link :hover {
+  background-color: #37474f;
+}
+
+/* single chat page */
+
+body.dark-theme .chat-container {
+  background-color: #455a64;
+}
+
+body.dark-theme .user-message {
+  background-color: #c2f29c;
+}
+
+body.dark-theme .other-message {
+  background-color: #d9d0d0;
 }
