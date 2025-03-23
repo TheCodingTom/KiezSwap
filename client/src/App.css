@@ -110,8 +110,9 @@ h1 {
   text-decoration: none;
 }
 
-.message-list {
-  background-color: #add7ed;
+.message-preview {
+  background-color: lightgray;
+  outline: 1px black solid;
 }
 
 /* my profile - listings */

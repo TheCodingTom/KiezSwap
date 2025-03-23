@@ -13,14 +13,14 @@ function Messages() {
   }, []);
 
   return (
-    <ListGroup>
+    <ListGroup className="message-list">
       {chats && chats.length < 1 ? (
         <ListGroupItem>No chats found.</ListGroupItem>
       ) : (
         chats &&
         chats.map((chat) => (
           <NavLink className={"messages-link"} key={chat._id} to={chat._id}>
-            <ListGroupItem action className="message-list">
+            <ListGroupItem action className="message-preview">
               <div>
                 <strong>Listing:</strong> {chat.listing.name}
               </div>
