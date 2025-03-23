@@ -45,3 +45,13 @@
   justify-content: space-between;
   bottom: 0px;
 }
+
+.heart-icon {
+  color: red;
+  height: 30px;
+}
+
+#like-button {
+  background-color: white;
+  border: transparent;
+}

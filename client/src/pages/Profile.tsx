@@ -16,6 +16,7 @@ function Profile() {
             <h4>Email: {user?.email}</h4>
             <img
               src={user.image}
+              className="avatar-picture"
               alt="user avatar"
               style={{ width: "150px", height: "auto" }}
             />

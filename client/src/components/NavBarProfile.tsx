@@ -13,7 +13,7 @@ function NavBarProfile() {
   return (
     <div>
       {user ? (
-        <Nav className="justify-content-center">
+        <Nav className="profile-navbar">
           <Nav.Item className="shake-left-right">
             <Nav.Link as={NavLink} to={"/profile/userlistings"}>
               <ClipboardDocumentListIcon className="icon" /> My Listings
@@ -26,7 +26,7 @@ function NavBarProfile() {
           </Nav.Item>
           <Nav.Item className="shake-left-right">
             <Nav.Link as={NavLink} to={"/profile/favourites"}>
-              <HeartIcon className="icon red-icon" /> Favourites
+              <HeartIcon className="icon" /> Favourites
             </Nav.Link>
           </Nav.Item>
         </Nav>

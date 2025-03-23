@@ -55,7 +55,7 @@ function UploadAvatar() {
     }
   };
   return (
-    <form action="submit" className="register-form">
+    <form action="submit" className="avatar-form">
       <Form.Group controlId="image">
         <Form.Label>Change your avatar</Form.Label>
         <Form.Control

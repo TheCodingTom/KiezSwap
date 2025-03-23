@@ -52,16 +52,6 @@ h1 {
   }
 }
 
-/* registration/login error handling */
-
-.error {
-  color: red;
-  font-size: 15px;
-}
-.errorInput {
-  border: 1px solid red;
-}
-
 /* single listing page */
 .single-listing-container {
   display: flex;
@@ -75,6 +65,43 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 5px;
+}
+
+.profile-navbar {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 480px) {
+  .profile-navbar {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    font-size: 11px;
+  }
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.avatar-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.avatar-picture {
+  outline: 2px solid grey;
 }
 
 /* profile - messages */
@@ -130,17 +157,12 @@ h1 {
   padding: 10px;
 }
 
-.heart-icon {
-  color: red;
-  height: 30px;
-}
-
-#like-button {
-  background-color: white;
-  border: transparent;
-}
-
 /* animation */
+
+.shake-left-right {
+  display: inline-block;
+  animation: shake 0.5s ease-in-out infinite;
+}
 
 .shake-left-right :hover {
   animation: shake-left-right 0.8s linear both;
@@ -171,34 +193,4 @@ h1 {
   90% {
     transform: rotate(8deg);
   }
-}
-
-.icon {
-  width: 20px;
-  height: 20px;
-  vertical-align: middle;
-  margin-right: 5px;
-}
-
-.red-icon {
-  color: red;
-}
-
-.shake-left-right {
-  display: inline-block;
-  animation: shake 0.5s ease-in-out infinite;
-}
-
-.justify-content-center {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-/* input */
-
-#password-input {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
 }

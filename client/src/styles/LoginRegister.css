@@ -29,11 +29,31 @@
   width: 380px;
 }
 
+.login-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .link-register {
   text-decoration: none;
   color: var(--color);
   transition: color 0.8s ease-in-out;
   font-weight: 800;
+}
+
+.error {
+  color: red;
+  font-size: 15px;
+}
+.errorInput {
+  border: 1px solid red;
+}
+
+#password-input {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
 }
 
 @media (max-width: 480px) {
