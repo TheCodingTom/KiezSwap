@@ -127,7 +127,7 @@ function NewListing() {
       <h1>Add new listing</h1>
 
       <div className="form-container">
-        <form className="register-form">
+        <form className="new-listing-form">
           <Form.Group controlId="name">
             <Form.Label>Name</Form.Label>
             <Form.Control

@@ -169,12 +169,14 @@ function Register() {
           ) : (
             ""
           )}
+          <div className="login-button">
+            {!errors.email && !errors.username && !errors.password ? (
+              <Button onClick={handleSubmitRegister}>Register</Button>
+            ) : (
+              <Button disabled>Register</Button>
+            )}
+          </div>
         </form>
-        {!errors.email && !errors.username && !errors.password ? (
-          <Button onClick={handleSubmitRegister}>Register</Button>
-        ) : (
-          <Button disabled>Register</Button>
-        )}
       </div>
       <ToastContainer />
     </>

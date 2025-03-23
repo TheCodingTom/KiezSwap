@@ -24,6 +24,7 @@ body,
 .card,
 .form-control,
 .form-select,
+form,
 .card-text,
 select {
   transition: color 0.8s, background-color 0.8s, border-color 0.8s;
@@ -98,16 +99,20 @@ body.dark-theme #like-button {
   border: transparent;
 }
 
-/* inputs */
+/* form + inputs */
 
-/* body.dark-theme .register-form {
+body.dark-theme .register-form {
   background-color: #455a64;
   color: #dee4e7;
-  border: 1px solid #f0f0f0;
-} */
+}
+
+body.dark-theme .new-listing-form {
+  background-color: #455a64;
+  color: #dee4e7;
+}
 
 body.dark-theme .form-control {
-  background-color: #455a64;
+  background-color: #37474f;
   color: #dee4e7;
   border: 1px solid #f0f0f0;
 }
@@ -119,7 +124,7 @@ body.dark-theme .form-control::placeholder {
 /* filters */
 
 body.dark-theme select {
-  background-color: #455a64;
+  background-color: #37474f;
   color: #dee4e7;
   border: 1px solid #90a4ae;
 }

@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { ListingsContext } from "../context/ListingsContext";
 import { AuthContext } from "../context/AuthContext";
 import ListingCard from "./ListingCard";

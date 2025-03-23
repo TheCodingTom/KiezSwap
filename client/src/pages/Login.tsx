@@ -122,20 +122,27 @@ function Login() {
           ) : (
             ""
           )}
+
+          <div className="login-button">
+            {!errors.email && !errors.password && !user ? (
+              <Button onClick={handleSubmitLogin}>Login</Button>
+            ) : (
+              <Button disabled>Login</Button>
+            )}
+          </div>
+          <div>
+            {!user ? (
+              <p>
+                Don't have an account yet?{" "}
+                <Link className="link-register" to="/register">
+                  Create one here!
+                </Link>
+              </p>
+            ) : (
+              ""
+            )}
+          </div>
         </form>
-        {!errors.email && !errors.password && !user ? (
-          <Button onClick={handleSubmitLogin}>Login</Button>
-        ) : (
-          <Button disabled>Login</Button>
-        )}
-        {!user ? (
-          <p>
-            Don't have an account yet?{" "}
-            <Link to="/register">Create one here!</Link>
-          </p>
-        ) : (
-          ""
-        )}
       </div>
 
       <ToastContainer />
