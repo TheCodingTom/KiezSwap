@@ -55,7 +55,7 @@ function UserListingCard({ listing }: UserListingCardProps) {
         <Card.Text>
           {listing.likes ? `Liked by ${listing.likes} people` : ""}
         </Card.Text>
-        <div className="user-card-buttons">
+        <div>
           <DeleteModal handleDeleteListing={handleDeleteListing} />
         </div>
       </Card.Body>

@@ -43,7 +43,7 @@
   outline: 2px solid grey;
 }
 
-/* profile - messages */
+/* list of messages */
 
 .messages-link {
   text-decoration: none;
@@ -54,7 +54,8 @@
   outline: 1px black solid;
 }
 
-/* my profile - listings */
+/* my listings */
+
 .profile-cards-container {
   display: flex;
   flex-direction: row;
@@ -63,8 +64,40 @@
   justify-content: center;
 }
 
-.user-card-buttons {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
+/* nav bar animation */
+
+.shake-left-right {
+  display: inline-block;
+  animation: shake 0.5s ease-in-out infinite;
+}
+
+.shake-left-right :hover {
+  animation: shake-left-right 0.8s linear both;
+}
+
+@keyframes shake-left-right {
+  0%,
+  100% {
+    transform: rotate(0deg);
+    transform-origin: 50% 50%;
+  }
+  10% {
+    transform: rotate(8deg);
+  }
+  20%,
+  40%,
+  60% {
+    transform: rotate(-10deg);
+  }
+  30%,
+  50%,
+  70% {
+    transform: rotate(10deg);
+  }
+  80% {
+    transform: rotate(-8deg);
+  }
+  90% {
+    transform: rotate(8deg);
+  }
 }

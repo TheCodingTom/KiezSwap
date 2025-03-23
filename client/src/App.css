@@ -22,6 +22,14 @@ h1 {
 .home-logo {
   height: 180px;
 }
+.home-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 20px;
+  gap: 10px;
+}
 
 /* new listing */
 
@@ -85,42 +93,4 @@ h1 {
   height: 300px;
   width: 300px;
   padding: 10px;
-}
-
-/* animation */
-
-.shake-left-right {
-  display: inline-block;
-  animation: shake 0.5s ease-in-out infinite;
-}
-
-.shake-left-right :hover {
-  animation: shake-left-right 0.8s linear both;
-}
-
-@keyframes shake-left-right {
-  0%,
-  100% {
-    transform: rotate(0deg);
-    transform-origin: 50% 50%;
-  }
-  10% {
-    transform: rotate(8deg);
-  }
-  20%,
-  40%,
-  60% {
-    transform: rotate(-10deg);
-  }
-  30%,
-  50%,
-  70% {
-    transform: rotate(10deg);
-  }
-  80% {
-    transform: rotate(-8deg);
-  }
-  90% {
-    transform: rotate(8deg);
-  }
 }
