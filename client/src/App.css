@@ -15,8 +15,16 @@ body {
   color: var(--color);
 }
 
-* {
-  transition: 0.15s;
+/* Apply smooth transitions to key elements */
+body,
+.navbar,
+.navbar-light,
+.nav-link,
+.btn,
+.card,
+.form-control,
+select {
+  transition: color 0.8s, background-color 0.8s, border-color 0.8s;
 }
 
 /* nav links */
@@ -70,6 +78,14 @@ body.dark-theme .form-control {
   background-color: #455a64;
   color: #dee4e7;
   border: 1px solid #f0f0f0;
+}
+
+/* filter */
+
+body.dark-theme select {
+  background-color: #455a64;
+  color: #dee4e7;
+  border: 1px solid #90a4ae;
 }
 
 /* general */
