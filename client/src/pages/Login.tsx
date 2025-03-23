@@ -10,6 +10,7 @@ function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [type, setType] = useState("password");
 
   const [errors, setErrors] = useState({
     email: "",
@@ -45,6 +46,10 @@ function Login() {
         ? ""
         : "Password must be at least 6 characters",
     });
+  };
+
+  const handleToggle = () => {
+    setType(type === "password" ? "text" : "password");
   };
 
   const handleSubmitLogin = (
@@ -90,9 +95,9 @@ function Login() {
             ""
           )}
 
-          <Form.Group controlId="password">
+          <Form.Group id="password-input" controlId="password">
             <Form.Control
-              type="text"
+              type={type}
               placeholder="Enter password"
               name="password"
               onChange={handlePasswordInputChange}
@@ -102,6 +107,14 @@ function Login() {
                   : ""
               }
             />
+
+            <div>
+              {type === "password" ? (
+                <Button onClick={handleToggle}>Show</Button>
+              ) : (
+                <Button onClick={handleToggle}>Hide</Button>
+              )}
+            </div>
           </Form.Group>
 
           {errors.password && errors.password.length > 0 ? (

@@ -11,6 +11,8 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [type, setType] = useState("password");
+
   const [errors, setErrors] = useState({
     username: "",
     email: "",
@@ -66,6 +68,10 @@ function Register() {
     });
   };
 
+  const handleToggle = () => {
+    setType(type === "password" ? "text" : "password");
+  };
+
   const handleSubmitRegister = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -86,6 +92,11 @@ function Register() {
     if (username && email && password) {
       register(username, email, password);
     }
+  };
+
+  const myStyle = {
+    width: "250px",
+    height: "40px",
   };
 
   return (
@@ -132,9 +143,9 @@ function Register() {
             ""
           )}
 
-          <Form.Group controlId="password">
+          <Form.Group id="password-input" controlId="password">
             <Form.Control
-              type="text"
+              type={type}
               placeholder="Enter password"
               name="password"
               onChange={handlePasswordInputChange}
@@ -144,6 +155,13 @@ function Register() {
                   : ""
               }
             />
+            <div>
+              {type === "password" ? (
+                <Button onClick={handleToggle}>Show</Button>
+              ) : (
+                <Button onClick={handleToggle}>Hide</Button>
+              )}
+            </div>
           </Form.Group>
 
           {errors.password && errors.password.length > 0 ? (

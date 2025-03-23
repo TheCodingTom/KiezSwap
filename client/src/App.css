@@ -35,7 +35,7 @@ h1 {
 }
 
 .home-logo {
-  height: 200px;
+  height: 180px;
 }
 
 /* navbar */
@@ -55,9 +55,9 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-width: 350px;
+  max-width: 380px;
   padding: 20px;
-  width: 350px;
+  width: 380px;
 }
 
 /* listings page */
@@ -280,4 +280,12 @@ body.dark-theme .navbar-light {
   display: flex;
   justify-content: center;
   gap: 15px;
+}
+
+/* input */
+
+#password-input {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
 }
