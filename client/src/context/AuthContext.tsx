@@ -165,6 +165,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
           localStorage.setItem("token", result.token);
           setUser(result.user);
           setIsAuthenticated(true);
+          checkUserStatus()
 
           toast.success(
             "Login successful! You'll be redirected in 3 seconds.",

@@ -36,6 +36,7 @@ h1 {
   max-width: 380px;
   padding: 20px;
   width: 380px;
+  outline: solid 2px black;
 }
 
 /* listings page */

@@ -177,7 +177,8 @@ const login = async (req, res) => {
               email: existingUser.email,
               _id: existingUser._id,
               image: existingUser.image, // double check this
-              // listings: existingUser.listings
+              listings: existingUser.listings,
+              favourites: existingUser.favourites,
             },
             token,
           });

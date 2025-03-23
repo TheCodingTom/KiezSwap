@@ -54,11 +54,12 @@ function Grid() {
   });
 
   // every time the token changes ( when user logs in) function gets called and the liked listings are fetched
-  useEffect(() => {
-    if (token) {
-      checkUserStatus();
-    }
-  }, [token]);
+  // useEffect(() => {
+  //   if (token) {
+  //     checkUserStatus();
+  //     return;
+  //   }
+  // }, [token]);
 
   return (
     <div>
