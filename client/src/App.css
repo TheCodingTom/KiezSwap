@@ -15,7 +15,7 @@ body {
   color: var(--color);
 }
 
-/* Apply smooth transitions to key elements */
+/* apply smooth transitions to key elements */
 body,
 .navbar,
 .navbar-light,
@@ -23,6 +23,7 @@ body,
 .btn,
 .card,
 .form-control,
+p,
 select {
   transition: color 0.8s, background-color 0.8s, border-color 0.8s;
 }
@@ -74,6 +75,15 @@ body.dark-theme .card {
   border: 1px solid #455a64;
 }
 
+body.dark-theme p {
+  color: white !important;
+}
+
+body.dark-theme #like-button {
+  background-color: #263238;
+  border: transparent;
+}
+
 body.dark-theme .form-control {
   background-color: #455a64;
   color: #dee4e7;
@@ -86,6 +96,29 @@ body.dark-theme select {
   background-color: #455a64;
   color: #dee4e7;
   border: 1px solid #90a4ae;
+}
+
+/* dark modal */
+body.dark-theme .modal-content {
+  background-color: #263238;
+  color: #dee4e7;
+  border: 1px solid #455a64;
+}
+
+body.dark-theme .modal-header {
+  background-color: #37474f;
+  color: #dee4e7;
+  border-bottom: 1px solid #455a64;
+}
+
+body.dark-theme .modal-body {
+  background-color: #37474f;
+  color: #dee4e7;
+}
+
+body.dark-theme .modal-footer {
+  background-color: #37474f;
+  border-top: 1px solid #455a64;
 }
 
 /* general */
