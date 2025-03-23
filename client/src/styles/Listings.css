@@ -1,0 +1,47 @@
+.card {
+  border-radius: 8%;
+}
+
+.card-img-top {
+  border-top-left-radius: 8%;
+  border-top-right-radius: 8%;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cards-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.filters-container {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  gap: 10px;
+}
+
+.card-title {
+  text-decoration: none;
+}
+
+.listingCard-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  bottom: 0px;
+}
