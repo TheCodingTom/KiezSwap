@@ -14,6 +14,7 @@ const ThemeToggle = () => {
   }, []);
 
   useEffect(() => {
+    // this one runs everytime the dark theme change
     localStorage.setItem("theme", isDarkTheme ? "dark" : "light"); // set item theme to dark if isDarkTheme is true
     document.body.classList.toggle("dark-theme", isDarkTheme);
   }, [isDarkTheme]); // class will be activate only when isDarkTheme is true, otherwise it will remove the dark theme

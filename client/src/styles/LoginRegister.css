@@ -4,7 +4,7 @@
   align-items: center;
 }
 
-.new-listing-form {
+/* .new-listing-form {
   background-color: lightgrey;
   border-radius: 8%;
   display: flex;
@@ -14,7 +14,7 @@
   max-width: 380px;
   padding: 20px;
   width: 380px;
-}
+} */
 
 .register-form {
   background-color: lightgrey;

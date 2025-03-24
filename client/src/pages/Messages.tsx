@@ -15,7 +15,7 @@ function Messages() {
   return (
     <ListGroup className="message-list">
       {chats && chats.length < 1 ? (
-        <ListGroupItem>No chats found.</ListGroupItem>
+        <h1>No chats yet</h1>
       ) : (
         chats &&
         chats.map((chat) => (

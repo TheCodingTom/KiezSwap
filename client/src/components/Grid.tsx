@@ -43,8 +43,12 @@ function Grid() {
     return <h3>No listings</h3>;
   }
 
+  // creating an array of all categories with map, removing duplicates with Set (only unique values), spread operator turns Set into array
+
   const categories = [...new Set(listings.map((listing) => listing.category))];
   const districts = [...new Set(listings.map((listing) => listing.district))];
+
+  // filter creates new array with items the have a that condition - include listings where category/district match the selected one
 
   const filteredListings = listings.filter((listing) => {
     return (

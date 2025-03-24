@@ -90,7 +90,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       );
       if (!response.ok) {
         console.log("Error while trying to register new user");
-        toast.error("Registration failed. Please try again.", {
+        toast.error("Registration failed, email already in use. Try again.", {
           position: "top-right",
           autoClose: 3000,
         });
