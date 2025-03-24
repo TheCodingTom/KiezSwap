@@ -27,6 +27,8 @@
   max-width: 380px;
   padding: 20px;
   width: 380px;
+  text-align: center;
+  outline: solid 2px grey;
 }
 
 .login-button {

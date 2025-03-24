@@ -14,6 +14,7 @@ function SendMessageModal({ listingId }: MessageModalProps) {
   const [show, setShow] = useState(false);
 
   const [confirmMessage, setConfirmMessage] = useState("");
+  const [isSending, setIsSending] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -28,6 +29,10 @@ function SendMessageModal({ listingId }: MessageModalProps) {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
+    if (isSending) return;
+
+    setIsSending(true);
+
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
     myHeaders.append("Authorization", `Bearer ${token}`);
@@ -42,21 +47,56 @@ function SendMessageModal({ listingId }: MessageModalProps) {
       body: urlencoded,
     };
 
-    const response = await fetch(
-      `${baseUrl}/api/chats/newChat`,
-      requestOptions
-    );
-
     try {
-      if (response) {
+      const response = await fetch(
+        `${baseUrl}/api/chats/newChat`,
+        requestOptions
+      );
+      if (response.ok) {
         const result = await response.json();
         console.log(result);
         setConfirmMessage("Message sent!");
       }
     } catch (error) {
       console.log("error :>> ", error);
+    } finally {
+      setIsSending(false);
     }
   };
+
+  // const createNewChat = async (
+  //   e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  // ) => {
+  //   e.preventDefault();
+  //   const myHeaders = new Headers();
+  //   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  //   myHeaders.append("Authorization", `Bearer ${token}`);
+
+  //   const urlencoded = new URLSearchParams();
+  //   urlencoded.append("listingId", listingId);
+  //   urlencoded.append("text", message);
+
+  //   const requestOptions = {
+  //     method: "POST",
+  //     headers: myHeaders,
+  //     body: urlencoded,
+  //   };
+
+  //   const response = await fetch(
+  //     `${baseUrl}/api/chats/newChat`,
+  //     requestOptions
+  //   );
+
+  //   try {
+  //     if (response) {
+  //       const result = await response.json();
+  //       console.log(result);
+  //       setConfirmMessage("Message sent!");
+  //     }
+  //   } catch (error) {
+  //     console.log("error :>> ", error);
+  //   }
+  // };
 
   return (
     <>
@@ -88,9 +128,12 @@ function SendMessageModal({ listingId }: MessageModalProps) {
           {confirmMessage ? (
             confirmMessage
           ) : (
-            <Button variant="primary" onClick={createNewChat}>
-              {" "}
-              Send
+            <Button
+              variant="primary"
+              onClick={createNewChat}
+              disabled={isSending}
+            >
+              {isSending ? "Sending..." : "Send"}
             </Button>
           )}
         </Modal.Footer>
