@@ -9,6 +9,10 @@ h1 {
   padding: 10px;
 }
 
+.navbar-brand {
+  font-family: "Lacquer", system-ui;
+}
+
 /* home */
 
 .home-container {
