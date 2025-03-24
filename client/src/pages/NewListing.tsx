@@ -23,6 +23,7 @@ function NewListing() {
 
   const [selectedFile, setSelectedFile] = useState<File | string>("");
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleAttachFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -45,6 +46,10 @@ function NewListing() {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
+
+    if (isUploading) return;
+
+    setIsUploading(true);
 
     if (
       !formData.name ||
@@ -214,7 +219,10 @@ function NewListing() {
             />
           )}
           <div className="addlisting-button">
-            <Button onClick={handleFormSubmit}>Submit</Button>
+            <Button onClick={handleFormSubmit}>
+              {" "}
+              {isUploading ? "Uploading..." : "Upload"}
+            </Button>
           </div>
         </form>
       </div>

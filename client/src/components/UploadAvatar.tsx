@@ -9,6 +9,7 @@ function UploadAvatar() {
 
   const [selectedFile, setSelectedFile] = useState<File | string>("");
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleAttachFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e);
@@ -25,6 +26,10 @@ function UploadAvatar() {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
+
+    if (isUploading) return;
+
+    setIsUploading(true);
 
     const formdata = new FormData();
     formdata.append("image", selectedFile);
@@ -77,7 +82,10 @@ function UploadAvatar() {
       )}
       <div>
         {imagePreview ? (
-          <Button onClick={handleImageUpload}>Upload image</Button>
+          <Button onClick={handleImageUpload}>
+            {" "}
+            {isUploading ? "Uploading..." : "Upload image"}
+          </Button>
         ) : (
           <Button disabled>Upload image</Button>
         )}

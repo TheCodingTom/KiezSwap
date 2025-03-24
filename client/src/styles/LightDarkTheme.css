@@ -29,7 +29,7 @@ form,
 .message-preview,
 .chat-container,
 .navbar-brand,
-select {
+.navbar-toggler select {
   transition: color 0.8s, background-color 0.8s, border-color 0.8s;
 }
 
@@ -67,6 +67,11 @@ body.dark-theme .navbar-light {
 
 body.dark-theme .navbar-brand {
   color: white;
+}
+
+body.dark-theme .navbar-toggler {
+  /* outline: 1px solid white; */
+  background-color: #80cbc4;
 }
 
 /* active link will always have the same color */
