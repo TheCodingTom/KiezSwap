@@ -1,5 +1,9 @@
 /* general styling */
 
+body {
+  font-family: "Space Grotesk", serif;
+}
+
 h1 {
   text-align: center;
   padding: 10px;

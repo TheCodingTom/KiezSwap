@@ -57,7 +57,9 @@ function UploadAvatar() {
   return (
     <form action="submit" className="avatar-form">
       <Form.Group controlId="image">
-        <Form.Label>Change your avatar</Form.Label>
+        <Form.Label>
+          <h4>Change your avatar</h4>
+        </Form.Label>
         <Form.Control
           type="file"
           name="image"
