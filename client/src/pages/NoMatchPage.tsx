@@ -7,18 +7,16 @@ function NoMatchPage() {
   const goBackTo = useNavigate();
 
   const redirectTo = () => {
-    // with the other method you don't need this 2nd function
-    goBackTo("/");
-  };
-
-  const autoRedirect = () => {
-    setTimeout(() => {
-      redirectTo();
-    }, 3000);
+    // state to indicate to the home page that the user is being redirected from the 404 page
+    goBackTo("/", { state: { from404: true } });
   };
 
   useEffect(() => {
-    autoRedirect();
+    const timer = setTimeout(() => {
+      redirectTo();
+    }, 3000);
+
+    return () => clearTimeout(timer); // cleanup timeout to avoid problems if the component unmounts
   }, []);
 
   return (

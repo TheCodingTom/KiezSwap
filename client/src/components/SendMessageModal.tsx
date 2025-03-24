@@ -64,40 +64,6 @@ function SendMessageModal({ listingId }: MessageModalProps) {
     }
   };
 
-  // const createNewChat = async (
-  //   e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  // ) => {
-  //   e.preventDefault();
-  //   const myHeaders = new Headers();
-  //   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-  //   myHeaders.append("Authorization", `Bearer ${token}`);
-
-  //   const urlencoded = new URLSearchParams();
-  //   urlencoded.append("listingId", listingId);
-  //   urlencoded.append("text", message);
-
-  //   const requestOptions = {
-  //     method: "POST",
-  //     headers: myHeaders,
-  //     body: urlencoded,
-  //   };
-
-  //   const response = await fetch(
-  //     `${baseUrl}/api/chats/newChat`,
-  //     requestOptions
-  //   );
-
-  //   try {
-  //     if (response) {
-  //       const result = await response.json();
-  //       console.log(result);
-  //       setConfirmMessage("Message sent!");
-  //     }
-  //   } catch (error) {
-  //     console.log("error :>> ", error);
-  //   }
-  // };
-
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
