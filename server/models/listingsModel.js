@@ -11,8 +11,6 @@ const listingsSchema = mongoose.Schema({
     type: String,
   },
 
-  // price: { require: false, type: Number },
-
   district: {
     require: true,
     type: String,

@@ -165,7 +165,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
           localStorage.setItem("token", result.token);
           setUser(result.user);
           setIsAuthenticated(true);
-          checkUserStatus()
+          checkUserStatus();
 
           toast.success(
             "Login successful! You'll be redirected in 3 seconds.",
@@ -230,32 +230,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     }
   };
 
-  // const getFavourites = async () => {
-  //   const myHeaders = new Headers();
-  //   myHeaders.append("Authorization", `Bearer ${token}`);
-
-  //   const requestOptions = {
-  //     method: "GET",
-  //     headers: myHeaders,
-  //   };
-
-  //   try {
-  //     const response = await fetch(
-  //       `${baseUrl}/api/users/profile/favourites`,
-  //       requestOptions
-  //     );
-
-  //     if (response.ok) {
-  //       const result = await response.json();
-  //       console.log(result);
-  //       setFavListings(result.favourites);
-  //     } else {
-  //       console.log("Failed to fetch favourites");
-  //     }
-  //   } catch (error) {
-  //     console.log("Error while fetching favourites: ", error);
-  //   }
-  // };
+  // move getFavourites function here - atm using the same function in 2 different components
 
   // check if the user is logged in when the app loads
   useEffect(() => {

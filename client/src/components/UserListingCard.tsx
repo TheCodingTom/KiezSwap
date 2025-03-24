@@ -18,7 +18,7 @@ function UserListingCard({ listing }: UserListingCardProps) {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`, // Send the token
+        Authorization: `Bearer ${token}`,
       },
     };
 

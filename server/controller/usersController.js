@@ -241,17 +241,6 @@ const updateFavourites = async (req, res) => {
 
     const pullOrPush = updateOperatorSelection(favourites, listingId);
 
-    // 4. check if listing is already liked
-
-    // user = await UserModel.findByIdAndUpdate(
-    //   userId,
-    //   { [pullOrPush]: { favourites: listingId } },
-    //   { new: true }
-    // ).populate({
-    //   path: "favourites",
-    //   select: ["name", "image", "seller"],
-    // });
-
     await UserModel.findByIdAndUpdate(
       userId,
       { [pullOrPush]: { favourites: listingId } },

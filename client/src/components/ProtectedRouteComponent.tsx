@@ -1,6 +1,5 @@
 import { ReactNode, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-// import { isUserLogged } from "../utils/AuthUtility";
 import ProtectedRoutePage from "../pages/ProtectedRoutePage";
 
 type ProtectedRouteType = {
@@ -8,8 +7,7 @@ type ProtectedRouteType = {
 };
 
 function ProtectedRoute({ children }: ProtectedRouteType) {
-  const { user } = useContext(AuthContext); 
-//   const isAuth = isUserLogged(user);
+  const { user } = useContext(AuthContext);
 
   return <div>{user ? children : <ProtectedRoutePage />}</div>;
 }
