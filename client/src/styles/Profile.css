@@ -66,6 +66,11 @@
   justify-content: center;
 }
 
+.delete-disclaimer {
+  font-size: small;
+  font-style: italic;
+}
+
 /* nav bar animation */
 
 .shake-left-right {

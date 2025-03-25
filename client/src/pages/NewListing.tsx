@@ -106,6 +106,7 @@ function NewListing() {
 
         const result = await response.json();
         console.log(result);
+
         toast.success(
           "Listing added successfully! You'll be redirected in 3 seconds.",
           {
@@ -219,10 +220,13 @@ function NewListing() {
             />
           )}
           <div className="addlisting-button">
-            <Button onClick={handleFormSubmit}>
-              {" "}
-              {isUploading ? "Uploading..." : "Upload"}
-            </Button>
+            {imagePreview && formData ? (
+              <Button onClick={handleFormSubmit}>
+                {isUploading ? "Uploading..." : "Upload"}
+              </Button>
+            ) : (
+              <Button disabled>Upload</Button>
+            )}
           </div>
         </form>
       </div>

@@ -23,6 +23,10 @@ function DeleteModal({ handleDeleteListing }: DeleteModalProps) {
           <Modal.Title>Watch out!</Modal.Title>
         </Modal.Header>
         <Modal.Body>Are you sure you want to delete your listing?</Modal.Body>
+        <Modal.Body className="delete-disclaimer">
+          All chats related to this listing will also be deleted.
+        </Modal.Body>
+
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             No, I was joking
