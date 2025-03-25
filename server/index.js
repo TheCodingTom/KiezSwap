@@ -57,7 +57,7 @@ const loadRoutes = () => {
 
 const DBConnection = async () => {
   try {
-    const mongoDBConnection = await mongoose.connect(process.env.MONGODB_URI); // env variable to connect with our mongo server
+    const mongoDBConnection = await mongoose.connect(process.env.MONGODB_URL); // env variable to connect with our mongo server
 
     if (mongoDBConnection) {
       console.log("Connected with MongoDB".bgGreen);

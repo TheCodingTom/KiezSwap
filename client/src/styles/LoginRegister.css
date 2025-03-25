@@ -52,11 +52,11 @@
   border: 1px solid red;
 }
 
-#password-input {
+/* #password-input {
   display: flex;
   flex-direction: row;
   gap: 20px;
-}
+} */
 
 @media (max-width: 480px) {
   .register-form {

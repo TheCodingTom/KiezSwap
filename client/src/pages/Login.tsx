@@ -11,7 +11,7 @@ function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [type, setType] = useState("password");
+  // const [type, setType] = useState("password");
 
   const [errors, setErrors] = useState({
     email: "",
@@ -49,9 +49,9 @@ function Login() {
     });
   };
 
-  const handleToggle = () => {
-    setType(type === "password" ? "text" : "password");
-  };
+  // const handleToggle = () => {
+  //   setType(type === "password" ? "text" : "password");
+  // };
 
   const handleSubmitLogin = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -88,17 +88,16 @@ function Login() {
                 errors.email && errors.email.length > 0 ? "errorInput" : ""
               }
             />
+            {errors.email && errors.email.length > 0 ? (
+              <p className="error">{errors.email}</p>
+            ) : (
+              ""
+            )}
           </Form.Group>
 
-          {errors.email && errors.email.length > 0 ? (
-            <p className="error">{errors.email}</p>
-          ) : (
-            ""
-          )}
-
-          <Form.Group id="password-input" controlId="password">
+          <Form.Group controlId="password">
             <Form.Control
-              type={type}
+              type={"password"}
               placeholder="Enter password"
               name="password"
               onChange={handlePasswordInputChange}
@@ -109,20 +108,20 @@ function Login() {
               }
             />
 
-            <div>
+            {/* <div>
               {type === "password" ? (
                 <Button onClick={handleToggle}>Show</Button>
               ) : (
                 <Button onClick={handleToggle}>Hide</Button>
               )}
-            </div>
-          </Form.Group>
+            </div> */}
 
-          {errors.password && errors.password.length > 0 ? (
-            <p className="error">{errors.password}</p>
-          ) : (
-            ""
-          )}
+            {errors.password && errors.password.length > 0 ? (
+              <p className="error">{errors.password}</p>
+            ) : (
+              ""
+            )}
+          </Form.Group>
 
           <div className="login-button">
             {!errors.email && !errors.password && !user ? (

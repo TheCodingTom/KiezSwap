@@ -12,7 +12,7 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [type, setType] = useState("password");
+  // const [type, setType] = useState("password");
 
   const [errors, setErrors] = useState({
     username: "",
@@ -69,9 +69,9 @@ function Register() {
     });
   };
 
-  const handleToggle = () => {
-    setType(type === "password" ? "text" : "password");
-  };
+  // const handleToggle = () => {
+  //   setType(type === "password" ? "text" : "password");
+  // };
 
   const handleSubmitRegister = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -118,13 +118,12 @@ function Register() {
                   : ""
               }
             />
+            {errors.username && errors.username.length > 0 ? (
+              <p className="error">{errors.username}</p>
+            ) : (
+              ""
+            )}
           </Form.Group>
-
-          {errors.username && errors.username.length > 0 ? (
-            <p className="error">{errors.username}</p>
-          ) : (
-            ""
-          )}
 
           <Form.Group controlId="email">
             <Form.Control
@@ -136,17 +135,16 @@ function Register() {
                 errors.email && errors.email.length > 0 ? "errorInput" : ""
               }
             />
+            {errors.email && errors.email.length > 0 ? (
+              <p className="error">{errors.email}</p>
+            ) : (
+              ""
+            )}
           </Form.Group>
 
-          {errors.email && errors.email.length > 0 ? (
-            <p className="error">{errors.email}</p>
-          ) : (
-            ""
-          )}
-
-          <Form.Group id="password-input" controlId="password">
+          <Form.Group controlId="password">
             <Form.Control
-              type={type}
+              type={"password"}
               placeholder="Enter password"
               name="password"
               onChange={handlePasswordInputChange}
@@ -156,20 +154,20 @@ function Register() {
                   : ""
               }
             />
-            <div>
+            {/* <div>
               {type === "password" ? (
                 <Button onClick={handleToggle}>Show</Button>
               ) : (
                 <Button onClick={handleToggle}>Hide</Button>
               )}
-            </div>
+            </div> */}
+            {errors.password && errors.password.length > 0 ? (
+              <p className="error">{errors.password}</p>
+            ) : (
+              ""
+            )}
           </Form.Group>
 
-          {errors.password && errors.password.length > 0 ? (
-            <p className="error">{errors.password}</p>
-          ) : (
-            ""
-          )}
           <div className="login-button">
             {!errors.email && !errors.username && !errors.password ? (
               <Button onClick={handleSubmitRegister}>Register</Button>
