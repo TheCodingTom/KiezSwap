@@ -161,11 +161,6 @@ function Register() {
                 <Button onClick={handleToggle}>Hide</Button>
               )}
             </div> */}
-            {errors.password && errors.password.length > 0 ? (
-              <p className="error">{errors.password}</p>
-            ) : (
-              ""
-            )}
           </Form.Group>
 
           <div className="login-button">

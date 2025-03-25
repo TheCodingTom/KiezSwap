@@ -6,7 +6,7 @@ import { baseUrl } from "../utils/baseUrl";
 
 function Grid() {
   const { listings } = useContext(ListingsContext);
-  const { checkUserStatus } = useContext(AuthContext);
+  const { user, checkUserStatus } = useContext(AuthContext);
   const token = localStorage.getItem("token");
 
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -53,7 +53,8 @@ function Grid() {
   const filteredListings = listings.filter((listing) => {
     return (
       (selectedCategory === "" || listing.category === selectedCategory) &&
-      (selectedDistrict === "" || listing.district === selectedDistrict)
+      (selectedDistrict === "" || listing.district === selectedDistrict) &&
+      listing.seller._id !== user?._id
     );
   });
 
