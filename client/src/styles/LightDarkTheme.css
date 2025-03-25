@@ -77,7 +77,7 @@ body.dark-theme .navbar-toggler {
 /* active link will always have the same color */
 
 body.dark-theme .nav-link.active {
-  color: #007bff !important;
+  color: #80cbc4 !important;
 }
 .nav-link.active {
   color: #007bff !important;

@@ -189,6 +189,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const logout = () => {
     localStorage.removeItem("token");
     setUser(null);
+    goToHome("/");
     console.log("user logged out successfully");
   };
 
