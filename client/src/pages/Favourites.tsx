@@ -3,6 +3,7 @@ import { baseUrl } from "../utils/baseUrl";
 
 import FavouritesCard from "../components/FavouritesCard";
 import { AuthContext } from "../context/AuthContext";
+import { ListingsContext } from "../context/ListingsContext";
 
 export type FavType = {
   image: string;
@@ -12,36 +13,37 @@ export type FavType = {
 };
 
 function Favourites() {
-  const [favListings, setFavListings] = useState<FavType[] | null>(null);
+  // const [favListings, setFavListings] = useState<FavType[] | null>(null);
   const { checkUserStatus } = useContext(AuthContext);
   const token = localStorage.getItem("token");
+  const { favListings, getFavourites } = useContext(ListingsContext);
 
-  const getFavourites = async () => {
-    const myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer ${token}`);
+  // const getFavourites = async () => {
+  //   const myHeaders = new Headers();
+  //   myHeaders.append("Authorization", `Bearer ${token}`);
 
-    const requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-    };
+  //   const requestOptions = {
+  //     method: "GET",
+  //     headers: myHeaders,
+  //   };
 
-    try {
-      const response = await fetch(
-        `${baseUrl}/api/users/profile/favourites`,
-        requestOptions
-      );
+  //   try {
+  //     const response = await fetch(
+  //       `${baseUrl}/api/users/profile/favourites`,
+  //       requestOptions
+  //     );
 
-      if (response.ok) {
-        const result = await response.json();
-        console.log(result);
-        setFavListings(result.favourites);
-      } else {
-        console.log("Failed to fetch favourites");
-      }
-    } catch (error) {
-      console.log("Error while fetching favourites: ", error);
-    }
-  };
+  //     if (response.ok) {
+  //       const result = await response.json();
+  //       console.log(result);
+  //       setFavListings(result.favourites);
+  //     } else {
+  //       console.log("Failed to fetch favourites");
+  //     }
+  //   } catch (error) {
+  //     console.log("Error while fetching favourites: ", error);
+  //   }
+  // };
 
   const handleUpdateFavourites = async (listingId: string) => {
     const myHeaders = new Headers();

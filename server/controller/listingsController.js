@@ -237,43 +237,6 @@ const addNewListing = async (req, res) => {
   }
 };
 
-// const deleteListing = async (req, res) => {
-//   console.log("deleting listing");
-
-//   // the user is populated by the jwt auth middleware
-//   const userId = req.user;
-//   const listingId = req.params.listingId;
-//   console.log(userId);
-
-//   const listing = await ListingModel.findByIdAndDelete(listingId);
-
-//   if (!listing) {
-//     res.status(404).json({
-//       message: "Listing not found",
-//     });
-//   }
-
-//   try {
-//     if (listing) {
-//       // Remove the listing reference from the user's listings array
-//       await UserModel.findByIdAndUpdate(userId, {
-//         $pull: { listings: listingId },
-//       });
-
-//       await UserModel.findByIdAndUpdate(userId, {
-//         $pull: { favourites: listingId },
-//       });
-
-//       return res.status(201).json({
-//         message: "Listing deleted",
-//         info: listing,
-//       });
-//     }
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// };
-
 const deleteListing = async (req, res) => {
   console.log("deleting listing");
 
@@ -282,37 +245,78 @@ const deleteListing = async (req, res) => {
   const listingId = req.params.listingId;
   console.log(userId);
 
-  try {
-    // Find and delete the listing
-    const listing = await ListingModel.findByIdAndDelete(listingId);
+  const listing = await ListingModel.findByIdAndDelete(listingId);
 
-    if (!listing) {
-      return res.status(404).json({
-        message: "Listing not found",
-      });
-    }
-
-    // Remove the listing reference from the user's listings and favourites arrays
-    await UserModel.findByIdAndUpdate(userId, {
-      $pull: { listings: listingId, favourites: listingId },
-    });
-
-    // Delete all chats related to the listing
-    await ChatsModel.deleteMany({ listing: listingId });
-    console.log(`Chats related to listing ${listingId} deleted.`);
-
-    return res.status(201).json({
-      message: "Listing and related chats deleted",
-      info: listing,
-    });
-  } catch (error) {
-    console.log("Error deleting listing and related chats:", error.message);
-    res.status(500).json({
-      message: "Error deleting listing",
-      error: error.message,
+  if (!listing) {
+    res.status(404).json({
+      message: "Listing not found",
     });
   }
+
+  try {
+    if (listing) {
+      // Remove the listing reference from the user's listings array
+      await UserModel.findByIdAndUpdate(userId, {
+        $pull: { listings: listingId },
+      });
+
+      await UserModel.findByIdAndUpdate(userId, {
+        $pull: { favourites: listingId },
+      });
+
+      return res.status(201).json({
+        message: "Listing deleted",
+        info: listing,
+      });
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
 };
+
+// const deleteListing = async (req, res) => {
+//   console.log("deleting listing");
+
+//   // the user is populated by the jwt auth middleware
+//   const userId = req.user;
+//   const listingId = req.params.listingId;
+//   console.log(userId);
+
+//   try {
+//     // Find and delete the listing
+//     const listing = await ListingModel.findByIdAndDelete(listingId);
+
+//     if (!listing) {
+//       return res.status(404).json({
+//         message: "Listing not found",
+//       });
+//     }
+
+//     // Remove the listing reference from the user's listings and favourites arrays
+//     await UserModel.findByIdAndUpdate(userId, {
+//       $pull: { listings: listingId },
+//     });
+
+//     await UserModel.findByIdAndUpdate(userId, {
+//       $pull: { favourites: listingId },
+//     });
+
+//     // Delete all chats related to the listing
+//     await ChatsModel.deleteMany({ listing: listingId });
+//     console.log(`Chats related to listing ${listingId} deleted.`);
+
+//     return res.status(201).json({
+//       message: "Listing and related chats deleted",
+//       info: listing,
+//     });
+//   } catch (error) {
+//     console.log("Error deleting listing and related chats:", error.message);
+//     res.status(500).json({
+//       message: "Error deleting listing",
+//       error: error.message,
+//     });
+//   }
+// };
 
 export {
   getAllListings,

@@ -230,8 +230,6 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     }
   };
 
-  // move getFavourites function here - atm using the same function in 2 different components
-
   // check if the user is logged in when the app loads
   useEffect(() => {
     checkUserStatus();
