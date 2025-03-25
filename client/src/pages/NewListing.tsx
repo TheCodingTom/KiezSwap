@@ -196,6 +196,7 @@ function NewListing() {
                 <option value="Electronics">Electronics</option>
                 <option value="Furniture">Furniture</option>
                 <option value="Games">Games</option>
+                <option value="Movies">Movies</option>
                 <option value="Vinyls">Vinyls</option>
                 <option value="Other">Other</option>
               </optgroup>

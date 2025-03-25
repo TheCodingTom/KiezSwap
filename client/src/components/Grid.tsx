@@ -61,6 +61,7 @@ function Grid() {
     <div>
       <div className="filters-container">
         <select
+          id="myForm"
           className="p-2 border rounded"
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}

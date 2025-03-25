@@ -29,6 +29,8 @@ function SendMessageModal({ listingId }: MessageModalProps) {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
+
+    console.log("isSending :>> ", isSending);
     if (isSending) return;
 
     setIsSending(true);
@@ -56,6 +58,7 @@ function SendMessageModal({ listingId }: MessageModalProps) {
         const result = await response.json();
         console.log(result);
         setConfirmMessage("Message sent!");
+        setMessage("");
       }
     } catch (error) {
       console.log("error :>> ", error);
@@ -91,17 +94,14 @@ function SendMessageModal({ listingId }: MessageModalProps) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          {confirmMessage ? (
-            confirmMessage
-          ) : (
-            <Button
-              variant="primary"
-              onClick={createNewChat}
-              disabled={isSending}
-            >
-              {isSending ? "Sending..." : "Send"}
-            </Button>
-          )}
+          {confirmMessage && <div>{confirmMessage}</div>}
+          <Button
+            variant="primary"
+            onClick={createNewChat}
+            disabled={isSending}
+          >
+            {isSending ? "Sending..." : "Send"}
+          </Button>
         </Modal.Footer>
       </Modal>
     </>

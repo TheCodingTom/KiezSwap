@@ -29,6 +29,9 @@ function FavouritesCard({
 
       <Card.Body>
         <Card.Title>{listing.name}</Card.Title>
+        <Card.Text className="text-muted small">
+          Posted by: {listing.seller}
+        </Card.Text>
 
         <div className="listingCard-buttons">
           <SendMessageModal listingId={listing._id} />
