@@ -254,21 +254,24 @@ const deleteListing = async (req, res) => {
   }
 
   try {
-    if (listing) {
-      // Remove the listing reference from the user's listings array
-      await UserModel.findByIdAndUpdate(userId, {
-        $pull: { listings: listingId },
-      });
+    // Remove the listing reference from the user's listings array
+    await UserModel.findByIdAndUpdate(userId, {
+      $pull: { listings: listingId },
+    });
 
-      await UserModel.findByIdAndUpdate(userId, {
-        $pull: { favourites: listingId },
-      });
+    // await UserModel.findByIdAndUpdate(userId, {
+    //   $pull: { favourites: listingId },
+    // });
 
-      return res.status(201).json({
-        message: "Listing deleted",
-        info: listing,
-      });
-    }
+    await UserModel.updateMany(
+      { favourites: listingId },
+      { $pull: { favourites: listingId } }
+    );
+
+    return res.status(201).json({
+      message: "Listing deleted",
+      info: listing,
+    });
   } catch (error) {
     console.log(error.message);
   }
