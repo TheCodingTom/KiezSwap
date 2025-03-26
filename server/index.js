@@ -13,7 +13,7 @@ dotenv.config(); // this initialise the dotenv package
 import usersRouter from "./routes/usersRoutes.js";
 import listingsRouter from "./routes/listingsRoute.js";
 import cloudinaryConfig from "./config/cloudinaryConfig.js";
-import generator from "generate-password";
+
 import passport from "passport";
 import passportStrategy from "./config/passportConfig.js";
 import chatsRouter from "./routes/chatsRoute.js";
