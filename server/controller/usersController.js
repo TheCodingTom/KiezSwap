@@ -268,9 +268,14 @@ const getUserFavourites = async (req, res) => {
   try {
     const userId = req.user._id;
 
+    // Fetch the user and populate their favourites
     const user = await UserModel.findById(userId).populate({
-      path: "favourites",
-      select: ["name", "image", "seller"],
+      path: "favourites", // Path to the favourites array
+      select: ["name", "image", "description", "district", "category", "likes"], // Fields to select from the Listing
+      populate: {
+        path: "seller", // Populate the seller field inside each favourite (which is a reference to a User)
+        select: ["username", "email", "image"], // Fields to select from the User (seller) document
+      },
     });
 
     if (!user) {
@@ -278,13 +283,12 @@ const getUserFavourites = async (req, res) => {
         message: "User not found",
       });
     }
-    if (user) {
-      res.status(200).json({
-        message: "User favourites retrieved successfully",
-        amount: user.favourites.length,
-        favourites: user.favourites,
-      });
-    }
+
+    res.status(200).json({
+      message: "User favourites retrieved successfully",
+      amount: user.favourites.length,
+      favourites: user.favourites,
+    });
   } catch (error) {
     console.error("Error fetching user's favourites:", error);
     res
