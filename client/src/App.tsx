@@ -46,6 +46,7 @@ const Layout = () => {
 };
 
 function App() {
+  console.log("Production or dev mode :>> ", import.meta.env.MODE);
   return (
     <>
       <BrowserRouter>
