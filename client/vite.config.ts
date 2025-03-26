@@ -6,18 +6,18 @@ const manifestForPlugIn: Partial<VitePWAOptions> = {
   registerType: "autoUpdate",
   manifest: {
     name: "Kiezswap app",
-    short_name: "PR MERN",
+    short_name: "Kiezswap",
     description:
       "This app was created as a MERN project at CAB from Thomas D'Astolto.",
     icons: [
       {
-        src: "assets/kiez_icon_512.png",
+        src: "assets/berlin.png",
         sizes: "512x512",
         type: "image/png",
         purpose: "any maskable",
       },
       {
-        src: "assets/kiez_icon_192.png",
+        src: "assets/icon192.png",
         sizes: "192x192",
         type: "image/png",
         purpose: "any maskable",
