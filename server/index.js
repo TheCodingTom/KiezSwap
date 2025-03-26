@@ -49,7 +49,7 @@ const DBConnection = async () => {
   }
 };
 
-// Local development server setup
+// local development server setup
 if (process.env.NODE_ENV !== "production") {
   const port = process.env.PORT || 4000;
   app.listen(port, () => {
@@ -57,11 +57,11 @@ if (process.env.NODE_ENV !== "production") {
   });
 }
 
-// Export the serverless function for Vercel deployment
+// export the serverless function for vercel deployment
 export default async (req, res) => {
   await DBConnection();
   addMiddlewares();
   loadRoutes();
-  // Instead of app.listen(), Vercel will automatically handle the HTTP requests for us
-  app(req, res); // Vercel invokes this function directly
+  // instead of app.listen(), vercel will automatically handle the HTTP requests for us
+  app(req, res); // vercel invokes this function directly
 };
