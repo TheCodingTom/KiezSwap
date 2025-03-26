@@ -37,17 +37,17 @@ const addMiddlewares = () => {
   passport.use(passportStrategy);
 };
 
-const startServer = () => {
-  // this to initiate server as a simple express application
-  app.listen(port, () => {
-    console.log(`Server is running on ${port} port`.bgGreen);
-  });
+// const startServer = () => {
+//   // this to initiate server as a simple express application
+//   app.listen(port, () => {
+//     console.log(`Server is running on ${port} port`.bgGreen);
+//   });
 
-  // this to initiate server as an http server
-  // server.listen(port, () => {
-  //   console.log(`Server is running on ${port} port`.bgGreen);
-  // });
-};
+//   // this to initiate server as an http server
+//   // server.listen(port, () => {
+//   //   console.log(`Server is running on ${port} port`.bgGreen);
+//   // });
+// };
 
 const loadRoutes = () => {
   app.use("/api/listings", listingsRouter); // we define endpoint of the listingsRouter - if after that comes a "/all", we'll trigger the getAllListings function
@@ -80,7 +80,6 @@ const DBConnection = async () => {
   await DBConnection();
   addMiddlewares();
   loadRoutes();
-  startServer();
 })();
 
 export default app;
