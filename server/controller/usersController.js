@@ -268,13 +268,12 @@ const getUserFavourites = async (req, res) => {
   try {
     const userId = req.user._id;
 
-    // Fetch the user and populate their favourites
     const user = await UserModel.findById(userId).populate({
       path: "favourites", // Path to the favourites array
-      select: ["name", "image", "description", "district", "category", "likes"], // Fields to select from the Listing
+      select: ["name", "image", "seller"], // Select the fields you want from the favourite product
       populate: {
-        path: "seller", // Populate the seller field inside each favourite (which is a reference to a User)
-        select: ["username", "email", "image"], // Fields to select from the User (seller) document
+        path: "seller", // The seller field inside each favourite product
+        select: ["name", "email"], // Select fields from the seller document that you want
       },
     });
 
