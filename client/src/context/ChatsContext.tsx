@@ -90,6 +90,7 @@ export const ChatsContextProvider = ({
       }
 
       const result = await response.json();
+
       console.log(result);
       setMessages(result.chat.messages);
     } catch (error) {

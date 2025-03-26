@@ -4,7 +4,9 @@ import UserModel from "../models/usersModel.js";
 const jwtOptions = {
   // whenever we send a req we put the token in the header of req and this method will extract the token from the header
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: "password", // this has to be changed into an env variable before deployment
+  // this has to be changed into an env variable before deployment
+  // secretOrKey: import.meta.env.JWT_SECRET,
+  secretOrKey: "password",
 };
 
 // we pass options - function accesses payload - run usermodel - find user with that ID

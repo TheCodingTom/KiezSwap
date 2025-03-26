@@ -12,7 +12,7 @@ function NewListing() {
   const { user } = useContext(AuthContext);
   const { getListings } = useContext(ListingsContext);
 
-  const goToListings = useNavigate();
+  const goToUserListings = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -116,7 +116,7 @@ function NewListing() {
         );
         getListings();
         setTimeout(() => {
-          goToListings("/listings");
+          goToUserListings("/profile/userlistings");
         }, 3000);
       } catch (error) {
         console.error("Error uploading listing:", error);
