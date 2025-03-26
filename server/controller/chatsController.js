@@ -19,7 +19,7 @@ const getAllChats = async (req, res) => {
         message: "No chats in the database",
       });
     }
-
+    //REVIEW don't forget to return if what you want is that your function ends with the response.
     res.status(200).json({
       message: "All chats from our database", // consistency is key: if there's a field called message always include it
       amount: allChats.length,
@@ -181,6 +181,7 @@ const sendMessage = async (req, res) => {
     const chatId = req.params.chatId;
 
     // 1. Find the chat
+    //REVIEW with .findByIdAndUpdate you could do everything in one go, plus you are not recreating the chat every time
     const chat = await ChatsModel.findById(chatId).populate({
       path: "listing",
       select: ["name", "district"],

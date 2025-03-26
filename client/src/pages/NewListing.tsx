@@ -32,6 +32,7 @@ function NewListing() {
       setSelectedFile(file);
       setImagePreview(URL.createObjectURL(file));
     }
+    //REVIEW and if the if criteria is not met, what would happen?
   };
 
   const handleInputChange = (

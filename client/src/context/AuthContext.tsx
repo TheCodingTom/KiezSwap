@@ -90,6 +90,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       );
       if (!response.ok) {
         console.log("Error while trying to register new user");
+        //REVIEW all the toast logic could be moved to a toast's controllers file, and create a function that receives the position, the autoclose time, and even the message, to be reused and also reduce the code in this file.
         toast.error("Registration failed, email already in use. Try again.", {
           position: "top-right",
           autoClose: 3000,
@@ -191,6 +192,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     setUser(null);
     goToHome("/");
     console.log("user logged out successfully");
+    //REVIEW no toast when user logout?
   };
 
   const checkUserStatus = async () => {

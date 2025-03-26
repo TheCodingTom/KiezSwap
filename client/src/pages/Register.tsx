@@ -19,7 +19,7 @@ function Register() {
     email: "",
     password: "",
   });
-
+  //REVIEW same comment as before. And given than look the same functions, just reuse them
   const validateUsername = (username: string) => {
     return username.length >= 4;
   };
