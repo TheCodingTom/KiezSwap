@@ -82,3 +82,5 @@ const DBConnection = async () => {
   loadRoutes();
   startServer();
 })();
+
+export default app;
