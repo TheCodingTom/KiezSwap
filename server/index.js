@@ -65,7 +65,10 @@ const DBConnection = async () => {
   try {
     const mongoDBConnection = await mongoose.connect(process.env.MONGODB_URL); // env variable to connect with MongoDB
     if (mongoDBConnection) {
-      console.log("moongDBConnection :>> ", mongoDBConnection);
+      console.log(
+        "moongDBConnection :>> ",
+        mongoDBConnection.connections.length
+      );
       console.log("Connected with MongoDB".bgGreen);
     }
   } catch (error) {
@@ -92,11 +95,15 @@ const startServer = () => {
 //   // instead of app.listen(), vercel will automatically handle the HTTP requests for us
 //   app(req, res); // vercel invokes this function directly
 // };
-(async function () {
-  addMiddlewares();
-  loadRoutes();
-  startServer();
-  await DBConnection();
-  // instead of app.listen(), vercel will automatically handle the HTTP requests for us
-  // app(req, res); // vercel invokes this function directly
-})();
+// (async function () {
+//   addMiddlewares();
+//   loadRoutes();
+//   startServer();
+//   await DBConnection();
+//   // instead of app.listen(), vercel will automatically handle the HTTP requests for us
+//   // app(req, res); // vercel invokes this function directly
+// })();
+await DBConnection();
+addMiddlewares();
+loadRoutes();
+startServer();
