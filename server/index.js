@@ -18,6 +18,7 @@ import chatsRouter from "./routes/chatsRoute.js";
 const app = express();
 
 const addMiddlewares = () => {
+  console.log("adding middlewares::::");
   app.use(express.json());
   app.use(
     express.urlencoded({
@@ -54,6 +55,7 @@ const addMiddlewares = () => {
 };
 
 const loadRoutes = () => {
+  console.log("loading routes:::");
   app.use("/api/listings", listingsRouter);
   app.use("/api/users", usersRouter);
   app.use("/api/chats", chatsRouter);
@@ -73,6 +75,7 @@ const DBConnection = async () => {
 
 // local development server setup
 const startServer = () => {
+  console.log("starting server function run:::");
   if (process.env.NODE_ENV !== "production") {
     const port = process.env.PORT || 4000;
     app.listen(port, () => {
