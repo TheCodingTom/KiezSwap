@@ -21,6 +21,14 @@ function Grid() {
       headers: myHeaders,
     };
 
+    console.log(
+      "import.meta.env.VITE_LOCAL_HOST :>> ",
+      import.meta.env.VITE_LOCAL_HOST
+    );
+    console.log(
+      "import.meta.env.VITE_SERVER_URL :>> ",
+      import.meta.env.VITE_SERVER_URL
+    );
     try {
       const response = await fetch(
         `${baseUrl}/api/users/updateFavourites/${listingId}`,

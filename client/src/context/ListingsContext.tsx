@@ -53,7 +53,9 @@ export const ListingsContextProvider = ({
 
   const getListings = async () => {
     try {
-      const response = await fetch(`${baseUrl}/api/listings/all`);
+      const response = await fetch(`${baseUrl}/api/listings/all`, {
+        mode: "no-cors",
+      });
       const result = await response.json();
       // console.log(result);
       setListings(result.allListings);
