@@ -16,87 +16,113 @@ import passportStrategy from "./config/passportConfig.js";
 import chatsRouter from "./routes/chatsRoute.js";
 
 const app = express();
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+app.use(cors());
+cloudinaryConfig();
 
-const addMiddlewares = () => {
-  console.log("adding middlewares::::");
-  app.use(express.json());
-  app.use(
-    express.urlencoded({
-      extended: true,
-    })
-  );
-  app.use(cors());
-  // Using CORS options to secure the origin of the requests
-  const allowedOrigins = [
-    "http://localhost:5173",
-    "https://kiezswapclient.vercel.app",
-    "http://kiezswapclient.vercel.app",
-  ];
-  const corsOptions = {
-    origin: function (origin, callback) {
-      //! origin will allow to accept direct calls to the api , with no heading, e.g. http://localhost:5001/api/cities/all
-      // origin will allow requests with no header (origin===undefined), the direct ones (using directly the server url). This solution will now accept only request from those 2 origins, or with no header.
-      //Accepting requests with no header might pose a security threat ...research how convinient the solution is.
-      console.log("origin :>> ", origin);
-      if (allowedOrigins.indexOf(origin) !== -1) {
-        // if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-  };
-  // app.use(cors(corsOptions));
+passport.initialize();
+passport.use(passportStrategy);
+// const addMiddlewares = () => {
+//   console.log("adding middlewares::::");
+//   app.use(express.json());
+//   app.use(
+//     express.urlencoded({
+//       extended: true,
+//     })
+//   );
+//   app.use(cors());
+//   // Using CORS options to secure the origin of the requests
+//   const allowedOrigins = [
+//     "http://localhost:5173",
+//     "https://kiezswapclient.vercel.app",
+//     "http://kiezswapclient.vercel.app",
+//   ];
+//   const corsOptions = {
+//     origin: function (origin, callback) {
+//       //! origin will allow to accept direct calls to the api , with no heading, e.g. http://localhost:5001/api/cities/all
+//       // origin will allow requests with no header (origin===undefined), the direct ones (using directly the server url). This solution will now accept only request from those 2 origins, or with no header.
+//       //Accepting requests with no header might pose a security threat ...research how convinient the solution is.
+//       console.log("origin :>> ", origin);
+//       if (allowedOrigins.indexOf(origin) !== -1) {
+//         // if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//     },
+//   };
+//   // app.use(cors(corsOptions));
 
-  cloudinaryConfig();
+//   cloudinaryConfig();
 
-  passport.initialize();
-  passport.use(passportStrategy);
-};
+//   passport.initialize();
+//   passport.use(passportStrategy);
+// };
+app.use("/api/listings", listingsRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/chats", chatsRouter);
+mongoose
+  .connect(process.env.MONGODB_URL)
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((err) => console.log("MongoDB connection error:", err));
 
-const loadRoutes = () => {
-  console.log("loading routes:::");
-  app.use("/api/listings", listingsRouter);
-  app.use("/api/users", usersRouter);
-  app.use("/api/chats", chatsRouter);
-};
+// const loadRoutes = () => {
+//   console.log("loading routes:::");
+//   app.use("/api/listings", listingsRouter);
+//   app.use("/api/users", usersRouter);
+//   app.use("/api/chats", chatsRouter);
+// };
 
-const DBConnection = async () => {
-  try {
-    const mongoDBConnection = await mongoose.connect(process.env.MONGODB_URL); // env variable to connect with MongoDB
-    if (mongoDBConnection) {
-      console.log(
-        "moongDBConnection :>> ",
-        mongoDBConnection.connections.length
-      );
-      console.log("Connected with MongoDB".bgGreen);
-    }
-  } catch (error) {
-    console.log("error connecting with MongoDB :>> ".bgRed, error);
-  }
-};
+// const DBConnection = async () => {
+//   try {
+//     const mongoDBConnection = await mongoose.connect(process.env.MONGODB_URL); // env variable to connect with MongoDB
+//     if (mongoDBConnection) {
+//       console.log(
+//         "moongDBConnection :>> ",
+//         mongoDBConnection.connections.length
+//       );
+//       console.log("Connected with MongoDB".bgGreen);
+//     }
+//   } catch (error) {
+//     console.log("error connecting with MongoDB :>> ".bgRed, error);
+//   }
+// };
 
 // local development server setup
-const startServer = () => {
-  console.log("starting server function run:::");
-  if (process.env.NODE_ENV !== "production") {
-    const port = process.env.PORT || 4000;
-    app.listen(port, () => {
-      console.log(`Server is running on ${port} port`.bgGreen);
-    });
-  }
-};
+// const startServer = () => {
+//   console.log("starting server function run:::");
+//   if (process.env.NODE_ENV !== "production") {
+//     const port = process.env.PORT || 4000;
+//     app.listen(port, () => {
+//       console.log(`Server is running on ${port} port`.bgGreen);
+//     });
+//   }
+// };
+const port = process.env.PORT || 4000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`.bgGreen);
+});
+//? ---- for debugging deploy
+export default app;
+//? ---
 
 // export the serverless function for vercel deployment
-export default async function controller(req, res) {
-  await DBConnection();
-  addMiddlewares();
-  loadRoutes();
-  // instead of app.listen(), vercel will automatically handle the HTTP requests for us
-  startServer();
-  // app(req, res); // vercel invokes this function directly
-}
-controller();
+// export default async function controller(req, res) {
+//   await DBConnection();
+//   addMiddlewares();
+//   loadRoutes();
+//   // instead of app.listen(), vercel will automatically handle the HTTP requests for us
+//   startServer();
+//   // app(req, res); // vercel invokes this function directly
+// }
+// controller();
 // (async function () {
 //   addMiddlewares();
 //   loadRoutes();
