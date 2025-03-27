@@ -17,7 +17,7 @@ function Login() {
     email: "",
     password: "",
   });
-
+  //REVIEW the validating functions could be extracted to another file, for better future maintanability
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);

@@ -13,11 +13,10 @@ const hashPassword = async (password) => {
 };
 
 const verifyPassword = async (plainPassowrd, hashedPassword) => {
-
+  //REVIEW  you use try/catch in the previous function for async code, but not in this one? consistency.
   const isPasswordCorrect = await bcrypt.compare(plainPassowrd, hashedPassword);
 
-  return isPasswordCorrect
-  
-}
+  return isPasswordCorrect;
+};
 
-export {hashPassword, verifyPassword}
+export { hashPassword, verifyPassword };

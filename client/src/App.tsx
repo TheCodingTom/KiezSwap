@@ -22,6 +22,7 @@ import BackButtonThemeContainer from "./components/BackButtonThemeContainer";
 import NoMatchPage from "./pages/NoMatchPage";
 import SingleChatPage from "./pages/SingleChatPage";
 
+//REVIEW since you created a second layout below, you could probably rename this one so it is easily identified as an
 const Root = () => {
   // this route element is the parent of 3 pages, so they all contain the navbar
   return (
@@ -87,6 +88,7 @@ function App() {
                         </ProtectedRoute>
                       }
                     />
+                    {/* REVIEW consider making the three routes for profile below, child routes of /profile  */}
                     <Route
                       path="/profile/userlistings"
                       element={
@@ -95,6 +97,7 @@ function App() {
                         </ProtectedRoute>
                       }
                     />
+
                     <Route
                       path="/profile/messages"
                       element={
