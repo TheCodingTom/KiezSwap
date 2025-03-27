@@ -63,6 +63,7 @@ const DBConnection = async () => {
   try {
     const mongoDBConnection = await mongoose.connect(process.env.MONGODB_URL); // env variable to connect with MongoDB
     if (mongoDBConnection) {
+      console.log("moongDBConnection :>> ", mongoDBConnection);
       console.log("Connected with MongoDB".bgGreen);
     }
   } catch (error) {
