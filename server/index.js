@@ -93,10 +93,10 @@ const startServer = () => {
 //   app(req, res); // vercel invokes this function directly
 // };
 (async function () {
-  await DBConnection();
   addMiddlewares();
   loadRoutes();
   startServer();
+  await DBConnection();
   // instead of app.listen(), vercel will automatically handle the HTTP requests for us
   // app(req, res); // vercel invokes this function directly
 })();
