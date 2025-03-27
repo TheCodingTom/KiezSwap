@@ -53,14 +53,13 @@ export const ListingsContextProvider = ({
 
   const getListings = async () => {
     try {
-      const response = await fetch(`${baseUrl}/api/listings/all`, {
-        mode: "no-cors",
-      });
+      const response = await fetch(`${baseUrl}/api/listings/all`);
       const result = await response.json();
       // console.log(result);
       setListings(result.allListings);
-    } catch (error) {
-      console.log("error fetching listings :>> ", error);
+    } catch (err) {
+      const error = err as Error;
+      console.log("error fetching listings :>> ", error.message);
     }
   };
 

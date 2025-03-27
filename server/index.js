@@ -71,18 +71,28 @@ const DBConnection = async () => {
 };
 
 // local development server setup
-if (process.env.NODE_ENV !== "production") {
-  const port = process.env.PORT || 4000;
-  app.listen(port, () => {
-    console.log(`Server is running on ${port} port`.bgGreen);
-  });
-}
+const startServer = () => {
+  if (process.env.NODE_ENV !== "production") {
+    const port = process.env.PORT || 4000;
+    app.listen(port, () => {
+      console.log(`Server is running on ${port} port`.bgGreen);
+    });
+  }
+};
 
 // export the serverless function for vercel deployment
-export default async (req, res) => {
+// export default async (req, res) => {
+//   await DBConnection();
+//   addMiddlewares();
+//   loadRoutes();
+//   // instead of app.listen(), vercel will automatically handle the HTTP requests for us
+//   app(req, res); // vercel invokes this function directly
+// };
+(async (req, res) => {
   await DBConnection();
   addMiddlewares();
   loadRoutes();
+  startServer();
   // instead of app.listen(), vercel will automatically handle the HTTP requests for us
-  app(req, res); // vercel invokes this function directly
-};
+  // app(req, res); // vercel invokes this function directly
+})();
