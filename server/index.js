@@ -1,9 +1,9 @@
 import express from "express";
 import colors from "colors";
-import { createServer } from "node:http";
-import { Server } from "socket.io";
+// import { createServer } from "node:http";
+// import { Server } from "socket.io";
 import cors from "cors";
-import morgan from "morgan";
+// import morgan from "morgan";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 dotenv.config(); // Initializes the dotenv package
@@ -88,7 +88,7 @@ const startServer = () => {
 //   // instead of app.listen(), vercel will automatically handle the HTTP requests for us
 //   app(req, res); // vercel invokes this function directly
 // };
-(async (req, res) => {
+(async function (req, res) {
   await DBConnection();
   addMiddlewares();
   loadRoutes();
