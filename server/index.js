@@ -88,7 +88,7 @@ const startServer = () => {
 //   // instead of app.listen(), vercel will automatically handle the HTTP requests for us
 //   app(req, res); // vercel invokes this function directly
 // };
-(async function (req, res) {
+(async function () {
   await DBConnection();
   addMiddlewares();
   loadRoutes();
