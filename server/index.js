@@ -88,13 +88,13 @@ const startServer = () => {
 };
 
 // export the serverless function for vercel deployment
-// export default async (req, res) => {
-//   await DBConnection();
-//   addMiddlewares();
-//   loadRoutes();
-//   // instead of app.listen(), vercel will automatically handle the HTTP requests for us
-//   app(req, res); // vercel invokes this function directly
-// };
+export default async (req, res) => {
+  await DBConnection();
+  addMiddlewares();
+  loadRoutes();
+  // instead of app.listen(), vercel will automatically handle the HTTP requests for us
+  app(req, res); // vercel invokes this function directly
+};
 // (async function () {
 //   addMiddlewares();
 //   loadRoutes();
@@ -103,7 +103,7 @@ const startServer = () => {
 //   // instead of app.listen(), vercel will automatically handle the HTTP requests for us
 //   // app(req, res); // vercel invokes this function directly
 // })();
-await DBConnection();
-addMiddlewares();
-loadRoutes();
-startServer();
+// await DBConnection();
+// addMiddlewares();
+// loadRoutes();
+// startServer();
