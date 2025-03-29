@@ -11,16 +11,16 @@ const manifestForPlugIn: Partial<VitePWAOptions> = {
       "This app was created as a MERN project at CAB from Thomas D'Astolto.",
     icons: [
       {
-        src: "icons/maskable_icon_x512.png",
+        src: "/icons/maskable_icon_x512.png",
         sizes: "512x512",
         type: "image/png",
-        purpose: "any",
+        purpose: "any maskable",
       },
       {
-        src: "icons/maskable_icon_x192.png",
+        src: "/icons/maskable_icon_x192.png",
         sizes: "192x192",
         type: "image/png",
-        purpose: "any",
+        purpose: "any maskable",
       },
     ],
     theme_color: "#171717",
