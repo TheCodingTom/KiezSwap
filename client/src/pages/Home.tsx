@@ -3,6 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 
 import TrueFocus from "../components/TrueFocus";
 import bear from "../images/berlin-logo.png";
+
 import { Button } from "react-bootstrap";
 import { NavLink } from "react-router";
 

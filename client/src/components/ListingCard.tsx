@@ -8,16 +8,14 @@ import LikeUnlikeButton from "./LikeUnlikeButton";
 
 type ListingCardProps = {
   listing: ListingType;
-  isLiked: boolean;
   handleUpdateFavourites: (listingId: string) => void;
 };
 
-function ListingCard({
-  listing,
-  isLiked,
-  handleUpdateFavourites,
-}: ListingCardProps) {
+function ListingCard({ listing, handleUpdateFavourites }: ListingCardProps) {
   const { user } = useContext(AuthContext);
+
+  const isLiked =
+    Array.isArray(user?.favourites) && user.favourites.includes(listing._id);
 
   return (
     <Card style={{ width: "18rem" }}>
