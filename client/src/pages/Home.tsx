@@ -16,7 +16,7 @@ function Home() {
       <div className="home-logo-container">
         <TrueFocus
           sentence="Kiez Swap"
-          manualMode={false}
+          manualMode={true}
           blurAmount={5}
           borderColor="blue"
           animationDuration={0.5}
