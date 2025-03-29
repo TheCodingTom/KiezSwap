@@ -21,14 +21,6 @@ function Grid() {
       headers: myHeaders,
     };
 
-    console.log(
-      "import.meta.env.VITE_LOCAL_HOST :>> ",
-      import.meta.env.VITE_LOCAL_HOST
-    );
-    console.log(
-      "import.meta.env.VITE_SERVER_URL :>> ",
-      import.meta.env.VITE_SERVER_URL
-    );
     try {
       const response = await fetch(
         `${baseUrl}/api/users/updateFavourites/${listingId}`,
@@ -47,18 +39,14 @@ function Grid() {
     }
   };
 
-  if (!listings) {
-    return <h3>No listings</h3>;
-  }
-
   // creating an array of all categories with map, removing duplicates with Set (only unique values), spread operator turns Set into array
 
-  const categories = [...new Set(listings.map((listing) => listing.category))];
-  const districts = [...new Set(listings.map((listing) => listing.district))];
+  const categories = [...new Set(listings?.map((listing) => listing.category))];
+  const districts = [...new Set(listings?.map((listing) => listing.district))];
 
   // filter creates new array with items the have a that condition - include listings where category/district match the selected one
 
-  const filteredListings = listings.filter((listing) => {
+  const filteredListings = listings?.filter((listing) => {
     return (
       (selectedCategory === "" || listing.category === selectedCategory) &&
       (selectedDistrict === "" || listing.district === selectedDistrict) &&
@@ -98,7 +86,7 @@ function Grid() {
       </div>
 
       <div className="cards-container">
-        {filteredListings.length > 0 ? (
+        {filteredListings && filteredListings.length > 0 ? (
           filteredListings.map((listing) => (
             <ListingCard
               listing={listing}

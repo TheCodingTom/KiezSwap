@@ -30,6 +30,7 @@ const Root = () => {
     <>
       <NavBar />
       <BackButtonThemeContainer />
+
       <Outlet />
     </>
   );
