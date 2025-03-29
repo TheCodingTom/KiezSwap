@@ -21,7 +21,6 @@ import { ChatsContextProvider } from "./context/ChatsContext";
 import BackButtonThemeContainer from "./components/BackButtonThemeContainer";
 import NoMatchPage from "./pages/NoMatchPage";
 import SingleChatPage from "./pages/SingleChatPage";
-import { baseUrl } from "./utils/baseUrl";
 
 //REVIEW since you created a second layout below, you could probably rename this one so it is easily identified as an
 const Root = () => {
@@ -31,7 +30,6 @@ const Root = () => {
     <>
       <NavBar />
       <BackButtonThemeContainer />
-
       <Outlet />
     </>
   );
@@ -49,8 +47,6 @@ const Layout = () => {
 };
 
 function App() {
-  console.log("Production or dev mode :>> ", import.meta.env.MODE);
-  console.log("baseUrl :>> ", baseUrl);
   return (
     <>
       <BrowserRouter>
