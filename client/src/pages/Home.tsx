@@ -16,11 +16,11 @@ function Home() {
       <div className="home-logo-container">
         <TrueFocus
           sentence="Kiez Swap"
-          manualMode={true}
+          manualMode={false}
           blurAmount={5}
           borderColor="blue"
-          animationDuration={0.5}
-          pauseBetweenAnimations={1}
+          animationDuration={1}
+          pauseBetweenAnimations={2}
         />
         <img src={bear} className="home-logo" alt="image of berlin bear" />
       </div>
