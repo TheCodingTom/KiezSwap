@@ -8,7 +8,7 @@ import { Button } from "react-bootstrap";
 import { NavLink } from "react-router";
 
 function Home() {
-  const { user } = useContext(AuthContext);
+  const { user, loginAsGuest } = useContext(AuthContext);
 
   return (
     <div className="home-container">
@@ -42,6 +42,7 @@ function Home() {
             </NavLink>
           )}
         </div>
+        <Button onClick={loginAsGuest}>Continue as Guest</Button>
       </div>
     </div>
   );

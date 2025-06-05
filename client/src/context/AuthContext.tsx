@@ -18,6 +18,7 @@ type AuthContextType = {
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   checkUserStatus: () => void;
+  loginAsGuest: () => void;
 };
 
 const contextInitialValue: AuthContextType = {
@@ -33,7 +34,11 @@ const contextInitialValue: AuthContextType = {
   logout: () => {
     throw Error("context not initialised");
   },
+  loginAsGuest: () => {
+    throw Error("context not initialised");
+  },
   checkUserStatus: async () => {},
+
   // getFavourites: () => {
   //   throw Error("context not initialised");
   // },
@@ -59,6 +64,27 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const token = localStorage.getItem("token");
   const goToHome = useNavigate();
   const goToLogin = useNavigate();
+
+  const loginAsGuest = () => {
+    const guestUser: User = {
+      _id: "guest",
+      username: "Guest",
+      email: "guest@example.com",
+      image: "https://cdn-icons-png.flaticon.com/512/4123/4123763.png",
+      listings: [],
+      favourites: [],
+    };
+
+    setUser(guestUser);
+    setIsAuthenticated(true);
+
+    toast.success("Logged in as Guest!", {
+      position: "top-right",
+      autoClose: 3000,
+    });
+
+    goToHome("/");
+  };
 
   const register = async (
     username: string,
@@ -248,6 +274,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
         login,
         logout,
         checkUserStatus,
+        loginAsGuest,
       }}
     >
       {children}
